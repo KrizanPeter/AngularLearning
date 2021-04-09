@@ -27,6 +27,16 @@ namespace API.Controllers
         }
 
         //  API Example : { api/users }
+        [HttpPost]
+        public ActionResult AddSession(Session session)
+        {
+            _logger.LogInformation("AddSessionInvoked");
+            _uow.Sessions.Add(session);
+            _uow.Save();
+            return Ok();
+        }
+
+        //  API Example : { api/users }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {

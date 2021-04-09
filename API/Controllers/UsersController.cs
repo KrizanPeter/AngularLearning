@@ -13,13 +13,13 @@ namespace API.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class SessionController : ControllerBase
     {
         private readonly DataContext _dbContext;
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<SessionController> _logger;
         private readonly IUnitOfWork _uow;
 
-        public UsersController(ILogger<UsersController> logger, DataContext context, IUnitOfWork uow)
+        public SessionController(ILogger<SessionController> logger, DataContext context, IUnitOfWork uow)
         {
             _uow = uow;
             _logger = logger;
@@ -28,25 +28,25 @@ namespace API.Controllers
 
         //  API Example : { api/users }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
-            var users = await _uow.AppUser.GetAll();
+            _logger.LogInformation("GetSessionInvoked");
+            var users = await _uow.Sessions.GetAll();
             return Ok(users);
         }
 
         
         //  API Example : { api/user/3 }
         [HttpGet("{id}")]
-        public async Task<ActionResult<AppUser>> GetUser(int id)
+        public async Task<ActionResult<Session>> GetSession(int id)
         {
-            var user =  await _uow.AppUser.Get(id);
+            var user =  await _uow.Sessions.Get(id);
             if(user == null)
             {
                 return BadRequest();
             }
             return Ok(user);
         }
-
 
     }
 }

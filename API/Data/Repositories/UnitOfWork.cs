@@ -10,11 +10,11 @@ namespace API.Data.Repositories.Uow
        public UnitOfWork(DataContext context)
        {
            _db = context;
-           AppUser  = new AppUserRepository(_db);
+           Sessions  = new SessionRepository(_db);
            
        }
 
-        public IAppUserRepository AppUser {get; private set;}
+        public ISessionRepository Sessions {get; private set;}
 
         public async void Dispose()
         {

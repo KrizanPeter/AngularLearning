@@ -5,7 +5,7 @@ namespace API.Data.Repositories.Uow
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAppUserRepository AppUser {get;}
+        ISessionRepository Sessions {get;}
         void Save();
     }
 }

@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'ChainWatcher';
+  title = 'BoardGame';
   users : any;
 
   constructor(private http : HttpClient){}
 
 
   ngOnInit(): void {
-    this.getUsers();
+    //this.getUsers();
   }
 
   getUsers(){

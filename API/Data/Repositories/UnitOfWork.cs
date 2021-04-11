@@ -16,6 +16,8 @@ namespace API.Data.Repositories.Uow
 
         public ISessionRepository Sessions {get; private set;}
 
+        public IAppUserRepository AppUsers { get; private set; }
+
         public async void Dispose()
         {
             await _db.DisposeAsync();

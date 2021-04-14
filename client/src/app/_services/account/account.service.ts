@@ -7,14 +7,26 @@ import { User } from 'src/app/_modules/user';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api/';
-  private currentUSerSource = new ReplaySubject<User>(1)
-  currentUsers$ = this.currentUSerSource.asObservable();
+  baseUrl = 'https://localhost:44362/api/';
+  private currentUserSource = new ReplaySubject<User>(1)
+  currentUsers$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-
+  register(model:any){
+    return this.http.post(this.baseUrl+'account/register', model).pipe(
+      map((response:User) =>{
+        const user = response;
+        if(user)
+        {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    )
+  }
 
   login(model: any){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
@@ -22,18 +34,18 @@ export class AccountService {
         const user = response;
         if(user){
           localStorage.setItem('user', JSON.stringify(user));
-          this.currentUSerSource.next(user);
+          this.currentUserSource.next(user);
         }
       })
     )
   }
 
   setCurrentUser(user: User){
-    this.currentUSerSource.next(user);
+    this.currentUserSource.next(user);
   }
 
   logout(){
     localStorage.removeItem('user');
-    this.currentUSerSource.next(null);
+    this.currentUserSource.next(null);
   }
 }

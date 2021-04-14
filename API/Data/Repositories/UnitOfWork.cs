@@ -11,6 +11,7 @@ namespace API.Data.Repositories.Uow
        {
            _db = context;
            Sessions  = new SessionRepository(_db);
+            AppUsers = new AppUserRepository(_db);
            
        }
 

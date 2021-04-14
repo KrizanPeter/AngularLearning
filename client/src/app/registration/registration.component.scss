@@ -1,0 +1,26 @@
+.home-description, .home-header{
+    padding-top: 15px;
+    color:rgb(206, 189, 182);
+}
+
+.btn-home-sys{
+    border: #3c1711 1px solid;
+    background-color: rgba(80, 31, 22, 0.8) ;
+    color:white;
+    transition: 0.3s;
+    &:hover{
+        transform: scale(1.02);
+        background-color: rgba(64, 25, 18, 0.8);
+    }
+}
+
+.btn-home-sys-cancel{
+    border: rgb(61, 66, 92) 1px solid;
+    background-color: rgba(71, 76, 106, 0.8) ;
+    color:white;
+    transition: 0.3s;
+    &:hover{
+        transform: scale(1.02);
+        background-color: rgba(61, 66, 92, 0.8);
+    }
+}

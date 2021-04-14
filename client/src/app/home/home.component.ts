@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   registerMode:boolean = false;
 
@@ -15,6 +16,10 @@ export class HomeComponent implements OnInit {
 
   registerToggle(){
     this.registerMode = !this.registerMode;
+  }
+
+  closeRegistration(event: boolean){
+    this.registerMode = event;
   }
 
 }

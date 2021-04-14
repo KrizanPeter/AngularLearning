@@ -1,0 +1,14 @@
+.navbar{
+    opacity: 0.8 !important;
+}
+
+.btn-home-sys{
+    border: #3c1711 1px solid;
+    background-color: rgba(80, 31, 22, 0.8) ;
+    color:white;
+    transition: transform .3s;
+    &:hover{
+        transform: scale(1.02);
+        background-color: rgba(64, 25, 18, 0.8);
+    }
+}

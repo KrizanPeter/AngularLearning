@@ -13,7 +13,7 @@
 ## Screenshots (Gallery):
  <br/>
 
-<img src="home_screen.png" width="50%" height="50%" />
+![alt text](_images/home_screen.png "Title")
 <br/>
 <br/>
-<img src="registration_screen.png" width="50%" height="50%" />
+![alt text](_images/registration_screen.png "Title")

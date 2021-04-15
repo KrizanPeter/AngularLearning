@@ -21,7 +21,7 @@
       <div *ngIf="(currentUser$ | async) === null" class="col-7 p-0 m-0">
         <form  #loginForm="ngForm" class="d-flex col-12 p-0 m-0" (ngSubmit)="login()"
           autocomplete="off">
-            <input name="username" [(ngModel)]="model.username" class="form-control col-4" type="text"
+            <input name="username" [(ngModel)]="model.userName" class="form-control col-4" type="text"
               placeholder="UserName">
 
             <input name="password" [(ngModel)]="model.password" class="form-control ml-2 col-4" type="password"

@@ -8,6 +8,7 @@ using API.Data.Repositories.Uow;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -18,32 +19,33 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly DataContext _dbContext;
         private readonly ILogger<AccountController> _logger;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
 
-        public AccountController(ILogger<AccountController> logger, DataContext context, ITokenService tokenService )
+        public AccountController(ILogger<AccountController> logger, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService )
         {
             _tokenService = tokenService;
             _logger = logger;
-            _dbContext = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
 
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
         {
             if (await UserExist(registerDto.UserName)) return BadRequest("Username is taken");
-
-            using var hmac = new HMACSHA512();
 
             var user = new AppUser()
             {
                 UserName = registerDto.UserName.ToLower(),
             };
 
-            _dbContext.Users.Add(user);
-            await _dbContext.SaveChangesAsync();
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded) { return BadRequest("Account creation failed"); }
 
             return new UserDto()
             {
@@ -54,16 +56,19 @@ namespace API.Controllers
 
         private async Task<bool> UserExist(string username)
         {
-            return await _dbContext.Users.AnyAsync(a => a.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(a => a.UserName == username.ToLower());
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(a => a.UserName == loginDto.UserName);
+            var user = await _userManager.Users.FirstOrDefaultAsync(a => a.UserName == loginDto.UserName.ToLower());
 
             if(user == null) { return Unauthorized("Invalid username");}
 
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if(! result.Succeeded) { return Unauthorized(); }
 
             return new UserDto()
             {

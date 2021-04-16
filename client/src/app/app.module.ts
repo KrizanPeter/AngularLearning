@@ -13,8 +13,13 @@ import { RegistrationComponent } from './home/components/registration/registrati
 import { GameBoardComponent } from './game/components/game-board/game-board.component';
 import { CharacterInfoComponent } from './game/components/character-info/character-info.component';
 import { ChatComponent } from './game/components/chat/chat.component';
-import { NewGameComponent } from './game/components/new-game/new-game.component';
+import { CreateGameComponent } from './new-game/components/create-new-game/create-game/create-game.component';
+import { JoinToGameComponent } from './new-game/components/join-to-game/join-to-game/join-to-game.component';
+import { NewGameComponent } from './new-game/components/new-game-layout/new-game.component';
 import { LeaderBoardComponent } from './ranks/components/leader-board/leader-board.component';
+import { ToastrModule } from 'ngx-toastr';
+
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,9 @@ import { LeaderBoardComponent } from './ranks/components/leader-board/leader-boa
     CharacterInfoComponent,
     ChatComponent,
     NewGameComponent,
-    LeaderBoardComponent
+    LeaderBoardComponent,
+    CreateGameComponent,
+    JoinToGameComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,11 @@ import { LeaderBoardComponent } from './ranks/components/leader-board/leader-boa
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

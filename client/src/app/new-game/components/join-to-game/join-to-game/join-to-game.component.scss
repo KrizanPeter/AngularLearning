@@ -1,0 +1,68 @@
+
+.home-header, .home-description{
+    font-size: 30px;
+    padding-top: 15px;
+    color:rgb(206, 189, 182);
+}
+
+table {
+    width: 100%;
+
+  }
+
+  .main-table{
+    border: 0px solid white;
+    border-radius: 10px;
+    min-height:22vh;
+    max-height:22vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+  }
+
+  
+.btn-home-sys{
+    width: 60%;
+    height: 60px;
+    font-size: 28px;
+    margin-top: 15px;
+    border: #3c1711 1px solid;
+    background-color: rgba(80, 31, 22, 0.8) ;
+    color:white;
+    transition: transform .5s;
+    &:hover{
+        transform: scale(1.05);
+        background-color: rgba(64, 25, 18, 0.8);
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background:  rgba(80, 31, 22, 0.9); 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(80, 31, 22, 0.95); 
+  }
+
+  .table-row{
+      &:hover{
+          cursor: pointer;
+          background-color: gray;
+      }
+  }
+  .table-row-selected{
+    background-color: rgb(102, 102, 102);
+  }

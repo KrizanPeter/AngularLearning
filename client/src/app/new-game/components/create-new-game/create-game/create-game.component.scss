@@ -1,0 +1,28 @@
+
+.home-header, .home-description{
+    font-size: 30px;
+    padding-top: 15px;
+    color:rgb(206, 189, 182);
+}
+
+.create-session-container{
+    padding-top: 25px;
+    min-height:22vh;
+    max-height:22vh;
+}
+
+
+.btn-home-sys{
+    width: 60%;
+    height: 60px;
+    font-size: 28px;
+    margin-top: 15px;
+    border: #3c1711 1px solid;
+    background-color: rgba(80, 31, 22, 0.8) ;
+    color:white;
+    transition: transform .5s;
+    &:hover{
+        transform: scale(1.05);
+        background-color: rgba(64, 25, 18, 0.8);
+    }
+}

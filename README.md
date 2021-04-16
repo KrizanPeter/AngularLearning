@@ -7,6 +7,9 @@
     - Registration & logic (asp.identity)
     - FE Home/Registration/Login screen
 
+ - 16.04.2021 
+    - Toastr notification
+    - FE New game screen
  <br/>
  <br/>
 
@@ -17,3 +20,6 @@
 <br/>
 <br/>
 ![alt text](_images/registration_screen.png "Title")
+<br/>
+<br/>
+![alt text](_images/new_game_screen.png "Title")

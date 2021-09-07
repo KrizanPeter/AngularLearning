@@ -1,18 +1,11 @@
-﻿using API.Data;
-using API.Entities;
-using API.Interfaces;
-using API.Services;
+﻿using API.Entities.Context;
+using BoardGame.Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace API.Extensions
 {
@@ -27,7 +20,7 @@ namespace API.Extensions
                 opt.Password.RequireDigit = false;
             })
                 .AddRoles<AppRole>()
-                .AddRoleManager <RoleManager<AppRole>>()
+                .AddRoleManager<RoleManager<AppRole>>()
                 .AddSignInManager<SignInManager<AppUser>>()
                 .AddRoleValidator<RoleValidator<AppRole>>()
                 .AddEntityFrameworkStores<DataContext>();

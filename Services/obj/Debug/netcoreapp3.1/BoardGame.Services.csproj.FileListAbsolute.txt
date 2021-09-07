@@ -1,0 +1,14 @@
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.csprojAssemblyReference.cache
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.AssemblyInfoInputs.cache
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.AssemblyInfo.cs
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.csproj.CoreCompileInputs.cache
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Domain.dll
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Services.deps.json
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Services.dll
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Services.pdb
+C:\Projects\BoardGame\Services\bin\Debug\netcoreapp3.1\BoardGame.Domain.pdb
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.csproj.CopyComplete
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.dll
+C:\Projects\BoardGame\Services\obj\Debug\netcoreapp3.1\BoardGame.Services.pdb

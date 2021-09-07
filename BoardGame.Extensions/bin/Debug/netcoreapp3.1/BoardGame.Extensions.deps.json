@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "BoardGame.Extensions/1.0.0": {
+        "runtime": {
+          "BoardGame.Extensions.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BoardGame.Extensions/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

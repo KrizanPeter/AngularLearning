@@ -1,17 +1,16 @@
+using API.DTOs.Session;
+using API.Entities.Context;
+using AutoMapper;
+using BoardGame.Domain.Entities;
+using BoardGame.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using API.Data;
-using API.Data.Repositories.Uow;
-using API.DTOs;
-using API.Entities;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
@@ -45,7 +44,7 @@ namespace API.Controllers
             GameSession session = _mapper.Map<GameSession>(sessionDto);
             session.GamePlan = new GamePlan();
             _uow.Sessions.Add(session);
-            if(await _uow.Save())
+            if (await _uow.Save())
             {
                 return Ok();
             }
@@ -62,13 +61,13 @@ namespace API.Controllers
             return Ok(sessionDtos);
         }
 
-        
+
         //  API Example : { api/user/3 }
         [HttpGet("{id}")]
         public async Task<ActionResult<GameSessionDto>> GetSession(int id)
         {
-            var session =  await _uow.Sessions.Get(id);
-            if(session == null)
+            var session = await _uow.Sessions.Get(id);
+            if (session == null)
             {
                 return BadRequest();
             }

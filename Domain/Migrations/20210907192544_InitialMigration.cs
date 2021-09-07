@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Migrations
+namespace BoardGame.Domain.Migrations
 {
     public partial class InitialMigration : Migration
     {

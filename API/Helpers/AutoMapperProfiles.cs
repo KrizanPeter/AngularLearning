@@ -1,6 +1,8 @@
 ﻿using API.DTOs;
+using API.DTOs.Session;
 using API.Entities;
 using AutoMapper;
+using BoardGame.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

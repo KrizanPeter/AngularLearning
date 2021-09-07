@@ -21,7 +21,8 @@ export class AccountService {
         const user = response;
         if(user)
         {
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('user', user.userName);
+          localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
         }
       })
@@ -33,7 +34,8 @@ export class AccountService {
       map((response: UserDto) => {
         const user = response;
         if(user){
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('user', user.userName);
+          localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
         }
       })
@@ -46,6 +48,7 @@ export class AccountService {
 
   logout(){
     localStorage.removeItem('user');
+    localStorage.removeItem('userToken');
     this.currentUserSource.next(null);
   }
 }

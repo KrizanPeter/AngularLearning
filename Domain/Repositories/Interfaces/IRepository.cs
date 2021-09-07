@@ -15,7 +15,7 @@ namespace BoardGame.Domain.Repositories.Interfaces
             string includeProperties = null
         );
 
-        Task<IEnumerable<T>> GetFirstOrDefault(
+        Task<T> GetFirstOrDefault(
             Expression<Func<T,bool>> filter = null,
             string includeProperties = null
         );

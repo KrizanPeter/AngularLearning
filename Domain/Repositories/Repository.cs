@@ -55,7 +55,7 @@ namespace BoardGame.Domain.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = null)
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if(filter != null)
@@ -70,7 +70,7 @@ namespace BoardGame.Domain.Repositories
                     query = query.Include(prop);
                 }
             }
-            return await query.ToListAsync();
+            return await query.FirstOrDefaultAsync();
         }
 
         public async void Remove(int id)

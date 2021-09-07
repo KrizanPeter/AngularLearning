@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BoardGame.Service.Interfaces
+namespace BoardGame.Services.Services.Interfaces
 {
     public interface ITokenService
     {

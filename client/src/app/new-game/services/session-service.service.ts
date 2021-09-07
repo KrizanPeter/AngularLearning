@@ -24,7 +24,6 @@ export class SessionService {
   getSessions(){
     return this.http.get(this._con.baseUrl+"session").pipe(
       tap((response: any)=>{
-        console.log("observable zo service")
         console.log(response);
       })
     )
@@ -34,7 +33,6 @@ export class SessionService {
     let joinToSession = {sessionId : sessionId, userName : user.userName}
     return this.http.post(this._con.baseUrl+"session/join", joinToSession).pipe(
       tap((response: any)=>{
-        console.log("observable zo service")
         console.log(response);
       })
     )

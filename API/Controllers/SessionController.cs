@@ -3,6 +3,8 @@ using API.Entities.Context;
 using AutoMapper;
 using BoardGame.Domain.Entities;
 using BoardGame.Domain.Repositories.Interfaces;
+using BoardGame.Services.Services.AuthServices;
+using BoardGame.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,15 +27,21 @@ namespace API.Controllers
         private readonly IUnitOfWork _uow;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IAppUserService _appUserService;
 
-        public SessionController(ILogger<SessionController> logger, DataContext context, IUnitOfWork uow, IMapper mapper, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public SessionController(ILogger<SessionController> logger,
+            IUnitOfWork uow,
+            IMapper mapper,
+            SignInManager<AppUser> signInManager,
+            UserManager<AppUser> userManager,
+            IAppUserService appUserService)
         {
             _mapper = mapper;
             _uow = uow;
             _logger = logger;
-            _dbContext = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _appUserService = appUserService;
         }
 
         //  API Example : { api/users }
@@ -69,7 +77,7 @@ namespace API.Controllers
             var session = await _uow.Sessions.Get(id);
             if (session == null)
             {
-                return BadRequest();
+                return BadRequest("Session was not found.");
             }
             var sessionDto = _mapper.Map<GameSessionDto>(session);
             return Ok(sessionDto);
@@ -79,18 +87,17 @@ namespace API.Controllers
         [HttpPost("join")]
         public async Task<ActionResult<bool>> Join(JoinToSessionDto joinDto)
         {
-            if (joinDto.SessionId == 0 || string.IsNullOrEmpty(joinDto.UserName)) return BadRequest("Incorrect session or user.");
-            var neviem = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (_signInManager.IsSignedIn(User))
+            if (joinDto.SessionId == 0 || string.IsNullOrEmpty(joinDto.UserName))
             {
-                var userId = _userManager.GetUserId(User);
-                var userWithAccount = _dbContext.Users.Where(a => a.UserName == joinDto.UserName)
-                    .SingleOrDefault();
-
+                return BadRequest("Incorrect session or user.");
+            }
+            var userId = await _appUserService.GetAppUserId(User.GetUserName());
+            if(await _appUserService.AddServiceToUserAsync(userId, joinDto.SessionId))
+            {
+                return Ok(true);
             }
 
-            return Ok(true);
+            return NotFound();
         }
 
     }

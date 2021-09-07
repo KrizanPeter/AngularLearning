@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using API.DTOs.Account;
 using BoardGame.Domain.Entities;
-using BoardGame.Service.Interfaces;
+using BoardGame.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

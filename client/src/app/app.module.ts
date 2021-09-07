@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { LeaderBoardComponent } from './ranks/components/leader-board/leader-boa
 import { ToastrModule } from 'ngx-toastr';
 
 import {MatTableModule} from '@angular/material/table';
+import { HeaderInterceptor } from './auth/HeaderInterceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,12 @@ import {MatTableModule} from '@angular/material/table';
       positionClass: 'toast-top-right'
     })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HeaderInterceptor,
+    multi: true,
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

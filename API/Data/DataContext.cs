@@ -28,6 +28,16 @@ namespace API.Data
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
 
+            builder.Entity<Hero>()
+                .HasMany(a => a.Items)
+                .WithOne(a => a.Hero)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<GameBlock>()
+                .HasMany(a => a.Heroes)
+                .WithOne(a => a.GabeBlock)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
 
         public DbSet<Hero> Heroes {get; set;}
@@ -40,7 +50,7 @@ namespace API.Data
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Monster> Monsters { get; set; }
         public DbSet<MonsterType> MonsterTypes { get; set; }
-        public DbSet<Session> Sessions { get; set; }
+        public DbSet<GameSession> GameSessions { get; set; }
 
     }
 }

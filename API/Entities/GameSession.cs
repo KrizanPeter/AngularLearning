@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace API.Entities
 {
-    public class Session
+    public class GameSession
     {
-        public int  SessionId { get; set; }
+        public int  GameSessionId { get; set; }
         public int GamePlanId { get; set; }
         public string SessionName { get; set; }
         public string SessionPassword { get; set; }
@@ -13,6 +13,7 @@ namespace API.Entities
 
         //Reference
 
-        public GamePlan GamePlan { get; set; }
+        public virtual GamePlan GamePlan { get; set; }
+        public virtual ICollection<AppUser> Users { get; set; }
     }
 }

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SessionService } from 'src/app/new-game/services/session-service.service';
+import { SessionDto } from 'src/app/_models/sessionDto';
 
 @Component({
   selector: 'app-create-game',
@@ -7,13 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateGameComponent implements OnInit {
 
-  model: any;
-  constructor() { }
+  @Output() sessionEmitter = new EventEmitter<boolean>();
+  model = {} as SessionDto;
+
+  constructor(private sessionService: SessionService, private router:Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   createSession(){
-    console.log("just create ");
+    this.sessionService.createSession(this.model).subscribe(response=>{
+      this.sessionEmitter.emit(true);
+    }, error =>{
+      console.log(error);
+      this.toastr.error(error.error);
+    });
   }
 }

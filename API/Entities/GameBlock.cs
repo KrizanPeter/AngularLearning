@@ -10,11 +10,10 @@ namespace API.Entities
         public int GameBlockId { get; set; }
         public int GamePlanId { get; set; }
         public int HeroId { get; set; }
-        public int ItemId { get; set; }
 
         //References
-        public Hero Hero { get; set; }
-        public Item Item { get; set; }
-        public GamePlan GamePlan { get; set; }
+        public virtual ICollection<Hero> Heroes { get; set; }
+        public virtual ICollection<Item> Items { get; set; }
+        public virtual GamePlan GamePlan { get; set; }
     }
 }

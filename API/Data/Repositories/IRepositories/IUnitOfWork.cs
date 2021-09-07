@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using API.Data.Repositories.IRepositories;
 
 namespace API.Data.Repositories.Uow
@@ -7,6 +8,6 @@ namespace API.Data.Repositories.Uow
     {
         IAppUserRepository AppUsers { get; }
         ISessionRepository Sessions {get;}
-        void Save();
+        Task<bool> Save();
     }
 }

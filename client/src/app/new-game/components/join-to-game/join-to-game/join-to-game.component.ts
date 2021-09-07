@@ -1,20 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  date: number;
-  players: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Partička hráčov', date: 1.0079, players: '4/5'},
-  {position: 2, name: 'Testovacia partička', date: 4.0026, players: '2/5'},
-  {position: 3, name: 'Lithium', date: 6.941, players: '3/5'},
-  {position: 4, name: 'Beryllium', date: 9.0122, players: '4/5'},
-  {position: 5, name: 'Boron', date: 10.811, players: '1/5'},
-  {position: 6, name: 'Carbon', date: 12.0107, players: '1/5'},
-];
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs/internal/Observable';
+import { AccountService } from 'src/app/home/services/account/account.service';
+import { SessionService } from 'src/app/new-game/services/session-service.service';
+import { UserDto } from 'src/app/_models/userDto';
 
 @Component({
   selector: 'app-join-to-game',
@@ -23,17 +13,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class JoinToGameComponent implements OnInit {
-
-  displayedColumns: string[] = ['position', 'name', 'date', 'players'];
-  dataSource = ELEMENT_DATA;
+  
+  sessions$ = {};
+  displayedColumns: string[] = ['gameSessionId', 'sessionName'];
   selectedRowIndex = 0;
-  constructor() { }
+  userToJoin: UserDto;
+  constructor(private sessionService: SessionService, private router: Router, private accountService : AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.sessions$ = this.sessionService.getSessions();
+  }
+
+  refreshSessions(): void {
+    this.ngOnInit();
   }
 
   getRecord(row :any){
-    this.selectedRowIndex = row.position;
+    this.selectedRowIndex = row.gameSessionId;
+    console.log(this.selectedRowIndex);
+    this.accountService.currentUsers$.subscribe(res=>
+      this.userToJoin = res);
+  }
+
+  joinToSession():void{
+
+    this.sessionService.joinToSession(this.selectedRowIndex, this.userToJoin).subscribe(response=>{
+      this.router.navigateByUrl('/game');
+    }, error =>{
+      console.log(error);
+      this.toastr.error(error.error);
+    });
   }
 
 }

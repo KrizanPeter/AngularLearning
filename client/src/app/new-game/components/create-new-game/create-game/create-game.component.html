@@ -1,18 +1,18 @@
 <div class="container col-12">
     <h1 class="home-header text-center">Create new session!</h1>
     <div class="create-session-container">
-        <form class="" #registerForm="ngForm" (ngSubmit)="createSession()" autocomplete="off">
+        <form id="session-form" class="" #registerForm="ngForm" (ngSubmit)="createSession()" autocomplete="off">
             <hr>
             <div class="form-group">
-                <input type="text" class="form-control" name=username placeholder="Session name">
+                <input type="text" class="form-control" [(ngModel)]="model.sessionName" name=sessionName placeholder="Session name">
             </div>
             <div class="form-group pt-3">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input type="password" class="form-control" [(ngModel)]="model.sessionPassword" name="password" placeholder="Password">
             </div>
 
         </form>
     </div>
     <div class="form-group text-center">
-        <button class="btn btn-home-sys" type="submit">Create</button>
+        <button class="btn btn-home-sys" form="session-form" type="submit">Create</button>
     </div>
 </div>

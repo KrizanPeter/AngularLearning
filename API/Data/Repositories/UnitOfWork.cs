@@ -1,4 +1,5 @@
 using API.Data.Repositories.IRepositories;
+using System.Threading.Tasks;
 
 namespace API.Data.Repositories.Uow
 {
@@ -24,9 +25,9 @@ namespace API.Data.Repositories.Uow
             await _db.DisposeAsync();
         }
 
-        public async void Save()
+        public async Task<bool> Save()
         {
-            await _db.SaveChangesAsync();
+            return await _db.SaveChangesAsync() > 0;
         }
     }
 }

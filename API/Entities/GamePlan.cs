@@ -13,6 +13,6 @@ namespace API.Entities
 
         //References
 
-        public List<GameBlock> GameBlocks { get; set; }
+        public virtual ICollection<GameBlock> GameBlocks { get; set; }
     }
 }

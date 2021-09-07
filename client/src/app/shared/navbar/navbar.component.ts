@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../_models/user';
+import { UserDto } from '../../_models/userDto';
 import { AccountService } from '../../home/services/account/account.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser$: Observable<User>
+  currentUser$: Observable<UserDto>
   model: any = {
     username: "",
     password: "",

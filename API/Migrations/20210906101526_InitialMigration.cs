@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -20,32 +20,6 @@ namespace API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,6 +92,109 @@ namespace API.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameSessions",
+                columns: table => new
+                {
+                    GameSessionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GamePlanId = table.Column<int>(type: "int", nullable: false),
+                    SessionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SessionPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SessionType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameSessions", x => x.GameSessionId);
+                    table.ForeignKey(
+                        name: "FK_GameSessions_GamePlans_GamePlanId",
+                        column: x => x.GamePlanId,
+                        principalTable: "GamePlans",
+                        principalColumn: "GamePlanId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Monsters",
+                columns: table => new
+                {
+                    MonsterId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MonsterTypeId = table.Column<int>(type: "int", nullable: false),
+                    MonsterName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Monsters", x => x.MonsterId);
+                    table.ForeignKey(
+                        name: "FK_Monsters_MonsterTypes_MonsterTypeId",
+                        column: x => x.MonsterTypeId,
+                        principalTable: "MonsterTypes",
+                        principalColumn: "MonsterTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GameSessionId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_GameSessions_GameSessionId",
+                        column: x => x.GameSessionId,
+                        principalTable: "GameSessions",
+                        principalColumn: "GameSessionId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameBlocks",
+                columns: table => new
+                {
+                    GameBlockId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GamePlanId = table.Column<int>(type: "int", nullable: false),
+                    HeroId = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MonsterId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameBlocks", x => x.GameBlockId);
+                    table.ForeignKey(
+                        name: "FK_GameBlocks_GamePlans_GamePlanId",
+                        column: x => x.GamePlanId,
+                        principalTable: "GamePlans",
+                        principalColumn: "GamePlanId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GameBlocks_Monsters_MonsterId",
+                        column: x => x.MonsterId,
+                        principalTable: "Monsters",
+                        principalColumn: "MonsterId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -207,33 +284,13 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sessions",
-                columns: table => new
-                {
-                    SessionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GamePlanId = table.Column<int>(type: "int", nullable: false),
-                    SessionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionType = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sessions", x => x.SessionId);
-                    table.ForeignKey(
-                        name: "FK_Sessions_GamePlans_GamePlanId",
-                        column: x => x.GamePlanId,
-                        principalTable: "GamePlans",
-                        principalColumn: "GamePlanId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Heroes",
                 columns: table => new
                 {
                     HeroId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    GameBlockId = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
                     HeroTypeId = table.Column<int>(type: "int", nullable: false),
                     HeroName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lives = table.Column<int>(type: "int", nullable: false)
@@ -241,6 +298,17 @@ namespace API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Heroes", x => x.HeroId);
+                    table.ForeignKey(
+                        name: "FK_Heroes_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Heroes_GameBlocks_GameBlockId",
+                        column: x => x.GameBlockId,
+                        principalTable: "GameBlocks",
+                        principalColumn: "GameBlockId");
                     table.ForeignKey(
                         name: "FK_Heroes_HeroTypes_HeroTypeId",
                         column: x => x.HeroTypeId,
@@ -250,90 +318,35 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Monsters",
-                columns: table => new
-                {
-                    MonsterId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MonsterTypeId = table.Column<int>(type: "int", nullable: false),
-                    MonsterName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Monsters", x => x.MonsterId);
-                    table.ForeignKey(
-                        name: "FK_Monsters_MonsterTypes_MonsterTypeId",
-                        column: x => x.MonsterTypeId,
-                        principalTable: "MonsterTypes",
-                        principalColumn: "MonsterTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
                     ItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    HeroId = table.Column<int>(type: "int", nullable: false),
+                    GameBlockId = table.Column<int>(type: "int", nullable: false),
                     ItemTypeId = table.Column<int>(type: "int", nullable: false),
-                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HeroId = table.Column<int>(type: "int", nullable: true)
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.ItemId);
                     table.ForeignKey(
+                        name: "FK_Items_GameBlocks_GameBlockId",
+                        column: x => x.GameBlockId,
+                        principalTable: "GameBlocks",
+                        principalColumn: "GameBlockId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Items_Heroes_HeroId",
                         column: x => x.HeroId,
                         principalTable: "Heroes",
-                        principalColumn: "HeroId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "HeroId");
                     table.ForeignKey(
                         name: "FK_Items_ItemTypes_ItemTypeId",
                         column: x => x.ItemTypeId,
                         principalTable: "ItemTypes",
                         principalColumn: "ItemTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GameBlocks",
-                columns: table => new
-                {
-                    GameBlockId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GamePlanId = table.Column<int>(type: "int", nullable: false),
-                    HeroId = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MonsterId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameBlocks", x => x.GameBlockId);
-                    table.ForeignKey(
-                        name: "FK_GameBlocks_GamePlans_GamePlanId",
-                        column: x => x.GamePlanId,
-                        principalTable: "GamePlans",
-                        principalColumn: "GamePlanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GameBlocks_Heroes_HeroId",
-                        column: x => x.HeroId,
-                        principalTable: "Heroes",
-                        principalColumn: "HeroId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GameBlocks_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "ItemId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GameBlocks_Monsters_MonsterId",
-                        column: x => x.MonsterId,
-                        principalTable: "Monsters",
-                        principalColumn: "MonsterId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -370,6 +383,11 @@ namespace API.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_GameSessionId",
+                table: "AspNetUsers",
+                column: "GameSessionId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -382,24 +400,34 @@ namespace API.Data.Migrations
                 column: "GamePlanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameBlocks_HeroId",
-                table: "GameBlocks",
-                column: "HeroId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GameBlocks_ItemId",
-                table: "GameBlocks",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GameBlocks_MonsterId",
                 table: "GameBlocks",
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GameSessions_GamePlanId",
+                table: "GameSessions",
+                column: "GamePlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Heroes_AppUserId",
+                table: "Heroes",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Heroes_GameBlockId",
+                table: "Heroes",
+                column: "GameBlockId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Heroes_HeroTypeId",
                 table: "Heroes",
                 column: "HeroTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_GameBlockId",
+                table: "Items",
+                column: "GameBlockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_HeroId",
@@ -415,11 +443,6 @@ namespace API.Data.Migrations
                 name: "IX_Monsters_MonsterTypeId",
                 table: "Monsters",
                 column: "MonsterTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sessions_GamePlanId",
-                table: "Sessions",
-                column: "GamePlanId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -440,25 +463,10 @@ namespace API.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "GameBlocks");
-
-            migrationBuilder.DropTable(
-                name: "Sessions");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Monsters");
-
-            migrationBuilder.DropTable(
-                name: "GamePlans");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Heroes");
@@ -467,10 +475,25 @@ namespace API.Data.Migrations
                 name: "ItemTypes");
 
             migrationBuilder.DropTable(
-                name: "MonsterTypes");
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "GameBlocks");
 
             migrationBuilder.DropTable(
                 name: "HeroTypes");
+
+            migrationBuilder.DropTable(
+                name: "GameSessions");
+
+            migrationBuilder.DropTable(
+                name: "Monsters");
+
+            migrationBuilder.DropTable(
+                name: "GamePlans");
+
+            migrationBuilder.DropTable(
+                name: "MonsterTypes");
         }
     }
 }

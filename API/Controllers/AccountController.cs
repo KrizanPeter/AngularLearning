@@ -8,6 +8,7 @@ using API.Data.Repositories.Uow;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,8 @@ namespace API.Controllers
 
             var user = new AppUser()
             {
-                UserName = registerDto.UserName.ToLower(),
+                UserName = registerDto.UserName,
+                NormalizedUserName = registerDto.UserName.ToUpper()
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -67,6 +69,7 @@ namespace API.Controllers
             if(user == null) { return Unauthorized("Invalid username");}
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            
 
             if(! result.Succeeded) { return Unauthorized(); }
 

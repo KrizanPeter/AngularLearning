@@ -3,7 +3,7 @@ using API.Entities;
 
 namespace API.Data.Repositories
 {
-    public class SessionRepository : Repository<Session>, ISessionRepository
+    public class SessionRepository : Repository<GameSession>, ISessionRepository
     {
         
         private readonly DataContext _db;

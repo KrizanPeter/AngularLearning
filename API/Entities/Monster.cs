@@ -12,7 +12,7 @@ namespace API.Entities
         public string MonsterName { get; set; }
 
         //References
-        public MonsterType MonsterType { get; set; }
+        public virtual MonsterType MonsterType { get; set; }
 
     }
 }

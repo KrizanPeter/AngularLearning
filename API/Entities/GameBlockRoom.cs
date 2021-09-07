@@ -10,6 +10,6 @@ namespace API.Entities
         public int MonsterId { get; set; }
 
         //Reference
-        public Monster Monster { get; set; }
+        public virtual Monster Monster { get; set; }
     }
 }

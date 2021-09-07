@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from 'src/app/_models/user';
+import { UserDto } from 'src/app/_models/userDto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +10,14 @@ import { User } from 'src/app/_models/user';
 
 export class AccountService {
   baseUrl = 'https://localhost:44362/api/';
-  private currentUserSource = new ReplaySubject<User>(1)
+  private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
   register(model:any){
     return this.http.post(this.baseUrl+'account/register', model).pipe(
-      map((response:User) =>{
+      map((response:UserDto) =>{
         const user = response;
         if(user)
         {
@@ -30,7 +30,7 @@ export class AccountService {
 
   login(model: any){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
-      map((response: User) => {
+      map((response: UserDto) => {
         const user = response;
         if(user){
           localStorage.setItem('user', JSON.stringify(user));
@@ -40,7 +40,7 @@ export class AccountService {
     )
   }
 
-  setCurrentUser(user: User){
+  setCurrentUser(user: UserDto){
     this.currentUserSource.next(user);
   }
 

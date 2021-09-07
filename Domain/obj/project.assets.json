@@ -5881,11 +5881,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+      "projectUniqueName": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj",
       "projectName": "BoardGame.Domain",
-      "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+      "projectPath": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj",
       "packagesPath": "C:\\Users\\kriza\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\obj\\",
+      "outputPath": "C:\\Projects\\BoardGame\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

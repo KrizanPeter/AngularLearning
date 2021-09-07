@@ -1,17 +1,80 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {}
+    "C:\\Projects\\BoardGame\\Services\\BoardGame.Services.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
+    "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
-        "projectName": "BoardGame.Domain",
-        "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+        "projectUniqueName": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
+        "projectName": "BoardGame.Extensions",
+        "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
         "packagesPath": "C:\\Users\\kriza\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\obj\\",
+        "outputPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\kriza\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj",
+        "projectName": "BoardGame.Domain",
+        "projectPath": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj",
+        "packagesPath": "C:\\Users\\kriza\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\BoardGame\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -81,14 +144,14 @@
         }
       }
     },
-    "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
+    "C:\\Projects\\BoardGame\\Services\\BoardGame.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
-        "projectName": "BoardGame.Extensions",
-        "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
+        "projectUniqueName": "C:\\Projects\\BoardGame\\Services\\BoardGame.Services.csproj",
+        "projectName": "BoardGame.Services",
+        "projectPath": "C:\\Projects\\BoardGame\\Services\\BoardGame.Services.csproj",
         "packagesPath": "C:\\Users\\kriza\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\obj\\",
+        "outputPath": "C:\\Projects\\BoardGame\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -107,7 +170,14 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
+                "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
+              },
+              "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj": {
+                "projectPath": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -119,6 +189,20 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.12.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.10.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

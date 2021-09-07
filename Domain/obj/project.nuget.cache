@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ys1T992Fwt9Fl2vzhYnx+vEKiRq8BKwM2Rv69VNiYB0BQlElQZvpm+UgHX13Uw2vnzb78PyvAc+Gg9roJcQxtA==",
+  "dgSpecHash": "0kzekoZt1qoUdRgGqHCKSHvGKtqKtn6b4EtBel9n5vec1n5XoDo3dh1lIHjCJV+xAWVn1GugPElzthW8+NEiIw==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+  "projectFilePath": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kriza\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.5\\microsoft.aspnetcore.cryptography.internal.5.0.5.nupkg.sha512",
     "C:\\Users\\kriza\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.5\\microsoft.aspnetcore.cryptography.keyderivation.5.0.5.nupkg.sha512",

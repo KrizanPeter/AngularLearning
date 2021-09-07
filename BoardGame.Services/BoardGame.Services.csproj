@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoardGame.Domain\BoardGame.Domain.csproj" />
     <ProjectReference Include="..\BoardGame.Extensions\BoardGame.Extensions.csproj" />
-    <ProjectReference Include="..\Domain\BoardGame.Domain.csproj" />
   </ItemGroup>
 
 </Project>

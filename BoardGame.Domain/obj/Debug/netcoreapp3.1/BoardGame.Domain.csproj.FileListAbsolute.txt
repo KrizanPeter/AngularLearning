@@ -10,3 +10,15 @@ C:\Projects\BoardGame\Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.csproj.Cor
 C:\Projects\BoardGame\Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.csproj.CopyComplete
 C:\Projects\BoardGame\Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.dll
 C:\Projects\BoardGame\Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.pdb
+C:\Projects\BoardGame\BoardGame.Domain\bin\Debug\netcoreapp3.1\BoardGame.Domain.deps.json
+C:\Projects\BoardGame\BoardGame.Domain\bin\Debug\netcoreapp3.1\BoardGame.Domain.dll
+C:\Projects\BoardGame\BoardGame.Domain\bin\Debug\netcoreapp3.1\BoardGame.Domain.pdb
+C:\Projects\BoardGame\BoardGame.Domain\bin\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Projects\BoardGame\BoardGame.Domain\bin\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.csprojAssemblyReference.cache
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.AssemblyInfoInputs.cache
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.AssemblyInfo.cs
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.csproj.CopyComplete
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.dll
+C:\Projects\BoardGame\BoardGame.Domain\obj\Debug\netcoreapp3.1\BoardGame.Domain.pdb

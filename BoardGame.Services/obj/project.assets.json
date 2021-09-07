@@ -5868,8 +5868,8 @@
     },
     "BoardGame.Domain/1.0.0": {
       "type": "project",
-      "path": "../Domain/BoardGame.Domain.csproj",
-      "msbuildProject": "../Domain/BoardGame.Domain.csproj"
+      "path": "../BoardGame.Domain/BoardGame.Domain.csproj",
+      "msbuildProject": "../BoardGame.Domain/BoardGame.Domain.csproj"
     },
     "BoardGame.Extensions/1.0.0": {
       "type": "project",
@@ -5917,11 +5917,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
+            "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
+              "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj"
+            },
             "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
               "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
-            },
-            "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj": {
-              "projectPath": "C:\\Projects\\BoardGame\\Domain\\BoardGame.Domain.csproj"
             }
           }
         }

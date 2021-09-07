@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoardGame.Domain\BoardGame.Domain.csproj" />
     <ProjectReference Include="..\BoardGame.Extensions\BoardGame.Extensions.csproj" />
-    <ProjectReference Include="..\Domain\BoardGame.Domain.csproj" />
-    <ProjectReference Include="..\Services\BoardGame.Services.csproj" />
+    <ProjectReference Include="..\BoardGame.Services\BoardGame.Services.csproj" />
   </ItemGroup>
 
 </Project>

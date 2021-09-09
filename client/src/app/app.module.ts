@@ -20,7 +20,7 @@ import { LeaderBoardComponent } from './ranks/components/leader-board/leader-boa
 import { ToastrModule } from 'ngx-toastr';
 
 import {MatTableModule} from '@angular/material/table';
-import { HeaderInterceptor } from './auth/HeaderInterceptor';
+import { HeaderInterceptor } from './_auth/HeaderInterceptor';
 
 @NgModule({
   declarations: [

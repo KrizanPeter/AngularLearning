@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserDto } from 'src/app/_models/userDto';
@@ -13,7 +14,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   register(model:any){
     return this.http.post(this.baseUrl+'account/register', model).pipe(
@@ -49,6 +50,7 @@ export class AccountService {
   logout(){
     localStorage.removeItem('user');
     localStorage.removeItem('userToken');
+    this.router.navigateByUrl('/home');
     this.currentUserSource.next(null);
   }
 }

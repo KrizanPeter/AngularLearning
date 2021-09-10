@@ -7,10 +7,10 @@ namespace BoardGame.Domain.Entities.EntityEnums
 {
     public enum PlanSize
     {
-        ExtraSmall,
-        Small,
-        Medium,
-        Large,
-        ExtraLarge
+        ExtraSmall = 11,
+        Small = 21,
+        Medium = 31,
+        Large = 41,
+        ExtraLarge = 51
     }
 }

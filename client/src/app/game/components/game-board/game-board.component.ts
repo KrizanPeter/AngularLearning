@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { GameBoardService } from '../../services/game-board.service';
 
 @Component({
   selector: 'app-game-board',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameBoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameBoardService : GameBoardService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.loadGame();
   }
 
+  loadGame(){
+    this.gameBoardService.getGameSessions().subscribe(response=>{
+      console.log(response);
+    }, error =>{
+      console.log(error);
+      this.toastr.error(error.error);
+    });
+
+    
+  }
 }

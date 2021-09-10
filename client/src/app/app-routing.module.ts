@@ -4,11 +4,13 @@ import { NewGameComponent } from './new-game/components/new-game-layout/new-game
 import { HomeComponent } from './home/components/home/home.component';
 import { LeaderBoardComponent } from './ranks/components/leader-board/leader-board.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { GameBoardComponent } from './game/components/game-board/game-board.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'game', component: NewGameComponent, canActivate: [AuthGuard] },
-  { path: 'ranks', component: LeaderBoardComponent, canActivate: [[AuthGuard]] },
+  { path: 'ranks', component: LeaderBoardComponent, canActivate: [AuthGuard]},
+  { path: 'ingame', component: GameBoardComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

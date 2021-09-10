@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210907192544_InitialMigration")]
+    [Migration("20210909215246_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,9 +71,6 @@ namespace BoardGame.Domain.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("GameSessionId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -100,6 +97,9 @@ namespace BoardGame.Domain.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SessionId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -109,8 +109,6 @@ namespace BoardGame.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameSessionId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -118,6 +116,8 @@ namespace BoardGame.Domain.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("SessionId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -137,71 +137,30 @@ namespace BoardGame.Domain.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlock", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.Block", b =>
                 {
-                    b.Property<int>("GameBlockId")
+                    b.Property<int>("BlockId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlockPosition")
+                        .HasColumnType("int");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GamePlanId")
+                    b.Property<int>("SessionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HeroId")
-                        .HasColumnType("int");
+                    b.HasKey("BlockId");
 
-                    b.HasKey("GameBlockId");
+                    b.HasIndex("SessionId");
 
-                    b.HasIndex("GamePlanId");
+                    b.ToTable("Blocks");
 
-                    b.ToTable("GameBlocks");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("GameBlock");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.GamePlan", b =>
-                {
-                    b.Property<int>("GamePlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PlanSize")
-                        .HasColumnType("int");
-
-                    b.HasKey("GamePlanId");
-
-                    b.ToTable("GamePlans");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameSession", b =>
-                {
-                    b.Property<int>("GameSessionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GamePlanId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SessionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionPassword")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SessionType")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameSessionId");
-
-                    b.HasIndex("GamePlanId");
-
-                    b.ToTable("GameSessions");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Block");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
@@ -214,7 +173,7 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameBlockId")
+                    b.Property<int>("BlockId")
                         .HasColumnType("int");
 
                     b.Property<string>("HeroName")
@@ -230,7 +189,7 @@ namespace BoardGame.Domain.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("GameBlockId");
+                    b.HasIndex("BlockId");
 
                     b.HasIndex("HeroTypeId");
 
@@ -259,7 +218,7 @@ namespace BoardGame.Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("GameBlockId")
+                    b.Property<int>("BlockId")
                         .HasColumnType("int");
 
                     b.Property<int>("HeroId")
@@ -273,7 +232,7 @@ namespace BoardGame.Domain.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("GameBlockId");
+                    b.HasIndex("BlockId");
 
                     b.HasIndex("HeroId");
 
@@ -330,6 +289,33 @@ namespace BoardGame.Domain.Migrations
                     b.HasKey("MonsterTypeId");
 
                     b.ToTable("MonsterTypes");
+                });
+
+            modelBuilder.Entity("BoardGame.Domain.Entities.Session", b =>
+                {
+                    b.Property<int>("SessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CenterBlockPosition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SessionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionType")
+                        .HasColumnType("int");
+
+                    b.HasKey("SessionId");
+
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -418,32 +404,32 @@ namespace BoardGame.Domain.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlockHall", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.BlockHall", b =>
                 {
-                    b.HasBaseType("BoardGame.Domain.Entities.GameBlock");
+                    b.HasBaseType("BoardGame.Domain.Entities.Block");
 
-                    b.HasDiscriminator().HasValue("GameBlockHall");
+                    b.HasDiscriminator().HasValue("BlockHall");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlockRoom", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.BlockRoom", b =>
                 {
-                    b.HasBaseType("BoardGame.Domain.Entities.GameBlock");
+                    b.HasBaseType("BoardGame.Domain.Entities.Block");
 
-                    b.Property<int>("MonsterId")
+                    b.Property<int?>("MonsterId")
                         .HasColumnType("int");
 
                     b.HasIndex("MonsterId");
 
-                    b.HasDiscriminator().HasValue("GameBlockRoom");
+                    b.HasDiscriminator().HasValue("BlockRoom");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.AppUser", b =>
                 {
-                    b.HasOne("BoardGame.Domain.Entities.GameSession", "GameSession")
+                    b.HasOne("BoardGame.Domain.Entities.Session", "Session")
                         .WithMany("Users")
-                        .HasForeignKey("GameSessionId");
+                        .HasForeignKey("SessionId");
 
-                    b.Navigation("GameSession");
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.AppUserRole", b =>
@@ -465,26 +451,15 @@ namespace BoardGame.Domain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlock", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.Block", b =>
                 {
-                    b.HasOne("BoardGame.Domain.Entities.GamePlan", "GamePlan")
-                        .WithMany("GameBlocks")
-                        .HasForeignKey("GamePlanId")
+                    b.HasOne("BoardGame.Domain.Entities.Session", "Session")
+                        .WithMany("Blocks")
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GamePlan");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameSession", b =>
-                {
-                    b.HasOne("BoardGame.Domain.Entities.GamePlan", "GamePlan")
-                        .WithMany()
-                        .HasForeignKey("GamePlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GamePlan");
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
@@ -495,9 +470,9 @@ namespace BoardGame.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BoardGame.Domain.Entities.GameBlock", "GabeBlock")
+                    b.HasOne("BoardGame.Domain.Entities.Block", "Block")
                         .WithMany("Heroes")
-                        .HasForeignKey("GameBlockId")
+                        .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -507,7 +482,7 @@ namespace BoardGame.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GabeBlock");
+                    b.Navigation("Block");
 
                     b.Navigation("HeroType");
 
@@ -516,9 +491,9 @@ namespace BoardGame.Domain.Migrations
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Item", b =>
                 {
-                    b.HasOne("BoardGame.Domain.Entities.GameBlock", "GameBlock")
+                    b.HasOne("BoardGame.Domain.Entities.Block", "GameBlock")
                         .WithMany("Items")
-                        .HasForeignKey("GameBlockId")
+                        .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -588,13 +563,11 @@ namespace BoardGame.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlockRoom", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.BlockRoom", b =>
                 {
                     b.HasOne("BoardGame.Domain.Entities.Monster", "Monster")
                         .WithMany()
-                        .HasForeignKey("MonsterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MonsterId");
 
                     b.Navigation("Monster");
                 });
@@ -609,26 +582,23 @@ namespace BoardGame.Domain.Migrations
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameBlock", b =>
+            modelBuilder.Entity("BoardGame.Domain.Entities.Block", b =>
                 {
                     b.Navigation("Heroes");
 
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.GamePlan", b =>
-                {
-                    b.Navigation("GameBlocks");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.GameSession", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("BoardGame.Domain.Entities.Session", b =>
+                {
+                    b.Navigation("Blocks");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

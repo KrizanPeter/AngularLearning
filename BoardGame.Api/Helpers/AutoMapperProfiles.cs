@@ -14,8 +14,8 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<GameSession, GameSessionDto>().ReverseMap();
-            CreateMap<GameSessionCreateDto, GameSession>();
+            CreateMap<Session, SessionDto>().ReverseMap();
+            CreateMap<CreateSessionDto, Session>();
         }
     }
 }

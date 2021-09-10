@@ -18,6 +18,8 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAppUserService, AppUserService>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
 
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>

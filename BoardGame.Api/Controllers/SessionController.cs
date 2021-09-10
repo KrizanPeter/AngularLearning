@@ -21,7 +21,6 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
-        private readonly DataContext _dbContext;
         private readonly ILogger<SessionController> _logger;
         public IMapper _mapper { get; }
         private readonly IUnitOfWork _uow;
@@ -46,11 +45,11 @@ namespace API.Controllers
 
         //  API Example : { api/users }
         [HttpPost]
-        public async Task<ActionResult> AddSessionAsync([FromBody] GameSessionCreateDto sessionDto)
+        public async Task<ActionResult> AddSessionAsync([FromBody] CreateSessionDto sessionDto)
         {
             _logger.LogInformation("AddSessionInvoked");
-            GameSession session = _mapper.Map<GameSession>(sessionDto);
-            session.GamePlan = new GamePlan();
+            Session session = _mapper.Map<Session>(sessionDto);
+
             _uow.Sessions.Add(session);
             if (await _uow.Save())
             {
@@ -61,25 +60,25 @@ namespace API.Controllers
 
         //  API Example : { api/users }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GameSessionDto>>> GetSessions()
+        public async Task<ActionResult<IEnumerable<SessionDto>>> GetSessions()
         {
             _logger.LogInformation("GetSessionInvoked");
             var sessions = await _uow.Sessions.GetAll();
-            var sessionDtos = _mapper.Map<IEnumerable<GameSessionDto>>(sessions);
+            var sessionDtos = _mapper.Map<IEnumerable<SessionDto>>(sessions);
             return Ok(sessionDtos);
         }
 
 
         //  API Example : { api/user/3 }
         [HttpGet("{id}")]
-        public async Task<ActionResult<GameSessionDto>> GetSession(int id)
+        public async Task<ActionResult<SessionDto>> GetSession(int id)
         {
             var session = await _uow.Sessions.Get(id);
             if (session == null)
             {
                 return BadRequest("Session was not found.");
             }
-            var sessionDto = _mapper.Map<GameSessionDto>(session);
+            var sessionDto = _mapper.Map<SessionDto>(session);
             return Ok(sessionDto);
         }
 
@@ -92,12 +91,15 @@ namespace API.Controllers
                 return BadRequest("Incorrect session or user.");
             }
             var userId = await _appUserService.GetAppUserId(User.GetUserName());
-            if(await _appUserService.AddServiceToUserAsync(userId, joinDto.SessionId))
-            {
+            try{
+                await _appUserService.AddServiceToUserAsync(userId, joinDto.SessionId);
                 return Ok(true);
             }
-
-            return NotFound();
+            catch
+            {
+                //Todo: replace with correct code
+                return BadRequest(500);
+            }
         }
 
     }

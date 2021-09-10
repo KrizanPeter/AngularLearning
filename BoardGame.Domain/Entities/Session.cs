@@ -1,12 +1,9 @@
-﻿using BoardGame.Domain.Entities.EntityEnums;
-using System;
+using BoardGame.Domain.Entities.EntityEnums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace BoardGame.Api.DTOs.Session
+namespace BoardGame.Domain.Entities
 {
-    public class GameSessionDto
+    public class Session
     {
         public int SessionId { get; set; }
         public string SessionName { get; set; }
@@ -15,6 +12,10 @@ namespace BoardGame.Api.DTOs.Session
         public PlanSize PlanSize { get; set; }
         public int CenterBlockPosition { get; set; }
 
-        //public IEnumerable<GameBlockDto>
+
+        //References
+
+        public ICollection<Block> Blocks { get; set; }
+        //public virtual ICollection<AppUser> Users { get; set; }
     }
 }

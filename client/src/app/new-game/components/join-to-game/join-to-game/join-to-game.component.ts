@@ -29,7 +29,7 @@ export class JoinToGameComponent implements OnInit {
   }
 
   getRecord(row :any){
-    this.selectedRowIndex = row.gameSessionId;
+    this.selectedRowIndex = row.sessionId;
     console.log(this.selectedRowIndex);
     this.accountService.currentUsers$.subscribe(res=>
       this.userToJoin = res);
@@ -38,7 +38,7 @@ export class JoinToGameComponent implements OnInit {
   joinToSession():void{
 
     this.sessionService.joinToSession(this.selectedRowIndex, this.userToJoin).subscribe(response=>{
-      this.router.navigateByUrl('/game');
+      this.router.navigateByUrl('/ingame');
     }, error =>{
       console.log(error);
       this.toastr.error(error.error);

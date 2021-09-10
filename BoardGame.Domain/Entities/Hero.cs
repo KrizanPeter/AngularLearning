@@ -8,7 +8,7 @@ namespace BoardGame.Domain.Entities
     public class Hero
     {
         public int HeroId { get; set; }
-        public int GameBlockId { get; set; }
+        public int BlockId { get; set; }
         public int AppUserId { get; set; }
         public int HeroTypeId { get; set; }
         public string HeroName { get; set; }
@@ -16,8 +16,7 @@ namespace BoardGame.Domain.Entities
 
         //References
         public virtual AppUser User { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
-        public virtual HeroType HeroType { get; set; }
-        public GameBlock GabeBlock { get; set; }
+        //public virtual ICollection<Item> Items { get; set; }
+        //public virtual HeroType HeroType { get; set; }
     }
 }

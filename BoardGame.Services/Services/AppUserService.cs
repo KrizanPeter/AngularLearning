@@ -18,8 +18,19 @@ namespace BoardGame.Services.Services
         public async Task<bool> AddServiceToUserAsync(int userId, int sessionId)
         {
             var user = await _uow.AppUsers.GetFirstOrDefault(a => a.Id == userId);
-            user.GameSessionId = sessionId;
+            user.SessionId = sessionId;
             return await _uow.Save();
+        }
+
+        public async Task<Domain.Entities.AppUser> GetAppUser(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                throw new Exception("UserName can not be empty");
+            }
+
+            var user = await _uow.AppUsers.GetFirstOrDefault(a => a.UserName == userName);
+            return user;
         }
 
         public async Task<int> GetAppUserId(string userName)

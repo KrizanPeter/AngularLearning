@@ -23,19 +23,6 @@ namespace BoardGame.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GamePlans",
-                columns: table => new
-                {
-                    GamePlanId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlanSize = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GamePlans", x => x.GamePlanId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HeroTypes",
                 columns: table => new
                 {
@@ -75,6 +62,23 @@ namespace BoardGame.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sessions",
+                columns: table => new
+                {
+                    SessionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SessionPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SessionType = table.Column<int>(type: "int", nullable: false),
+                    PlanSize = table.Column<int>(type: "int", nullable: false),
+                    CenterBlockPosition = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sessions", x => x.SessionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -92,28 +96,6 @@ namespace BoardGame.Domain.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GameSessions",
-                columns: table => new
-                {
-                    GameSessionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GamePlanId = table.Column<int>(type: "int", nullable: false),
-                    SessionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionType = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameSessions", x => x.GameSessionId);
-                    table.ForeignKey(
-                        name: "FK_GameSessions_GamePlans_GamePlanId",
-                        column: x => x.GamePlanId,
-                        principalTable: "GamePlans",
-                        principalColumn: "GamePlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -143,7 +125,7 @@ namespace BoardGame.Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GameSessionId = table.Column<int>(type: "int", nullable: true),
+                    SessionId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -163,38 +145,38 @@ namespace BoardGame.Domain.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_GameSessions_GameSessionId",
-                        column: x => x.GameSessionId,
-                        principalTable: "GameSessions",
-                        principalColumn: "GameSessionId",
+                        name: "FK_AspNetUsers_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Sessions",
+                        principalColumn: "SessionId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameBlocks",
+                name: "Blocks",
                 columns: table => new
                 {
-                    GameBlockId = table.Column<int>(type: "int", nullable: false)
+                    BlockId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GamePlanId = table.Column<int>(type: "int", nullable: false),
-                    HeroId = table.Column<int>(type: "int", nullable: false),
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    BlockPosition = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonsterId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameBlocks", x => x.GameBlockId);
+                    table.PrimaryKey("PK_Blocks", x => x.BlockId);
                     table.ForeignKey(
-                        name: "FK_GameBlocks_GamePlans_GamePlanId",
-                        column: x => x.GamePlanId,
-                        principalTable: "GamePlans",
-                        principalColumn: "GamePlanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GameBlocks_Monsters_MonsterId",
+                        name: "FK_Blocks_Monsters_MonsterId",
                         column: x => x.MonsterId,
                         principalTable: "Monsters",
                         principalColumn: "MonsterId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Blocks_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Sessions",
+                        principalColumn: "SessionId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -289,7 +271,7 @@ namespace BoardGame.Domain.Migrations
                 {
                     HeroId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GameBlockId = table.Column<int>(type: "int", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
                     AppUserId = table.Column<int>(type: "int", nullable: false),
                     HeroTypeId = table.Column<int>(type: "int", nullable: false),
                     HeroName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -305,10 +287,10 @@ namespace BoardGame.Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Heroes_GameBlocks_GameBlockId",
-                        column: x => x.GameBlockId,
-                        principalTable: "GameBlocks",
-                        principalColumn: "GameBlockId");
+                        name: "FK_Heroes_Blocks_BlockId",
+                        column: x => x.BlockId,
+                        principalTable: "Blocks",
+                        principalColumn: "BlockId");
                     table.ForeignKey(
                         name: "FK_Heroes_HeroTypes_HeroTypeId",
                         column: x => x.HeroTypeId,
@@ -324,7 +306,7 @@ namespace BoardGame.Domain.Migrations
                     ItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HeroId = table.Column<int>(type: "int", nullable: false),
-                    GameBlockId = table.Column<int>(type: "int", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
                     ItemTypeId = table.Column<int>(type: "int", nullable: false),
                     ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -332,10 +314,10 @@ namespace BoardGame.Domain.Migrations
                 {
                     table.PrimaryKey("PK_Items", x => x.ItemId);
                     table.ForeignKey(
-                        name: "FK_Items_GameBlocks_GameBlockId",
-                        column: x => x.GameBlockId,
-                        principalTable: "GameBlocks",
-                        principalColumn: "GameBlockId",
+                        name: "FK_Items_Blocks_BlockId",
+                        column: x => x.BlockId,
+                        principalTable: "Blocks",
+                        principalColumn: "BlockId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Items_Heroes_HeroId",
@@ -383,9 +365,9 @@ namespace BoardGame.Domain.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_GameSessionId",
+                name: "IX_AspNetUsers_SessionId",
                 table: "AspNetUsers",
-                column: "GameSessionId");
+                column: "SessionId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -395,19 +377,14 @@ namespace BoardGame.Domain.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameBlocks_GamePlanId",
-                table: "GameBlocks",
-                column: "GamePlanId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GameBlocks_MonsterId",
-                table: "GameBlocks",
+                name: "IX_Blocks_MonsterId",
+                table: "Blocks",
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameSessions_GamePlanId",
-                table: "GameSessions",
-                column: "GamePlanId");
+                name: "IX_Blocks_SessionId",
+                table: "Blocks",
+                column: "SessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Heroes_AppUserId",
@@ -415,9 +392,9 @@ namespace BoardGame.Domain.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Heroes_GameBlockId",
+                name: "IX_Heroes_BlockId",
                 table: "Heroes",
-                column: "GameBlockId");
+                column: "BlockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Heroes_HeroTypeId",
@@ -425,9 +402,9 @@ namespace BoardGame.Domain.Migrations
                 column: "HeroTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_GameBlockId",
+                name: "IX_Items_BlockId",
                 table: "Items",
-                column: "GameBlockId");
+                column: "BlockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_HeroId",
@@ -478,19 +455,16 @@ namespace BoardGame.Domain.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "GameBlocks");
+                name: "Blocks");
 
             migrationBuilder.DropTable(
                 name: "HeroTypes");
 
             migrationBuilder.DropTable(
-                name: "GameSessions");
-
-            migrationBuilder.DropTable(
                 name: "Monsters");
 
             migrationBuilder.DropTable(
-                name: "GamePlans");
+                name: "Sessions");
 
             migrationBuilder.DropTable(
                 name: "MonsterTypes");

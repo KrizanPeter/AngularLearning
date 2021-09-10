@@ -46,7 +46,7 @@ namespace API.Controllers
         //  API Example : { api/user/3 }
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<GameSession>> GetAppUsers(int id)
+        public async Task<ActionResult<Session>> GetAppUsers(int id)
         {
             var user = await _uow.AppUsers.Get(id);
             if (user == null)

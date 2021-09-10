@@ -9,7 +9,7 @@
         <!-- Position Column -->
         <ng-container matColumnDef="gameSessionId">
           <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.gameSessionId}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.sessionId}} </td>
         </ng-container>
       
         <!-- Name Column -->
@@ -19,7 +19,7 @@
         </ng-container>
            
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr class="table-row" [ngClass]="{'table-row-selected': selectedRowIndex == row.gameSessionId}" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+        <tr class="table-row" [ngClass]="{'table-row-selected': selectedRowIndex == row.sessionId}" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
       </table>
     </div>
     <div class="form-group text-center">

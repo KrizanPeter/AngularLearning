@@ -9,14 +9,14 @@ namespace BoardGame.Domain.Entities
     {
         public int ItemId { get; set; }
         public int HeroId { get; set; }
-        public int GameBlockId { get; set; }
+        public int BlockId { get; set; }
         public int ItemTypeId { get; set; }
         public string ItemName { get; set; }
 
         //References
-        public virtual ItemType ItemType { get; set; }
-        public Hero Hero {get; set;}
-        public GameBlock GameBlock { get; set; }
+        //public virtual ItemType ItemType { get; set; }
+        //public Hero Hero {get; set;}
+        //public Block GameBlock { get; set; }
 
     }
 }

@@ -24,6 +24,7 @@ export class SessionService {
   getSessions(){
     return this.http.get(this._con.baseUrl+"session").pipe(
       tap((response: any)=>{
+        console.log("tramtadada");
         console.log(response);
       })
     )

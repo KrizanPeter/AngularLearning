@@ -13,8 +13,7 @@ namespace BoardGame.Domain.Repositories
        {
            _db = context;
            Sessions  = new SessionRepository(_db);
-            AppUsers = new AppUserRepository(_db);
-           
+           AppUsers = new AppUserRepository(_db);          
        }
 
         public ISessionRepository Sessions {get; private set;}

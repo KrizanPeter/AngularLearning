@@ -8,9 +8,9 @@ namespace BoardGame.Domain.Entities
 {
     public class AppUser : IdentityUser<int>
     {
-        public int? GameSessionId { get; set; }
+        public int? SessionId { get; set; }
         public virtual ICollection<AppUserRole> UserRoles { get; set; }
-        public virtual GameSession GameSession { get; set; }
+        public virtual Session Session { get; set; }
 
     }
 }

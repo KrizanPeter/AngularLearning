@@ -29,29 +29,23 @@ namespace API.Entities.Context
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
 
-            builder.Entity<Hero>()
+            /*builder.Entity<Hero>()
                 .HasMany(a => a.Items)
                 .WithOne(a => a.Hero)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<GameBlock>()
-                .HasMany(a => a.Heroes)
-                .WithOne(a => a.GabeBlock)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction);*/
 
         }
 
         public DbSet<Hero> Heroes {get; set;}
         public DbSet<HeroType> HeroTypes { get; set; }
-        public DbSet<GameBlock> GameBlocks { get; set; }
-        public DbSet<GameBlockHall> GameBlockHalls { get; set; }
-        public DbSet<GameBlockRoom> GameBlockRooms { get; set; }
-        public DbSet<GamePlan> GamePlans { get; set; }
+        public DbSet<Block> Blocks { get; set; }
+        public DbSet<BlockHall> BlockHalls { get; set; }
+        public DbSet<BlockRoom> BlockRooms { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Monster> Monsters { get; set; }
         public DbSet<MonsterType> MonsterTypes { get; set; }
-        public DbSet<GameSession> GameSessions { get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
     }
 }

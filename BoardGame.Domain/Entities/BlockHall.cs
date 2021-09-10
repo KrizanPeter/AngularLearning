@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Domain.Entities
 {
-    public class GameBlockHall : GameBlock
+    public class BlockHall : Block
     {
 
     }

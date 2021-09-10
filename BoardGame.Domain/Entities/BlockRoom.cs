@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BoardGame.Domain.Entities
 {
-    public class GameBlockRoom:GameBlock
+    public class BlockRoom:Block
     {
-        public int MonsterId { get; set; }
+        public int? MonsterId { get; set; }
 
         //Reference
         public virtual Monster Monster { get; set; }

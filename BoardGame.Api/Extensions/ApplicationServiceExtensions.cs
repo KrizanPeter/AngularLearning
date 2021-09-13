@@ -1,5 +1,6 @@
-﻿using API.Entities.Context;
-using API.Helpers;
+﻿using API.DtoMappers;
+using API.Entities.Context;
+using BoardGame.Domain.ModelMapperProfile;
 using BoardGame.Domain.Repositories;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Service.Services.AuthServices;
@@ -21,7 +22,8 @@ namespace API.Extensions
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
 
-            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddAutoMapper(typeof(DtoMapperProfile).Assembly);
+            services.AddAutoMapper(typeof(ModelMapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));

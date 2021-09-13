@@ -2,6 +2,7 @@ using API.DTOs.Session;
 using API.Entities.Context;
 using AutoMapper;
 using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Services.Services.AuthServices;
 using BoardGame.Services.Services.Interfaces;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -23,24 +25,24 @@ namespace API.Controllers
     {
         private readonly ILogger<SessionController> _logger;
         public IMapper _mapper { get; }
-        private readonly IUnitOfWork _uow;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly IAppUserService _appUserService;
+        private readonly ISessionService _sessionService;
 
         public SessionController(ILogger<SessionController> logger,
-            IUnitOfWork uow,
             IMapper mapper,
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
-            IAppUserService appUserService)
+            IAppUserService appUserService,
+            ISessionService sessionService)
         {
             _mapper = mapper;
-            _uow = uow;
             _logger = logger;
             _signInManager = signInManager;
             _userManager = userManager;
             _appUserService = appUserService;
+            _sessionService = sessionService;
         }
 
         //  API Example : { api/users }
@@ -48,14 +50,21 @@ namespace API.Controllers
         public async Task<ActionResult> AddSessionAsync([FromBody] CreateSessionDto sessionDto)
         {
             _logger.LogInformation("AddSessionInvoked");
-            Session session = _mapper.Map<Session>(sessionDto);
-
-            _uow.Sessions.Add(session);
-            if (await _uow.Save())
+            
+            if(string.IsNullOrEmpty(sessionDto.SessionName))
             {
-                return Ok();
+                return BadRequest("Session name can not be empty.");
             }
-            return BadRequest();
+
+            SessionModel session = _mapper.Map<SessionModel>(sessionDto);
+
+            var userId = await _appUserService.GetAppUserId(User.GetUserName());
+            var result = await _sessionService.AddSession(userId, session);
+            if(!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+            return Ok();
         }
 
         //  API Example : { api/users }
@@ -63,8 +72,14 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<SessionDto>>> GetSessions()
         {
             _logger.LogInformation("GetSessionInvoked");
-            var sessions = await _uow.Sessions.GetAll();
-            var sessionDtos = _mapper.Map<IEnumerable<SessionDto>>(sessions);
+            var sessions = await _sessionService.GetSessions();
+
+            if(!sessions.Succeeded)
+            {
+                return BadRequest(sessions.Errors);
+            }
+
+            var sessionDtos = _mapper.Map<IEnumerable<SessionDto>>(sessions.Data);
             return Ok(sessionDtos);
         }
 
@@ -73,10 +88,10 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SessionDto>> GetSession(int id)
         {
-            var session = await _uow.Sessions.Get(id);
-            if (session == null)
+            var session = await _sessionService.GetSessionById(id);
+            if (!session.Succeeded)
             {
-                return BadRequest("Session was not found.");
+                return BadRequest(session.Errors);
             }
             var sessionDto = _mapper.Map<SessionDto>(session);
             return Ok(sessionDto);
@@ -91,16 +106,14 @@ namespace API.Controllers
                 return BadRequest("Incorrect session or user.");
             }
             var userId = await _appUserService.GetAppUserId(User.GetUserName());
-            try{
-                await _appUserService.AddServiceToUserAsync(userId, joinDto.SessionId);
-                return Ok(true);
-            }
-            catch
-            {
-                //Todo: replace with correct code
-                return BadRequest(500);
-            }
-        }
 
+            var result = await _appUserService.AddSessionToUserAsync(userId, joinDto.SessionId);
+
+            if(!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+            return Ok(true);
+        }
     }
 }

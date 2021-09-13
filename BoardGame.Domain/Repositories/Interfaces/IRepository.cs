@@ -23,6 +23,6 @@ namespace BoardGame.Domain.Repositories.Interfaces
         void Add(T entity);
         void Remove(int id);
         void Remove(T entity);
-        
+        void Save(); 
     }
 }

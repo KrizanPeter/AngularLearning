@@ -1,4 +1,6 @@
 ﻿using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
+using BoardGame.Services.ReturnStates;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +10,9 @@ namespace BoardGame.Services.Services.Interfaces
 {
     public interface ISessionService
     {
-        Session LoadOrFillSessionAsync(int sessionId);
+        Task<OperationalResult<SessionModel>> LoadSessionAsync(int sessionId);
+        Task<OperationalResult> AddSession(int userId, SessionModel session);
+        Task<OperationalResult<IEnumerable<SessionModel>>> GetSessions();
+        Task<OperationalResult<SessionModel>> GetSessionById(int id);
     }
 }

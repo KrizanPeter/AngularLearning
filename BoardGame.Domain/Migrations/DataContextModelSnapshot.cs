@@ -142,23 +142,31 @@ namespace BoardGame.Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BlockPosition")
+                    b.Property<int>("BlockDirection")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BlockPositionX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockPositionY")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonsterId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
                     b.HasKey("BlockId");
 
+                    b.HasIndex("MonsterId");
+
                     b.HasIndex("SessionId");
 
                     b.ToTable("Blocks");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Block");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
@@ -188,8 +196,6 @@ namespace BoardGame.Domain.Migrations
                     b.HasIndex("AppUserId");
 
                     b.HasIndex("BlockId");
-
-                    b.HasIndex("HeroTypeId");
 
                     b.ToTable("Heroes");
                 });
@@ -231,10 +237,6 @@ namespace BoardGame.Domain.Migrations
                     b.HasKey("ItemId");
 
                     b.HasIndex("BlockId");
-
-                    b.HasIndex("HeroId");
-
-                    b.HasIndex("ItemTypeId");
 
                     b.ToTable("Items");
                 });
@@ -402,29 +404,10 @@ namespace BoardGame.Domain.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.BlockHall", b =>
-                {
-                    b.HasBaseType("BoardGame.Domain.Entities.Block");
-
-                    b.HasDiscriminator().HasValue("BlockHall");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.BlockRoom", b =>
-                {
-                    b.HasBaseType("BoardGame.Domain.Entities.Block");
-
-                    b.Property<int?>("MonsterId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("MonsterId");
-
-                    b.HasDiscriminator().HasValue("BlockRoom");
-                });
-
             modelBuilder.Entity("BoardGame.Domain.Entities.AppUser", b =>
                 {
                     b.HasOne("BoardGame.Domain.Entities.Session", "Session")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("SessionId");
 
                     b.Navigation("Session");
@@ -451,13 +434,17 @@ namespace BoardGame.Domain.Migrations
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Block", b =>
                 {
-                    b.HasOne("BoardGame.Domain.Entities.Session", "Session")
+                    b.HasOne("BoardGame.Domain.Entities.Monster", "Monster")
+                        .WithMany()
+                        .HasForeignKey("MonsterId");
+
+                    b.HasOne("BoardGame.Domain.Entities.Session", null)
                         .WithMany("Blocks")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Session");
+                    b.Navigation("Monster");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
@@ -468,50 +455,22 @@ namespace BoardGame.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BoardGame.Domain.Entities.Block", "Block")
+                    b.HasOne("BoardGame.Domain.Entities.Block", null)
                         .WithMany("Heroes")
                         .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("BoardGame.Domain.Entities.HeroType", "HeroType")
-                        .WithMany()
-                        .HasForeignKey("HeroTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Block");
-
-                    b.Navigation("HeroType");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Item", b =>
                 {
-                    b.HasOne("BoardGame.Domain.Entities.Block", "GameBlock")
+                    b.HasOne("BoardGame.Domain.Entities.Block", null)
                         .WithMany("Items")
                         .HasForeignKey("BlockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BoardGame.Domain.Entities.Hero", "Hero")
-                        .WithMany("Items")
-                        .HasForeignKey("HeroId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("BoardGame.Domain.Entities.ItemType", "ItemType")
-                        .WithMany()
-                        .HasForeignKey("ItemTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GameBlock");
-
-                    b.Navigation("Hero");
-
-                    b.Navigation("ItemType");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Monster", b =>
@@ -561,15 +520,6 @@ namespace BoardGame.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.BlockRoom", b =>
-                {
-                    b.HasOne("BoardGame.Domain.Entities.Monster", "Monster")
-                        .WithMany()
-                        .HasForeignKey("MonsterId");
-
-                    b.Navigation("Monster");
-                });
-
             modelBuilder.Entity("BoardGame.Domain.Entities.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -587,16 +537,9 @@ namespace BoardGame.Domain.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
-                {
-                    b.Navigation("Items");
-                });
-
             modelBuilder.Entity("BoardGame.Domain.Entities.Session", b =>
                 {
                     b.Navigation("Blocks");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

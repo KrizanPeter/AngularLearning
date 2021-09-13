@@ -1,4 +1,5 @@
 ﻿using BoardGame.Domain.Repositories.Interfaces;
+using BoardGame.Services.ReturnStates;
 using BoardGame.Services.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,25 @@ namespace BoardGame.Services.Services
 {
     public class AppUserService : IAppUserService
     {
-        private readonly IUnitOfWork _uow;
-        public AppUserService(IUnitOfWork uow)
+        private readonly IAppUserRepository _appUserRepository;
+        public AppUserService(IAppUserRepository appUserRepository)
         {
-            _uow = uow;
+            _appUserRepository = appUserRepository;
         }
 
-        public async Task<bool> AddServiceToUserAsync(int userId, int sessionId)
+        public Task<OperationalResult> AddAppUser(Domain.Entities.AppUser user)
         {
-            var user = await _uow.AppUsers.GetFirstOrDefault(a => a.Id == userId);
+            _appUserRepository.Add(user);
+            _appUserRepository.Save();
+            return Task.FromResult(OperationalResult.Success());
+        }
+
+        public async Task<OperationalResult> AddSessionToUserAsync(int userId, int sessionId)
+        {
+            var user = await _appUserRepository.GetFirstOrDefault(a => a.Id == userId);
             user.SessionId = sessionId;
-            return await _uow.Save();
+            _appUserRepository.Save();
+            return OperationalResult.Success();
         }
 
         public async Task<Domain.Entities.AppUser> GetAppUser(string userName)
@@ -29,8 +38,14 @@ namespace BoardGame.Services.Services
                 throw new Exception("UserName can not be empty");
             }
 
-            var user = await _uow.AppUsers.GetFirstOrDefault(a => a.UserName == userName);
+            var user = await _appUserRepository.GetFirstOrDefault(a => a.UserName == userName);
             return user;
+        }
+
+        public async Task<OperationalResult> GetAppUser(int id)
+        {
+            var result = await _appUserRepository.GetFirstOrDefault(a => a.Id == id);
+            return new OperationalResult<Domain.Entities.AppUser>(result);
         }
 
         public async Task<int> GetAppUserId(string userName)
@@ -40,7 +55,7 @@ namespace BoardGame.Services.Services
                 throw new Exception("UserName can not be empty");
             }
 
-            var user = await _uow.AppUsers.GetFirstOrDefault(a => a.UserName == userName);
+            var user = await _appUserRepository.GetFirstOrDefault(a => a.UserName == userName);
             return user.Id;
         }
 

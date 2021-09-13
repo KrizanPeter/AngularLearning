@@ -159,9 +159,11 @@ namespace BoardGame.Domain.Migrations
                     BlockId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SessionId = table.Column<int>(type: "int", nullable: false),
-                    BlockPosition = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MonsterId = table.Column<int>(type: "int", nullable: true)
+                    MonsterId = table.Column<int>(type: "int", nullable: true),
+                    BlockPositionX = table.Column<int>(type: "int", nullable: false),
+                    BlockPositionY = table.Column<int>(type: "int", nullable: false),
+                    BlockType = table.Column<int>(type: "int", nullable: false),
+                    BlockDirection = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -290,12 +292,7 @@ namespace BoardGame.Domain.Migrations
                         name: "FK_Heroes_Blocks_BlockId",
                         column: x => x.BlockId,
                         principalTable: "Blocks",
-                        principalColumn: "BlockId");
-                    table.ForeignKey(
-                        name: "FK_Heroes_HeroTypes_HeroTypeId",
-                        column: x => x.HeroTypeId,
-                        principalTable: "HeroTypes",
-                        principalColumn: "HeroTypeId",
+                        principalColumn: "BlockId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -318,17 +315,6 @@ namespace BoardGame.Domain.Migrations
                         column: x => x.BlockId,
                         principalTable: "Blocks",
                         principalColumn: "BlockId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Items_Heroes_HeroId",
-                        column: x => x.HeroId,
-                        principalTable: "Heroes",
-                        principalColumn: "HeroId");
-                    table.ForeignKey(
-                        name: "FK_Items_ItemTypes_ItemTypeId",
-                        column: x => x.ItemTypeId,
-                        principalTable: "ItemTypes",
-                        principalColumn: "ItemTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -397,24 +383,9 @@ namespace BoardGame.Domain.Migrations
                 column: "BlockId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Heroes_HeroTypeId",
-                table: "Heroes",
-                column: "HeroTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Items_BlockId",
                 table: "Items",
                 column: "BlockId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_HeroId",
-                table: "Items",
-                column: "HeroId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_ItemTypeId",
-                table: "Items",
-                column: "ItemTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Monsters_MonsterTypeId",
@@ -440,25 +411,25 @@ namespace BoardGame.Domain.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Items");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
                 name: "Heroes");
 
             migrationBuilder.DropTable(
+                name: "HeroTypes");
+
+            migrationBuilder.DropTable(
+                name: "Items");
+
+            migrationBuilder.DropTable(
                 name: "ItemTypes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Blocks");
-
-            migrationBuilder.DropTable(
-                name: "HeroTypes");
 
             migrationBuilder.DropTable(
                 name: "Monsters");

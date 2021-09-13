@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import {MatTableModule} from '@angular/material/table';
 import { HeaderInterceptor } from './_auth/HeaderInterceptor';
+import { GameBlockComponent } from './game/components/game-block/game-block.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { HeaderInterceptor } from './_auth/HeaderInterceptor';
     LeaderBoardComponent,
     CreateGameComponent,
     JoinToGameComponent,
+    GameBlockComponent,
   ],
   imports: [
     BrowserModule,

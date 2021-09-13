@@ -42,8 +42,8 @@ namespace BoardGame.Api.Controllers
                 return BadRequest("User has no active session");
             }
 
-            var result = _sessionService.LoadOrFillSessionAsync(user.SessionId?? default(int));
-            return Ok(result);
+            var result = await _sessionService.LoadSessionAsync(user.SessionId?? default(int));
+            return Ok(result.Data);
           
         }
     }

@@ -39,8 +39,6 @@ namespace API.Entities.Context
         public DbSet<Hero> Heroes {get; set;}
         public DbSet<HeroType> HeroTypes { get; set; }
         public DbSet<Block> Blocks { get; set; }
-        public DbSet<BlockHall> BlockHalls { get; set; }
-        public DbSet<BlockRoom> BlockRooms { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Monster> Monsters { get; set; }

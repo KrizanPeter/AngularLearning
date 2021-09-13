@@ -1,12 +1,11 @@
 ﻿using BoardGame.Domain.Entities.EntityEnums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace BoardGame.Domain.Entities
+namespace BoardGame.Domain.Models
 {
-    public class Block
+    public class BlockModel
     {
         public int BlockId { get; set; }
         public int SessionId { get; set; }
@@ -14,12 +13,6 @@ namespace BoardGame.Domain.Entities
         public int BlockPositionX { get; set; }
         public int BlockPositionY { get; set; }
         public BlockType BlockType { get; set; }
-        public BlockDirection BlockDirection{get; set;}
-
-
-        //Reference
-        public virtual Monster Monster { get; set; }
-        public virtual ICollection<Hero> Heroes { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
+        public BlockDirection BlockDirection { get; set; }
     }
 }

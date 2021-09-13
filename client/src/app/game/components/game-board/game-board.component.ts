@@ -22,7 +22,5 @@ export class GameBoardComponent implements OnInit {
       console.log(error);
       this.toastr.error(error.error);
     });
-
-    
   }
 }

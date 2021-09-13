@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using API.Entities.Context;
+using AutoMapper;
 using BoardGame.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -82,6 +83,11 @@ namespace BoardGame.Domain.Repositories
         public void Remove(T entity)
         {
             dbSet.Remove(entity);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

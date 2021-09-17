@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SessionService } from 'src/app/new-game/services/session-service.service';
-import { SessionDto } from 'src/app/_models/sessionDto';
+import { SessionDto } from 'src/app/_models/SessionDtos/sessionDto';
 
 @Component({
   selector: 'app-create-game',

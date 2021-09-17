@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatTableModule} from '@angular/material/table';
 import { HeaderInterceptor } from './_auth/HeaderInterceptor';
 import { GameBlockComponent } from './game/components/game-block/game-block.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { GameBlockComponent } from './game/components/game-block/game-block.comp
     NgbModule,
     FormsModule,
     MatTableModule,
+    FontAwesomeModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     })

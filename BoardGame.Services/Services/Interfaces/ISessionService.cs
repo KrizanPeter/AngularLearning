@@ -10,7 +10,7 @@ namespace BoardGame.Services.Services.Interfaces
 {
     public interface ISessionService
     {
-        Task<OperationalResult<SessionModel>> LoadSessionAsync(int sessionId);
+        Task<OperationalResult<SessionModel>> LoadSessionAsync(int sessionId, int startX, int startY, int endX, int endY);
         Task<OperationalResult> AddSession(int userId, SessionModel session);
         Task<OperationalResult<IEnumerable<SessionModel>>> GetSessions();
         Task<OperationalResult<SessionModel>> GetSessionById(int id);

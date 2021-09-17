@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210913131413_InitialMigration")]
+    [Migration("20210913205458_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,9 @@ namespace BoardGame.Domain.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BlockDirection")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("BlockPositionX")

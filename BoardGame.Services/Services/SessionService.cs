@@ -59,9 +59,9 @@ namespace BoardGame.Services.Services
             return new OperationalResult<IEnumerable<SessionModel>>(sessionsModel);
         }
 
-        public Task<OperationalResult<SessionModel>> LoadSessionAsync(int sessionId)
+        public Task<OperationalResult<SessionModel>> LoadSessionAsync(int sessionId, int startX, int startY, int endX, int endY)
         {
-            var session = _sessionRepository.GetSessionWithBlocks(sessionId);
+            var session = _sessionRepository.GetSessionWithBlocks(sessionId, startX, startY, endX, endY);
             if (session == null)
             {
                 return Task.FromResult(OperationalResult.Failed<SessionModel>(new OperationalError(HttpStatusCode.NotFound, "Session not found")));
@@ -74,6 +74,7 @@ namespace BoardGame.Services.Services
         {
 
             session.Blocks = new List<Block>();
+            int blockOrder = 1;
             for (int i = 1; i <= (int)session.PlanSize; i++)
             {
                 for (int j = 1; j <= (int)session.PlanSize; j++)
@@ -81,8 +82,9 @@ namespace BoardGame.Services.Services
                     {
                         SessionId = session.SessionId,
                         BlockType = Domain.Entities.EntityEnums.BlockType.Hidden,
-                        BlockPositionX = i,
-                        BlockPositionY = j,
+                        BlockPositionX = j,
+                        BlockPositionY = i,
+                        BlockOrder = blockOrder++
                     });
                 ;
             }

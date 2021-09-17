@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { Connections } from 'src/app/_conf/connections';
-import { SessionDto } from 'src/app/_models/sessionDto';
+import { IngameSessionDto } from 'src/app/_models/SessionDtos/ingameSessionDto';
+import { SessionDto } from 'src/app/_models/SessionDtos/sessionDto';
 import { UserDto } from 'src/app/_models/userDto';
 
 @Injectable({
@@ -23,9 +24,7 @@ export class SessionService {
 
   getSessions(){
     return this.http.get(this._con.baseUrl+"session").pipe(
-      tap((response: any)=>{
-        console.log("tramtadada");
-        console.log(response);
+      tap((response: IngameSessionDto)=>{
       })
     )
   }

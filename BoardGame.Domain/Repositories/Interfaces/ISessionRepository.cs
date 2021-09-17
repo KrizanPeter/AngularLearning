@@ -7,6 +7,6 @@ namespace BoardGame.Domain.Repositories.Interfaces
 {
     public interface ISessionRepository : IRepository<Session>
     {
-        SessionModel GetSessionWithBlocks(int sessionId);
+        SessionModel GetSessionWithBlocks(int sessionId, int startX, int startY, int endX, int endY);
     }
 }

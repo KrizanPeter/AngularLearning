@@ -162,6 +162,7 @@ namespace BoardGame.Domain.Migrations
                     MonsterId = table.Column<int>(type: "int", nullable: true),
                     BlockPositionX = table.Column<int>(type: "int", nullable: false),
                     BlockPositionY = table.Column<int>(type: "int", nullable: false),
+                    BlockOrder = table.Column<int>(type: "int", nullable: false),
                     BlockType = table.Column<int>(type: "int", nullable: false),
                     BlockDirection = table.Column<int>(type: "int", nullable: false)
                 },

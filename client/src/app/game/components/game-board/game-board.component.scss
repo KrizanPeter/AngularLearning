@@ -1,0 +1,118 @@
+.game-container{
+    width: 100%;
+    height: 100%;
+    padding-top: 75px;
+
+    @media (min-width: 1800px) and (max-width:2000px )  {
+        background-image: url("../../../_images/home/background1920x1080.jpg");
+    }
+
+    @media (min-width: 2000px) and (max-width:2561px )  {
+        background-image: url("../../../_images/home/background2560x1080.jpg");
+    }
+
+    
+    @media (min-width: 2561px) and (max-width:4000px )  {
+        background-image: url("../../../_images/home/background3840x2160.jpg");
+    }
+}
+
+.map-wrapper{
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 3px transparent solid;
+
+    @media (min-width: 1800px) and (max-width:2000px )  {
+        width: 1450px;
+    }
+
+    @media (min-width: 2000px) and (max-width:2561px )  {
+        width: 1450px;
+    }
+
+    
+    @media (min-width: 2561px) and (max-width:4000px )  {
+        width: 1450px;
+    }
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.game-plan{
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 3px #212529 solid;
+
+    @media (min-width: 1800px) and (max-width:2000px )  {
+        width: 1266px;
+        height: auto;
+    }
+
+    @media (min-width: 2000px) and (max-width:2561px )  {
+        width: 1266px;
+        height: auto;
+    }
+
+    
+    @media (min-width: 2561px) and (max-width:4000px )  {
+        width: 1266px;
+        height: auto;
+    }
+
+    background-color: #212529!important;
+    opacity: 0.8;
+
+}
+
+.plan-row-arrow{
+    display: inline-flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-block{
+    width: 140px;
+    height: 140px;
+    border: 3px #212529 solid;
+    padding:0px;
+    margin:0px;
+}
+
+.game-block:hover{
+    transition: transform .4s; 
+    transform: scale(1.1);
+    border: 4px black solid;
+}
+
+.game-plan-row{
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.map-button{
+    background-color: #212529;
+    opacity: 0.8;
+    color: white;
+}
+
+.horizontal{
+    padding: 0px;
+    width: 60px;
+    margin-left: 15px;
+    margin-right: 15px;
+
+}
+.vertical{
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 0px;
+    width: calc(100% - 30px);
+    height: 60px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+

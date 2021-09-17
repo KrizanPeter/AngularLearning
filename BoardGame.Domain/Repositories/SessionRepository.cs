@@ -21,12 +21,22 @@ namespace BoardGame.Domain.Repositories
             _mapper = mapper;
         }
 
-        public SessionModel GetSessionWithBlocks(int sessionId)
+        public SessionModel GetSessionWithBlocks(int sessionId, int startX, int startY, int endX, int endY)
         {
             var result = _db.Sessions
                 .Where(a => a.SessionId == sessionId)
                 .Include(a => a.Blocks)
-                .SingleOrDefault();
+                .Select(
+                c => new Session()
+                {
+                    Blocks = c.Blocks.Where(a => (a.BlockPositionX >= startX && a.BlockPositionX <= endX) && (a.BlockPositionY >= startY && a.BlockPositionY <= endY)).OrderBy(a=>a.BlockOrder).ToList(),
+                    CenterBlockPosition = c.CenterBlockPosition,
+                    PlanSize = c.PlanSize,
+                    SessionId = c.SessionId,
+                    SessionName = c.SessionName,
+                    SessionPassword = c.SessionPassword,
+                    SessionType = c.SessionType,
+                }).SingleOrDefault();
 
             var sessionModel = _mapper.Map<SessionModel>(result);
 

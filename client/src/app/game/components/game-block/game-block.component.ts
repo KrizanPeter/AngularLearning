@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
+import { BlockType } from 'src/app/_models/enums/enumsDtos';
 
 @Component({
   selector: 'app-game-block',
@@ -6,10 +8,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-block.component.scss']
 })
 export class GameBlockComponent implements OnInit {
-
+  @Input() blockComponentData: IngameBlockDto;
+  blockBackgroundClass = "";
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.blockComponentData);
+    this.imageBlockSetup();
+  }
+
+  imageBlockSetup(){
+    console.log('Invoked block setup')
+    if(this.blockComponentData.blockType.valueOf() === BlockType.Hidden.valueOf())
+    {
+      this.blockBackgroundClass = 'hidden-block';
+      console.log(this.blockBackgroundClass);
+    }
+    else if(this.blockComponentData.valueOf() === BlockType.Hidden.valueOf())
+    {
+      this.blockBackgroundClass = 'hidden-block';
+    }
+    else if(this.blockComponentData.valueOf() === BlockType.Hidden.valueOf())
+    {
+      this.blockBackgroundClass = 'hidden-block';
+    }
   }
 
 }

@@ -1,4 +1,5 @@
-﻿using BoardGame.Domain.Entities.EntityEnums;
+﻿using BoardGame.Api.DTOs.Block;
+using BoardGame.Domain.Entities.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace BoardGame.Api.DTOs.Session
         public PlanSize PlanSize { get; set; }
         public int CenterBlockPosition { get; set; }
 
-        //public IEnumerable<GameBlockDto>
+        public ICollection<GameBlockDto> Blocks { get; set; }
+        public ICollection<ICollection<GameBlockDto>> BlocksShape { get; set; }
     }
 }

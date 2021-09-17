@@ -145,6 +145,9 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("BlockDirection")
                         .HasColumnType("int");
 
+                    b.Property<int>("BlockOrder")
+                        .HasColumnType("int");
+
                     b.Property<int>("BlockPositionX")
                         .HasColumnType("int");
 

@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using BoardGame.Api.DTOs.Block;
+using BoardGame.Api.DTOs.CoreGame;
+using BoardGame.Api.DTOs.Session;
 using BoardGame.Domain.Entities.EntityEnums;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Services.Services.AuthServices;
@@ -32,8 +35,8 @@ namespace BoardGame.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("loadgame")]
-        public async Task<ActionResult> LoadSessionAsync()
+        [HttpPost("loadgame")]
+        public async Task<ActionResult> LoadSessionAsync(DeckWindowDto deckWindowDto)
         {
             var user = await _appUserService.GetAppUser(User.GetUserName());
 
@@ -42,8 +45,12 @@ namespace BoardGame.Api.Controllers
                 return BadRequest("User has no active session");
             }
 
-            var result = await _sessionService.LoadSessionAsync(user.SessionId?? default(int));
-            return Ok(result.Data);
+            var result = await _sessionService.LoadSessionAsync(user.SessionId?? default(int), deckWindowDto.startX, deckWindowDto.startY, deckWindowDto.endX, deckWindowDto.endY);
+
+            var dto = _mapper.Map<GameSessionDto>(result.Data);
+            dto.BlocksShape = _mapper.Map<ICollection<ICollection<GameBlockDto>>>(result.Data.ConstructTwoDimensionalBoard());
+            dto.Blocks = null;
+            return Ok(dto);
           
         }
     }

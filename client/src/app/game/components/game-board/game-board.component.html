@@ -1,1 +1,25 @@
-<p>game-board works!</p>
+<div class="game-container">
+    <div class="map-wrapper">
+        <button class="map-button vertical" (click)="moveUp()">
+            <fa-icon [icon]="arrowUp"></fa-icon>
+        </button>
+        <div class="plan-row-arrow m-0 p-0">
+            <button class="map-button horizontal" (click)="moveLeft()">
+                <fa-icon [icon]="arrowLeft"></fa-icon>
+            </button>
+            <div class="game-plan col col-12">
+                <div class="game-plan-row row" *ngFor="let row of sessionData.blocksShape">
+                    <app-game-block class="game-block" *ngFor="let element of row" [blockComponentData]="element">
+
+                    </app-game-block>
+                </div>
+            </div>
+            <button class="map-button horizontal"  (click)="moveRight()">
+                <fa-icon [icon]="arrowRight"></fa-icon>
+            </button>
+        </div>
+        <button class="map-button vertical" (click)="moveDown()">
+            <fa-icon [icon]="arrowDown"></fa-icon>
+        </button>
+    </div>
+</div>

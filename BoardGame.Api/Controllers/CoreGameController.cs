@@ -51,7 +51,13 @@ namespace BoardGame.Api.Controllers
             dto.BlocksShape = _mapper.Map<ICollection<ICollection<GameBlockDto>>>(result.Data.ConstructTwoDimensionalBoard());
             dto.Blocks = null;
             return Ok(dto);
-          
+        }
+
+        [Authorize]
+        [HttpPost("pickhero")]
+        public async Task<ActionResult> PickHeroAsync()
+        {
+
         }
     }
 }

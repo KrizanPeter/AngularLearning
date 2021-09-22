@@ -23,6 +23,7 @@ import {MatTableModule} from '@angular/material/table';
 import { HeaderInterceptor } from './_auth/HeaderInterceptor';
 import { GameBlockComponent } from './game/components/game-block/game-block.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-layout/choose-hero-layout.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CreateGameComponent,
     JoinToGameComponent,
     GameBlockComponent,
+    ChooseHeroLayoutComponent,
   ],
   imports: [
     BrowserModule,

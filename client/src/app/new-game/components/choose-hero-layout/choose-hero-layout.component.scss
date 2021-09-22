@@ -1,0 +1,128 @@
+.background-container{
+    width: 100%;
+    height: 100%;
+
+    @media (min-width: 1800px) and (max-width:2000px )  {
+        background-image: url("../../../_images/home/background1920x1080.jpg");
+    }
+
+    @media (min-width: 2000px) and (max-width:2561px )  {
+        background-image: url("../../../_images/home/background2560x1080.jpg");
+    }
+
+    
+    @media (min-width: 2561px) and (max-width:4000px )  {
+        background-image: url("../../../_images/home/background3840x2160.jpg");
+    }
+}
+
+.center-window{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 38%;
+    @media (min-width: 1800px) and (max-width:1999px )  {
+        width: 75%;
+    }
+
+    @media (min-width: 2000px) and (max-width:2561px )  {
+        width: 60%;
+    }
+
+    height: 70%;
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+
+    padding: 20px;
+    position: absolute;
+
+    margin: auto;
+    background-color:  rgba(33, 37, 41, 0.8) ;
+    border: #212529  0px solid;
+    border-radius: 15px;
+}
+
+.hero-name{
+    padding: 20px 10px 0px 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    //margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    border-bottom: white 1px solid;
+}
+
+.hero-window{
+    display: grid;
+    grid-template-rows: 15% 75% 10%;
+    margin: 20px 20px 20px 20px;
+    background-color:  rgba(33, 37, 41, 0.8);
+    border-radius: 10px;
+}
+
+.hero-image-warlock{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 430px;
+    border-radius: 10px;
+    background-image: url("../../../_images/gameboard/hero/Warlock.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.hero-image-thief{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 430px;
+    border-radius: 10px;
+    background-image: url("../../../_images/gameboard/hero/Thief.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.hero-image-oracle{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 430px;
+    border-radius: 10px;
+    background-image: url("../../../_images/gameboard/hero/Oracle.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.hero-image-swordsman{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 430px;
+    border-radius: 10px;
+    background-image: url("../../../_images/gameboard/hero/Swordsman.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.button-section{
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn-join{
+    font-size: 24px;
+    border: #3c1711 1px solid;
+    background-color: #501f16cc;
+    color: #fff;
+    transition: transform .3s;
+    width:100%;
+    height:75%;
+    border-radius:5px;
+}
+
+.btn-join:hover{
+    background-color:  #3c1710;
+}

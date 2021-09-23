@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BoardGame.Api.DTOs.Block;
 using BoardGame.Api.DTOs.CoreGame;
+using BoardGame.Api.DTOs.Hero;
 using BoardGame.Api.DTOs.Session;
 using BoardGame.Domain.Entities.EntityEnums;
 using BoardGame.Domain.Repositories.Interfaces;
@@ -25,13 +26,29 @@ namespace BoardGame.Api.Controllers
         public IMapper _mapper { get; }
         private readonly IAppUserService _appUserService;
         private readonly ISessionService _sessionService;
+        private readonly IHeroService _heroService;
 
-        public CoreGameController(ILogger<CoreGameController> logger, IMapper mapper, IAppUserService appUserService, ISessionService sessionService)
+        public CoreGameController(
+            ILogger<CoreGameController> logger,
+            IMapper mapper, 
+            IAppUserService appUserService,
+            ISessionService sessionService,
+            IHeroService heroService)
         {
             _logger = logger;
             _mapper = mapper;
             _appUserService = appUserService;
             _sessionService = sessionService;
+            _heroService = heroService;
+        }
+
+        [Authorize]
+        [HttpPost("pickhero")]
+        public async Task<ActionResult> PickHeroAsync(PickHeroDto pickHeroDto)
+        {
+            var user = await _appUserService.GetAppUser(User.GetUserName());
+            var result = _heroService.CreateHero(user, pickHeroDto.HeroType);
+            return Ok();
         }
 
         [Authorize]
@@ -51,13 +68,6 @@ namespace BoardGame.Api.Controllers
             dto.BlocksShape = _mapper.Map<ICollection<ICollection<GameBlockDto>>>(result.Data.ConstructTwoDimensionalBoard());
             dto.Blocks = null;
             return Ok(dto);
-        }
-
-        [Authorize]
-        [HttpPost("pickhero")]
-        public async Task<ActionResult> PickHeroAsync()
-        {
-
         }
     }
 }

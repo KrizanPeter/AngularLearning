@@ -29,3 +29,11 @@ export enum BlockDirection
     TopLeft,
     Cross,
 }
+
+export enum HeroType
+{
+    Warlock,
+    Thief,
+    Swordsman,
+    Oracle
+}

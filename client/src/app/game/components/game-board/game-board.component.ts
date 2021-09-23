@@ -17,10 +17,10 @@ export class GameBoardComponent implements OnInit {
 
   sessionData : IngameSessionDto;
   renderWindow: BlockWindow  = {
-    startX : 1,
-    startY: 1,
-    endX: 9,
-    endY: 5
+    startX : 7,
+    startY: 9,
+    endX: 15,
+    endY: 13
   }
   constructor(private gameBoardService : GameBoardService, private toastr: ToastrService) { }
 

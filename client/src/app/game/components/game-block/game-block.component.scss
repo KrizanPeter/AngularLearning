@@ -6,5 +6,26 @@
 }
 
 .hidden-block{
-    background-image: url("../../../_images/gameboard/gameblock-background.png");
+    background-image: url("../../../../assets/images/gameboard/gameblock-background.png");
+
+}
+
+.room-block{
+    background-image: url("../../../../assets/images/gameboard/gameblock-X-room.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.player-hero{
+    position:relative;
+    top:30px;
+    left:30px;
+    width: 70px;
+    height: 70px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    border: solid 1px gray;
+    border-radius: 5px;
 }

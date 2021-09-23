@@ -1,6 +1,7 @@
 using API.Entities.Context;
 using AutoMapper;
 using BoardGame.Domain.Entities;
+using BoardGame.Domain.Entities.EntityEnums;
 using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace BoardGame.Domain.Repositories
             var result = _db.Sessions
                 .Where(a => a.SessionId == sessionId)
                 .Include(a => a.Blocks)
+                .ThenInclude(b=>b.Heroes)
                 .Select(
                 c => new Session()
                 {
@@ -36,11 +38,22 @@ namespace BoardGame.Domain.Repositories
                     SessionName = c.SessionName,
                     SessionPassword = c.SessionPassword,
                     SessionType = c.SessionType,
-                }).SingleOrDefault();
+
+                })
+                .SingleOrDefault();
 
             var sessionModel = _mapper.Map<SessionModel>(result);
 
             return sessionModel;
+        }
+
+        public PlanSize GetSizeOfSession(int? sessionId)
+        {
+            var result = _db.Sessions
+                .Where(a => a.SessionId == sessionId)
+                .SingleOrDefault();
+
+            return result.PlanSize;
         }
     }
 }

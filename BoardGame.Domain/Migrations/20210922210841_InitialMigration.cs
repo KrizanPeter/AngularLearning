@@ -23,19 +23,6 @@ namespace BoardGame.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HeroTypes",
-                columns: table => new
-                {
-                    HeroTypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HeroTypes", x => x.HeroTypeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ItemTypes",
                 columns: table => new
                 {
@@ -278,6 +265,8 @@ namespace BoardGame.Domain.Migrations
                     AppUserId = table.Column<int>(type: "int", nullable: false),
                     HeroTypeId = table.Column<int>(type: "int", nullable: false),
                     HeroName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HeroType = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lives = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -413,9 +402,6 @@ namespace BoardGame.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Heroes");
-
-            migrationBuilder.DropTable(
-                name: "HeroTypes");
 
             migrationBuilder.DropTable(
                 name: "Items");

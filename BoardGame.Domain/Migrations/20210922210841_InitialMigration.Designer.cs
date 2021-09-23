@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210913205458_InitialMigration")]
+    [Migration("20210922210841_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,8 +190,14 @@ namespace BoardGame.Domain.Migrations
                     b.Property<string>("HeroName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HeroType")
+                        .HasColumnType("int");
+
                     b.Property<int>("HeroTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Lives")
                         .HasColumnType("int");
@@ -203,21 +209,6 @@ namespace BoardGame.Domain.Migrations
                     b.HasIndex("BlockId");
 
                     b.ToTable("Heroes");
-                });
-
-            modelBuilder.Entity("BoardGame.Domain.Entities.HeroType", b =>
-                {
-                    b.Property<int>("HeroTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HeroTypeId");
-
-                    b.ToTable("HeroTypes");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Item", b =>

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BoardGame.Domain.Entities
+namespace BoardGame.Api.DTOs.Hero
 {
-    public class Hero
+    public class GameHeroDto
     {
         public int HeroId { get; set; }
         public int BlockId { get; set; }
@@ -16,10 +16,5 @@ namespace BoardGame.Domain.Entities
         public HeroType HeroType { get; set; }
         public string ImagePath { get; set; }
         public int Lives { get; set; }
-
-        //References
-        public virtual AppUser User { get; set; }
-        //public virtual ICollection<Item> Items { get; set; }
-        //public virtual HeroType HeroType { get; set; }
     }
 }

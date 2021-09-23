@@ -1,4 +1,5 @@
-﻿using BoardGame.Domain.Entities.EntityEnums;
+﻿using BoardGame.Api.DTOs.Hero;
+using BoardGame.Domain.Entities.EntityEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace BoardGame.Api.DTOs.Block
 
         public BlockType BlockType { get; set; }
         public BlockDirection BlockDirection { get; set; }
+
+        public ICollection<GameHeroDto> Heroes { get; set; }
+
     }
 }

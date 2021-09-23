@@ -1,4 +1,5 @@
 import { BlockDirection, BlockType } from "../enums/enumsDtos";
+import { IngameHeroDto } from "../HeroDtos/ingameHeroDto";
 
 export interface IngameBlockDto{
     blockId : number
@@ -9,4 +10,5 @@ export interface IngameBlockDto{
     blockOrder: number
     blockType : BlockType
     blockDirection : BlockDirection
+    heroes: IngameHeroDto[]
 }

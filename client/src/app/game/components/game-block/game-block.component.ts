@@ -24,11 +24,13 @@ export class GameBlockComponent implements OnInit {
       this.blockBackgroundClass = 'hidden-block';
       console.log(this.blockBackgroundClass);
     }
-    else if(this.blockComponentData.valueOf() === BlockType.Hidden.valueOf())
+    else if(this.blockComponentData.blockType.valueOf() === BlockType.Room.valueOf())
     {
-      this.blockBackgroundClass = 'hidden-block';
+      console.log("STREDDDDD<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+      this.blockBackgroundClass = 'room-block';
+      console.log(this.blockComponentData.heroes[0].imagePath)
     }
-    else if(this.blockComponentData.valueOf() === BlockType.Hidden.valueOf())
+    else if(this.blockComponentData.blockType.valueOf() === BlockType.Hidden.valueOf())
     {
       this.blockBackgroundClass = 'hidden-block';
     }

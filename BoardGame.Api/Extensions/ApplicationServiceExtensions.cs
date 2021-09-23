@@ -21,6 +21,10 @@ namespace API.Extensions
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<IHeroRepository, HeroRepository>();
+            services.AddScoped<IHeroService, HeroService>();
+            services.AddScoped<IBlockRepository, BlockRepository>();
+
 
             services.AddAutoMapper(typeof(DtoMapperProfile).Assembly);
             services.AddAutoMapper(typeof(ModelMapperProfile).Assembly);

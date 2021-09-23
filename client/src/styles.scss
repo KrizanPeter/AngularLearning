@@ -24,15 +24,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 100%;
 
     @media (min-width: 1800px) and (max-width:2000px )  {
-        background-image: url("/src/app/_images/home/background1920x1080.jpg");
+        background-image: url("/src/app/assets/images/home/background1920x1080.jpg");
     }
 
     @media (min-width: 2000px) and (max-width:2561px )  {
-        background-image: url("/src/app/_images/home/background2560x1080.jpg");
+        background-image: url("/src/app/assets/images/home/background2560x1080.jpg");
     }
 
     
     @media (min-width: 2561px) and (max-width:4000px )  {
-        background-image: url("/src/app/_images/home/background3840x2160.jpg");
+        background-image: url("/src/app/assets/images/home/background3840x2160.jpg");
     }
 }

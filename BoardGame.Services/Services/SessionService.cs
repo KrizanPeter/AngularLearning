@@ -81,7 +81,7 @@ namespace BoardGame.Services.Services
                     session.Blocks.Add(new Block()
                     {
                         SessionId = session.SessionId,
-                        BlockType = Domain.Entities.EntityEnums.BlockType.Hidden,
+                        BlockType = blockOrder == ((int)session.PlanSize * (int)session.PlanSize)/2+1 ? Domain.Entities.EntityEnums.BlockType.Room : Domain.Entities.EntityEnums.BlockType.Hidden,
                         BlockPositionX = j,
                         BlockPositionY = i,
                         BlockOrder = blockOrder++

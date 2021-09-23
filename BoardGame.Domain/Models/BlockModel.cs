@@ -15,5 +15,8 @@ namespace BoardGame.Domain.Models
         public int BlockOrder { get; set; }
         public BlockType BlockType { get; set; }
         public BlockDirection BlockDirection { get; set; }
+
+        public ICollection<HeroModel> Heroes { get; set; }
+
     }
 }

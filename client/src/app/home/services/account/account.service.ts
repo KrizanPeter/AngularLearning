@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserDto } from 'src/app/_models/userDto';
+import { ActivityService } from 'src/app/_services/activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private activityService: ActivityService) { }
 
   register(model:any){
     return this.http.post(this.baseUrl+'account/register', model).pipe(
@@ -25,6 +26,7 @@ export class AccountService {
           localStorage.setItem('user', user.userName);
           localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
+          this.activityService.createHubConnection(user);
         }
       })
     )
@@ -38,6 +40,7 @@ export class AccountService {
           localStorage.setItem('user', user.userName);
           localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
+          this.activityService.createHubConnection(user);
         }
       })
     )
@@ -52,5 +55,6 @@ export class AccountService {
     localStorage.removeItem('userToken');
     this.router.navigateByUrl('/home');
     this.currentUserSource.next(null);
+    this.activityService.stopHubConnection();
   }
 }

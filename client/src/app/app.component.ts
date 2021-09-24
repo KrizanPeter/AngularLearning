@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserDto } from './_models/userDto';
 import { AccountService } from './home/services/account/account.service';
+import { ActivityService } from './_services/activity.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'BoardGame';
   users : any;
 
-  constructor(private http : HttpClient, private accountService: AccountService){}
+  constructor(private http : HttpClient, private accountService: AccountService, private activityService: ActivityService){}
 
 
   ngOnInit(): void {
@@ -21,8 +22,11 @@ export class AppComponent implements OnInit {
 
   setCurrentUser(){
     const user: UserDto = {userName : localStorage.getItem('user'), token : localStorage.getItem('userToken')}
-
-    this.accountService.setCurrentUser(user);
+    if(user)
+    {
+      this.accountService.setCurrentUser(user);
+      this.activityService.createHubConnection(user);
+    }
   }
 
   getUsers(){

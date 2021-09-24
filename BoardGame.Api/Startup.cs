@@ -1,4 +1,5 @@
 using API.Extensions;
+using BoardGame.Api.SignalR;
 using BoardGame.Domain.Repositories;
 using BoardGame.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,7 @@ namespace API
             });
 
             services.AddIdendityServices(_config);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +50,10 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(x => x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("https://localhost:4200"));
 
             app.UseAuthentication();
 
@@ -57,6 +62,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ActivityHub>("/hubs/activity");
             });
         }
     }

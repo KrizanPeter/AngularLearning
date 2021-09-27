@@ -12,7 +12,7 @@ namespace BoardGame.Domain.ModelMapperProfile
             CreateMap<Session, SessionModel>().ReverseMap();
             CreateMap<Block, BlockModel>().ReverseMap();
             CreateMap<Hero, HeroModel>().ReverseMap();
-
+            CreateMap<ChatMessage, ChatMessageModel>().ReverseMap();
         }
     }
 }

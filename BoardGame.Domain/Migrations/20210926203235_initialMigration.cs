@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BoardGame.Domain.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,22 @@ namespace BoardGame.Domain.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    ChatMessageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sender = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.ChatMessageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -402,6 +418,9 @@ namespace BoardGame.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Heroes");
+
+            migrationBuilder.DropTable(
+                name: "ChatMessages");
 
             migrationBuilder.DropTable(
                 name: "Items");

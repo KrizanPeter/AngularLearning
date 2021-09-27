@@ -14,6 +14,7 @@ namespace BoardGame.Api.SignalR
         public override async Task OnConnectedAsync()
         {
             await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUserName());
+            
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

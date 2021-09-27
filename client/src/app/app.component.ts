@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserDto } from './_models/userDto';
 import { AccountService } from './home/services/account/account.service';
 import { ActivityService } from './_services/activity.service';
+import { ChatService } from './_services/chatservice/chat.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'BoardGame';
   users : any;
 
-  constructor(private http : HttpClient, private accountService: AccountService, private activityService: ActivityService){}
+  constructor(private http : HttpClient, private accountService: AccountService, private activityService: ActivityService, private chatService: ChatService){}
 
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     {
       this.accountService.setCurrentUser(user);
       this.activityService.createHubConnection(user);
+      this.chatService.createHubConnection(user);
     }
   }
 

@@ -1,1 +1,15 @@
-<p>chat works!</p>
+<div class="chat-window">
+    <h1 class="chat-header">Session Chat</h1>
+    <div class="message-area">
+        <div *ngIf="(this.chatService.messageThread$ | async)" class="message-plane">
+            <div class="text-black" style="color: black; border-bottom: solid 1px gray;" *ngFor="let message of (this.chatService.messageThread$ | async)">
+               <h2 style="margin-bottom: 0px;"> Sender: {{message.sender}}</h2>
+               <p>{{message.message}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="message-form">
+        <input type="text" [(ngModel)]="messageContent" class="message-input">
+        <button class="btn-send-msg" (click)="sendMessage()">Send</button>
+    </div>
+</div>

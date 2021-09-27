@@ -38,7 +38,14 @@ export class JoinToGameComponent implements OnInit {
   joinToSession():void{
 
     this.sessionService.joinToSession(this.selectedRowIndex, this.userToJoin).subscribe(response=>{
-      this.router.navigateByUrl('/pickhero');
+      if(response === true){
+        console.log("pick");
+        this.router.navigateByUrl('/pickhero');
+      }
+      else if(response === false){
+        this.router.navigateByUrl('/ingame');
+        console.log("game");
+      }
     }, error =>{
       console.log(error);
       this.toastr.error(error.error);

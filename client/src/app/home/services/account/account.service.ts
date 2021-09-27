@@ -5,6 +5,7 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserDto } from 'src/app/_models/userDto';
 import { ActivityService } from 'src/app/_services/activity.service';
+import { ChatService } from 'src/app/_services/chatservice/chat.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router, private activityService: ActivityService) { }
+  constructor(private http: HttpClient, private router: Router, private activityService: ActivityService, private chatService: ChatService) { }
 
   register(model:any){
     return this.http.post(this.baseUrl+'account/register', model).pipe(
@@ -41,6 +42,8 @@ export class AccountService {
           localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
           this.activityService.createHubConnection(user);
+          this.chatService.createHubConnection(user);
+
         }
       })
     )
@@ -56,5 +59,6 @@ export class AccountService {
     this.router.navigateByUrl('/home');
     this.currentUserSource.next(null);
     this.activityService.stopHubConnection();
+    this.chatService.stopHubConnection();
   }
 }

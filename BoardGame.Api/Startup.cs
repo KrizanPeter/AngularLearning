@@ -63,6 +63,7 @@ namespace API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ActivityHub>("/hubs/activity");
+                endpoints.MapHub<MessageHub>("/hubs/message");
             });
         }
     }

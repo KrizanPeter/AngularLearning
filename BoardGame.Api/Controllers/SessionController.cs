@@ -101,6 +101,11 @@ namespace API.Controllers
         [HttpPost("join")]
         public async Task<ActionResult<bool>> Join(JoinToSessionDto joinDto)
         {
+            var user = await _appUserService.GetAppUser(User.GetUserName());
+            if(user.SessionId == joinDto.SessionId)
+            {
+                return Ok(false);
+            }
             if (joinDto.SessionId == 0 || string.IsNullOrEmpty(joinDto.UserName))
             {
                 return BadRequest("Incorrect session or user.");

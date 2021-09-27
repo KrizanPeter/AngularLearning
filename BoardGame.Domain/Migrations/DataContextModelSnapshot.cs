@@ -172,6 +172,30 @@ namespace BoardGame.Domain.Migrations
                     b.ToTable("Blocks");
                 });
 
+            modelBuilder.Entity("BoardGame.Domain.Entities.ChatMessage", b =>
+                {
+                    b.Property<int>("ChatMessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChatMessageId");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("BoardGame.Domain.Entities.Hero", b =>
                 {
                     b.Property<int>("HeroId")

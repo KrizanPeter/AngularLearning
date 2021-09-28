@@ -16,7 +16,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router, private activityService: ActivityService, private chatService: ChatService) { }
+  constructor(private http: HttpClient, private router: Router, private activityService: ActivityService) { }
 
   register(model:any){
     return this.http.post(this.baseUrl+'account/register', model).pipe(
@@ -42,8 +42,6 @@ export class AccountService {
           localStorage.setItem('userToken', user.token);
           this.currentUserSource.next(user);
           this.activityService.createHubConnection(user);
-          this.chatService.createHubConnection(user);
-
         }
       })
     )
@@ -59,6 +57,5 @@ export class AccountService {
     this.router.navigateByUrl('/home');
     this.currentUserSource.next(null);
     this.activityService.stopHubConnection();
-    this.chatService.stopHubConnection();
   }
 }

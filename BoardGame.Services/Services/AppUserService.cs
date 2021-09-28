@@ -3,6 +3,7 @@ using BoardGame.Services.ReturnStates;
 using BoardGame.Services.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +12,11 @@ namespace BoardGame.Services.Services
     public class AppUserService : IAppUserService
     {
         private readonly IAppUserRepository _appUserRepository;
-        public AppUserService(IAppUserRepository appUserRepository)
+        private readonly IHeroRepository _heroRepository;
+        public AppUserService(IAppUserRepository appUserRepository, IHeroRepository heroRepository)
         {
             _appUserRepository = appUserRepository;
+            _heroRepository = heroRepository;
         }
 
         public Task<OperationalResult> AddAppUser(Domain.Entities.AppUser user)
@@ -59,6 +62,27 @@ namespace BoardGame.Services.Services
             return user.Id;
         }
 
+        public async Task<OperationalResult> LeaveSessionForUserAsync(Domain.Entities.AppUser user)
+        {
 
+            if(user == null)
+            {
+                return OperationalResult.Failed();
+            }
+            user.SessionId = null;
+            var heroEnumerable = await _heroRepository.GetAll(a => a.AppUserId == user.Id);
+            var heroList = heroEnumerable.ToList();
+            if(heroList != null && heroList.Count > 0)
+            {
+                foreach( var hero in heroList)
+                {
+                    _heroRepository.Remove(hero);
+                }
+                _heroRepository.Save();
+            }
+            _appUserRepository.Save();
+
+            return OperationalResult.Success();
+        }
     }
 }

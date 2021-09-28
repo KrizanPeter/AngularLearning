@@ -23,11 +23,10 @@ export class AppComponent implements OnInit {
 
   setCurrentUser(){
     const user: UserDto = {userName : localStorage.getItem('user'), token : localStorage.getItem('userToken')}
-    if(user)
+    if(user.userName != null || user.token != null)
     {
       this.accountService.setCurrentUser(user);
       this.activityService.createHubConnection(user);
-      this.chatService.createHubConnection(user);
     }
   }
 

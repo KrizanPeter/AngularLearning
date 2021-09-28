@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { IngameSessionDto } from 'src/app/_models/SessionDtos/ingameSessionDto';
@@ -22,7 +23,7 @@ export class GameBoardComponent implements OnInit {
     endX: 15,
     endY: 13
   }
-  constructor(private gameBoardService : GameBoardService, private toastr: ToastrService) { }
+  constructor(private gameBoardService : GameBoardService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadGame();
@@ -70,9 +71,15 @@ export class GameBoardComponent implements OnInit {
     this.loadGame();
     console.log(this.renderWindow);
   }
+
+  leaveSession(){
+    this.gameBoardService.leaveSession().subscribe(()=>{
+      this.router.navigateByUrl('/game');
+    }, error =>{
+      this.toastr.error(error.error);
+    });
+  }
 }
-
-
 
 export interface BlockWindow{
   startX:number;

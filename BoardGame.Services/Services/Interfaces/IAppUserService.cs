@@ -14,6 +14,6 @@ namespace BoardGame.Services.Services.Interfaces
         Task<OperationalResult> GetAppUser(int id);
         Task<OperationalResult> AddSessionToUserAsync(int userId, int sessionId);
         Task<OperationalResult> AddAppUser(AppUser user);
-
+        Task<OperationalResult> LeaveSessionForUserAsync(AppUser user);
     }
 }

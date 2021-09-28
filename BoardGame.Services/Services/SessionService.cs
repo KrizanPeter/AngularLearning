@@ -40,9 +40,9 @@ namespace BoardGame.Services.Services
             _sessionRepository.Add(session);
             _sessionRepository.Save();
             
-            var result = _appUserService.AddSessionToUserAsync(userId, session.SessionId);
+            //var result = _appUserService.AddSessionToUserAsync(userId, session.SessionId);
 
-            return result;
+            return Task.FromResult(OperationalResult.Success());
         }
 
         public async Task<OperationalResult<SessionModel>> GetSessionById(int id)

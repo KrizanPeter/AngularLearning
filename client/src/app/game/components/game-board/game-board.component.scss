@@ -115,6 +115,29 @@
 }
 
 .right-panel{
+    display: grid;
+    grid-template-rows: 10% 90%;
     margin: 20px 40px 20px 0px;
+}
+
+.options-section{
+    margin-bottom: 15px;
+    background-color: #212529;
+    opacity: 0.8;
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.btn-options{
+    border: #3c1711 1px solid;
+    border-radius: 10px;
+    background-color: rgba(80, 31, 22, 0.8) ;
+    color:white;
+    transition: transform .3s;
+    &:hover{
+        transform: scale(1.02);
+        background-color: rgba(64, 25, 18, 0.8);
+    }
+    margin: 15px;
 }
 

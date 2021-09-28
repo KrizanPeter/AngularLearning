@@ -27,7 +27,7 @@ namespace BoardGame.Domain.Repositories
             var result = _db.ChatMessages
                 .Where(a => a.SessionId == sessionId)
                 .ToList()
-                .TakeLast(20);
+                .TakeLast(10);
 
             return result.ToList();
         }

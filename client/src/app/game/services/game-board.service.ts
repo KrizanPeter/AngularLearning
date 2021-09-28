@@ -21,5 +21,12 @@ import { BlockWindow } from "../components/game-board/game-board.component";
           console.log(response);
         }));
       }
+
+    leaveSession(){
+      return this.http.get(this._con.baseUrl+"session/leavesession").pipe(
+        tap((response: any)=>{
+          console.log(response);
+        }));
+    }
   }
   

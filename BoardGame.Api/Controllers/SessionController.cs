@@ -67,6 +67,25 @@ namespace API.Controllers
             return Ok();
         }
 
+        [HttpGet("leavesession")]
+        [Authorize]
+        public async Task<ActionResult> LeaveSessionAsync()
+        {
+            var user = await _appUserService.GetAppUser(User.GetUserName());
+            if(user == null)
+            {
+                return BadRequest("User not found.");
+            }
+            var result = await _appUserService.LeaveSessionForUserAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Uups something went wrong.");
+        }
+
         //  API Example : { api/users }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SessionDto>>> GetSessions()
@@ -102,6 +121,13 @@ namespace API.Controllers
         public async Task<ActionResult<bool>> Join(JoinToSessionDto joinDto)
         {
             var user = await _appUserService.GetAppUser(User.GetUserName());
+
+            if((user.SessionId != null && user.SessionId != 0) && user.SessionId != joinDto.SessionId)
+            {
+                var session = await _sessionService.GetSessionById(user.SessionId ?? default(int));
+                return BadRequest("You are already member of " + session.Data.SessionName);
+            }
+
             if(user.SessionId == joinDto.SessionId)
             {
                 return Ok(false);

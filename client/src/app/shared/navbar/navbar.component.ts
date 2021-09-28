@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser$: Observable<UserDto>
+  currentUser$: Observable<UserDto>;
   model: any = {
     username: "",
     password: "",

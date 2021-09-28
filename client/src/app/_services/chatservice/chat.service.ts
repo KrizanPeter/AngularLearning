@@ -18,9 +18,9 @@ export class ChatService {
 
   constructor(private toastr: ToastrService) { }
 
-  createHubConnection(user: UserDto){
+  createHubConnection(sessionId : number, user: UserDto){
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl + 'message', {
+      .withUrl(this.hubUrl + 'message?sessionId=' + sessionId, {
         accessTokenFactory: () => user.token
       })
       .withAutomaticReconnect()

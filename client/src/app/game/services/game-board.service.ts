@@ -4,6 +4,7 @@ import { Body } from "@angular/http/src/body";
 import { map } from "rxjs-compat/operator/map";
 import { tap } from "rxjs/operators";
 import { Connections } from "src/app/_conf/connections";
+import { IngameBlockDto } from "src/app/_models/BlockDtos/ingameBlockDto";
 import { IngameSessionDto } from "src/app/_models/SessionDtos/ingameSessionDto";
 import { BlockWindow } from "../components/game-board/game-board.component";
 

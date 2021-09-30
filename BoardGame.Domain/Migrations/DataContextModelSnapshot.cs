@@ -157,6 +157,9 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("BlockType")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("MonsterId")
                         .HasColumnType("int");
 

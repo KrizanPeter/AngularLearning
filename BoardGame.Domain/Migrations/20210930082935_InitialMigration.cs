@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BoardGame.Domain.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -167,7 +167,8 @@ namespace BoardGame.Domain.Migrations
                     BlockPositionY = table.Column<int>(type: "int", nullable: false),
                     BlockOrder = table.Column<int>(type: "int", nullable: false),
                     BlockType = table.Column<int>(type: "int", nullable: false),
-                    BlockDirection = table.Column<int>(type: "int", nullable: false)
+                    BlockDirection = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

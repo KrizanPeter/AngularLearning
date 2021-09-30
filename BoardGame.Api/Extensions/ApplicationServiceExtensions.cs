@@ -1,11 +1,13 @@
 ﻿using API.DtoMappers;
 using API.Entities.Context;
+
 using BoardGame.Domain.ModelMapperProfile;
 using BoardGame.Domain.Repositories;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Service.Services.AuthServices;
 using BoardGame.Services.Services;
 using BoardGame.Services.Services.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,7 @@ namespace API.Extensions
             services.AddScoped<IBlockRepository, BlockRepository>();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
+            services.AddScoped<IBlockService, BlockService>();
 
 
             services.AddAutoMapper(typeof(DtoMapperProfile).Assembly);

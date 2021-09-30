@@ -1,15 +1,16 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+
+using AutoMapper;
+
 using BoardGame.Domain.Entities;
 using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Services.ReturnStates;
 using BoardGame.Services.Services.Interfaces;
+
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BoardGame.Services.Services
 {
@@ -40,8 +41,6 @@ namespace BoardGame.Services.Services
             _sessionRepository.Add(session);
             _sessionRepository.Save();
             
-            //var result = _appUserService.AddSessionToUserAsync(userId, session.SessionId);
-
             return Task.FromResult(OperationalResult.Success());
         }
 
@@ -78,15 +77,18 @@ namespace BoardGame.Services.Services
             for (int i = 1; i <= (int)session.PlanSize; i++)
             {
                 for (int j = 1; j <= (int)session.PlanSize; j++)
+                {
+                    var middleBlock = blockOrder == ((int)session.PlanSize * (int)session.PlanSize) / 2 + 1;
                     session.Blocks.Add(new Block()
                     {
                         SessionId = session.SessionId,
-                        BlockType = blockOrder == ((int)session.PlanSize * (int)session.PlanSize)/2+1 ? Domain.Entities.EntityEnums.BlockType.Room : Domain.Entities.EntityEnums.BlockType.Hidden,
+                        BlockType = middleBlock ? Domain.Entities.EntityEnums.BlockType.Room : Domain.Entities.EntityEnums.BlockType.Hidden,
                         BlockPositionX = j,
                         BlockPositionY = i,
-                        BlockOrder = blockOrder++
+                        BlockOrder = blockOrder++,
+                        ImagePath = middleBlock ? "url(assets/images/gameboard/gameblock-X-fountain.png)" : "url(assets/images/gameboard/gameblock-background.png)"
                     });
-                ;
+                }
             }
             return session;
         }

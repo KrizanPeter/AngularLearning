@@ -10,5 +10,6 @@ export interface IngameBlockDto{
     blockOrder: number
     blockType : BlockType
     blockDirection : BlockDirection
+    imagePath : string
     heroes: IngameHeroDto[]
 }

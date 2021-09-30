@@ -1,12 +1,13 @@
-﻿using API.Entities.Context;
+﻿using System.Linq;
+
+using API.Entities.Context;
+
 using AutoMapper;
+
 using BoardGame.Domain.Entities;
 using BoardGame.Domain.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace BoardGame.Domain.Repositories
 {
@@ -24,6 +25,12 @@ namespace BoardGame.Domain.Repositories
         public Block GetCenterBlock(int sessionId, int centerBlockPosition)
         {
             var result = _db.Blocks.Where(a => a.SessionId == sessionId && a.BlockOrder == centerBlockPosition).SingleOrDefault();
+            return result;
+        }
+
+        public Block GetBlockWithHeroes(int blockId)
+        {
+            var result = _db.Blocks.Where(b => b.BlockId == blockId).Include(x => x.Heroes).SingleOrDefault();
             return result;
         }
     }

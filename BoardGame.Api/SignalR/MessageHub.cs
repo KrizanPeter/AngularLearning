@@ -1,13 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+
+using AutoMapper;
+
 using BoardGame.Api.DTOs.MessageDto;
 using BoardGame.Domain.Models;
 using BoardGame.Services.Services.AuthServices;
 using BoardGame.Services.Services.Interfaces;
+
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BoardGame.Api.SignalR
 {
@@ -30,7 +31,7 @@ namespace BoardGame.Api.SignalR
         {
             var userName = Context.User.GetUserName();
             
-            var session = "session-"+Context.GetHttpContext().Request.Query["sessionId"];
+            var session = "chat-session-"+Context.GetHttpContext().Request.Query["sessionId"];
 
             await Groups.AddToGroupAsync(Context.ConnectionId, session);
 
@@ -41,7 +42,7 @@ namespace BoardGame.Api.SignalR
 
         public override async Task OnDisconnectedAsync(Exception e)
         {
-            var session = "session-" + Context.GetHttpContext().Request.Query["sessionId"];
+            var session = "chat-session-" + Context.GetHttpContext().Request.Query["sessionId"];
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, session);
         }
 
@@ -52,7 +53,7 @@ namespace BoardGame.Api.SignalR
 
             var userName = Context.User.GetUserName();
             var user = await _appUserService.GetAppUser(userName);
-            var session = "session-" + user.SessionId;
+            var session = "chat-session-" + user.SessionId;
             messageModel.SessionId = user.SessionId ?? default(int);
 
             _ = await _chatMessageService.AddNewMessage(messageModel, userName);

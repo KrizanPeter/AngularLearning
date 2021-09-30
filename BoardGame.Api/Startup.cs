@@ -1,7 +1,7 @@
 using API.Extensions;
+
 using BoardGame.Api.SignalR;
-using BoardGame.Domain.Repositories;
-using BoardGame.Domain.Repositories.Interfaces;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -64,6 +64,7 @@ namespace API
                 endpoints.MapControllers();
                 endpoints.MapHub<ActivityHub>("/hubs/activity");
                 endpoints.MapHub<MessageHub>("/hubs/message");
+                endpoints.MapHub<BoardHub>("/hubs/board");
             });
         }
     }

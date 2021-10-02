@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
-import { BlockType } from 'src/app/_models/enums/enumsDtos';
-import { GameService } from 'src/app/_services/gameservice/game.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-game-block',
@@ -10,10 +9,10 @@ import { GameService } from 'src/app/_services/gameservice/game.service';
 })
 export class GameBlockComponent implements OnInit {
   @Input() blockComponentData: IngameBlockDto;
-
+  imagePath = environment.blockImageUrl;
   constructor() { }
 
   ngOnInit(): void {
+    this.blockComponentData.blockType.imageName = 'url('+this.imagePath+this.blockComponentData.blockType.imageName+')';
   }
-  
 }

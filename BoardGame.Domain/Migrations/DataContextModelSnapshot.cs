@@ -142,9 +142,6 @@ namespace BoardGame.Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BlockDirection")
-                        .HasColumnType("int");
-
                     b.Property<int>("BlockOrder")
                         .HasColumnType("int");
 
@@ -154,11 +151,8 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("BlockPositionY")
                         .HasColumnType("int");
 
-                    b.Property<int>("BlockType")
+                    b.Property<int>("BlockTypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MonsterId")
                         .HasColumnType("int");
@@ -168,11 +162,43 @@ namespace BoardGame.Domain.Migrations
 
                     b.HasKey("BlockId");
 
+                    b.HasIndex("BlockTypeId");
+
                     b.HasIndex("MonsterId");
 
                     b.HasIndex("SessionId");
 
                     b.ToTable("Blocks");
+                });
+
+            modelBuilder.Entity("BoardGame.Domain.Entities.BlockType", b =>
+                {
+                    b.Property<int>("BlockTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlockCategory")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ExitDown")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ExitLeft")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ExitRight")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ExitTop")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BlockTypeId");
+
+                    b.ToTable("BlockTypes");
                 });
 
             modelBuilder.Entity("BoardGame.Domain.Entities.ChatMessage", b =>
@@ -455,6 +481,12 @@ namespace BoardGame.Domain.Migrations
 
             modelBuilder.Entity("BoardGame.Domain.Entities.Block", b =>
                 {
+                    b.HasOne("BoardGame.Domain.Entities.BlockType", "BlockType")
+                        .WithMany()
+                        .HasForeignKey("BlockTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BoardGame.Domain.Entities.Monster", "Monster")
                         .WithMany()
                         .HasForeignKey("MonsterId");
@@ -464,6 +496,8 @@ namespace BoardGame.Domain.Migrations
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BlockType");
 
                     b.Navigation("Monster");
                 });

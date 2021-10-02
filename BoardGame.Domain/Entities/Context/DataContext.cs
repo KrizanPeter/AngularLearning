@@ -44,6 +44,6 @@ namespace API.Entities.Context
         public DbSet<MonsterType> MonsterTypes { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
-
+        public DbSet<BlockType> BlockTypes { get; set; }
     }
 }

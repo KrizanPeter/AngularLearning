@@ -11,7 +11,7 @@
             </button>
             <div class="game-plan col col-12">
                 <div class="game-plan-row row" *ngFor="let row of sessionData.blocksShape">
-                    <app-game-block (click)="moveHero(element)" class="game-block" *ngFor="let element of row" [blockComponentData]="element">
+                    <app-game-block class="game-block" *ngFor="let element of row" [blockComponentData]="element">
 
                     </app-game-block>
                 </div>
@@ -29,6 +29,6 @@
         <button class="btn-options">Options</button>
         <button class="btn-options" (click)='leaveSession()'>Leave Session!</button>
         </div>
-        <app-chat></app-chat>
+        <app-chat ></app-chat>
     </div>
 </div>

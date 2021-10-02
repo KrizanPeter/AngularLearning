@@ -1,5 +1,5 @@
 <a>
-<div class = "game-block" [style.background-image]="blockComponentData.imagePath">
+<div class = "game-block" [style.background-image]="blockComponentData.blockType.imageName">
     <div *ngIf="this.blockComponentData.heroes">
         <div class="player-hero" *ngFor="let hero of this.blockComponentData.heroes" [style.background-image]="hero.imagePath">
 

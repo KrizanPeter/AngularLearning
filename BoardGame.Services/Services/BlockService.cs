@@ -35,48 +35,58 @@ namespace BoardGame.Services.Services
             return Task.FromResult(OperationalResult.Success(blockModel));
         }
 
-        public async Task<OperationalResult<List<BlockModel>>> MoveHeroToBlock(int userId, int targetBlockId)
-        {
-            // 1 check validity
-            var hero = await _heroRepository.GetFirstOrDefault(h => h.AppUserId == userId);
-            if(hero == null)
-            {
-                return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.NotFound, "Hero was not found for curretn user"));
-            }
-            var targetBlock = await _blockRepository.Get(targetBlockId);
-            if(targetBlock == null)
-            {
-                return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.NotFound, "Movement target was not found"));
-            }
-            var targetBlockModel = _mapper.Map<BlockModel>(targetBlock);
-            var currentBlock = await _blockRepository.Get(hero.BlockId);
-            var currentBlockModel = _mapper.Map<BlockModel>(currentBlock);
-            var movement = ValidateMovement(currentBlockModel, targetBlockModel);
-            if(movement.InvalidMovement)
-            {
-                return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.BadRequest, "Move not possible"));
-            }
+        /*
+         * 1. var possible[] = GetPossibleMovementFromCurrentBlock
+         * 2. var myMove = GetRequestedMovementDirection
+         * 3. check if posible.Contains(myMove) continue; else Fuck ur move!
+         * 4. var veveri {right, left, top, down}:bool = Transform myMove to ExitDirection of targetBlock
+         * 5. Select BlockTypes where (a=>a.top == requestedExit.top && a.down == requestedExit.down.....);
+         *
+         * 
+         */
 
-            // 2 discover block
-            if(targetBlockModel.BlockType == BlockType.Hidden)
-            {
-                DiscoverBlock(targetBlockModel, movement);
-                targetBlock.BlockType = targetBlockModel.BlockType;
-                targetBlock.BlockDirection = targetBlockModel.BlockDirection;
-                targetBlock.ImagePath = targetBlockModel.ImagePath;
-                _blockRepository.Save();
-            }
+        //public async Task<OperationalResult<List<BlockModel>>> MoveHeroToBlock(int userId, int targetBlockId)
+        //{
+        //    // 1 check validity
+        //    var hero = await _heroRepository.GetFirstOrDefault(h => h.AppUserId == userId);
+        //    if(hero == null)
+        //    {
+        //        return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.NotFound, "Hero was not found for curretn user"));
+        //    }
+        //    var targetBlock = await _blockRepository.Get(targetBlockId);
+        //    if(targetBlock == null)
+        //    {
+        //        return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.NotFound, "Movement target was not found"));
+        //    }
+        //    var targetBlockModel = _mapper.Map<BlockModel>(targetBlock);
+        //    var currentBlock = await _blockRepository.Get(hero.BlockId);
+        //    var currentBlockModel = _mapper.Map<BlockModel>(currentBlock);
+        //    var movement = ValidateMovement(currentBlockModel, targetBlockModel);
+        //    if(movement.InvalidMovement)
+        //    {
+        //        return OperationalResult.Failed<List<BlockModel>>(new OperationalError(HttpStatusCode.BadRequest, "Move not possible"));
+        //    }
 
-            // 3 move hero
-            hero.BlockId = targetBlockModel.BlockId;
-            _heroRepository.Save();
+        //    // 2 discover block
+        //    if(targetBlockModel.BlockType == BlockType.Hidden)
+        //    {
+        //        DiscoverBlock(targetBlockModel, movement);
+        //        targetBlock.BlockType = targetBlockModel.BlockType;
+        //        targetBlock.BlockDirection = targetBlockModel.BlockDirection;
+        //        targetBlock.ImagePath = targetBlockModel.ImagePath;
+        //        _blockRepository.Save();
+        //    }
 
-            var blocksToRerender = new List<BlockModel>();
-            blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(currentBlockModel.BlockId)));
-            blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(targetBlockModel.BlockId)));
+        //    // 3 move hero
+        //    hero.BlockId = targetBlockModel.BlockId;
+        //    _heroRepository.Save();
 
-            return OperationalResult.Success(blocksToRerender);
-        }
+        //    var blocksToRerender = new List<BlockModel>();
+        //    blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(currentBlockModel.BlockId)));
+        //    blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(targetBlockModel.BlockId)));
+
+        //    return OperationalResult.Success(blocksToRerender);
+        //}
 
         private MovementModel ValidateMovement(BlockModel currentBlock, BlockModel targetBlock)
         {
@@ -99,74 +109,74 @@ namespace BoardGame.Services.Services
             return new MovementModel();
         }
 
-        private void DiscoverBlock(BlockModel targetBlock, MovementModel movement)
-        {
-            var rand = new Random();
-            targetBlock.BlockType = (BlockType)rand.Next(1, 3);
-            targetBlock.BlockDirection = movement.PossibleDirections.ElementAt(rand.Next(0, movement.PossibleDirections.Count));
+        //private void DiscoverBlock(BlockModel targetBlock, MovementModel movement)
+        //{
+        //    var rand = new Random();
+        //    targetBlock.BlockType = (BlockType)rand.Next(1, 3);
+        //    targetBlock.BlockDirection = movement.PossibleDirections.ElementAt(rand.Next(0, movement.PossibleDirections.Count));
 
-            if (targetBlock.BlockType == BlockType.Room)
-            {
-                if(targetBlock.BlockDirection == BlockDirection.Cross)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-X-room.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.DownLeft)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-downleft.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.DownRight)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-downright.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.Horizontal)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-horizontal.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.TopLeft)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-topleft.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.TopRight)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-topright.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.Vertical)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-vertical.png)";
-                }
-            }
-            else if(targetBlock.BlockType == BlockType.Hall)
-            {
-                if (targetBlock.BlockDirection == BlockDirection.Cross)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-X.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.DownLeft)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-downleft.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.DownRight)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-downright.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.Horizontal)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-horizontal.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.TopLeft)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-topleft.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.TopRight)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-topright.png)";
-                }
-                if (targetBlock.BlockDirection == BlockDirection.Vertical)
-                {
-                    targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-vertical.png)";
-                }
-            }
-        }
+        //    if (targetBlock.BlockType == BlockType.Room)
+        //    {
+        //        if(targetBlock.BlockDirection == BlockDirection.Cross)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-X-room.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.DownLeft)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-downleft.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.DownRight)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-downright.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.Horizontal)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-horizontal.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.TopLeft)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-topleft.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.TopRight)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-topright.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.Vertical)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-room-vertical.png)";
+        //        }
+        //    }
+        //    else if(targetBlock.BlockType == BlockType.Hall)
+        //    {
+        //        if (targetBlock.BlockDirection == BlockDirection.Cross)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-X.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.DownLeft)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-downleft.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.DownRight)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-downright.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.Horizontal)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-horizontal.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.TopLeft)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-topleft.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.TopRight)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-topright.png)";
+        //        }
+        //        if (targetBlock.BlockDirection == BlockDirection.Vertical)
+        //        {
+        //            targetBlock.ImagePath = "url(assets/images/gameboard/gameblock-hall-vertical.png)";
+        //        }
+        //    }
+        //}
     }
 }

@@ -19,29 +19,31 @@ namespace BoardGame.Services.Services
         private readonly ILogger<SessionService> _logger;
         private readonly IAppUserService _appUserService;
         private readonly ISessionRepository _sessionRepository;
+        private readonly IBlockTypeRepository _blockTypeRepository;
         private readonly IMapper _mapper;
 
-        public SessionService(ILogger<SessionService> logger, IAppUserService appUserService, ISessionRepository sessionRepository, IMapper mapper)
+        public SessionService(ILogger<SessionService> logger, IAppUserService appUserService, ISessionRepository sessionRepository, IMapper mapper, IBlockTypeRepository blockTypeRepository)
         {
+            _blockTypeRepository = blockTypeRepository;
             _logger = logger;
             _appUserService = appUserService;
             _sessionRepository = sessionRepository;
             _mapper = mapper;
         }
 
-        public Task<OperationalResult> AddSession(int userId, SessionModel sessionModel)
+        public async Task<OperationalResult> AddSession(int userId, SessionModel sessionModel)
         {
             if(sessionModel == null)
             {
-                return Task.FromResult(OperationalResult.Failed(new OperationalError(HttpStatusCode.InternalServerError, "Invalid sessionModel")));
+                return OperationalResult.Failed(new OperationalError(HttpStatusCode.InternalServerError, "Invalid sessionModel"));
             }
 
             var session = _mapper.Map<Session>(sessionModel);
-            session = GenerateBlocksForSession(session);
+            session = await GenerateBlocksForSessionAsync(session);
             _sessionRepository.Add(session);
             _sessionRepository.Save();
             
-            return Task.FromResult(OperationalResult.Success());
+            return OperationalResult.Success();
         }
 
         public async Task<OperationalResult<SessionModel>> GetSessionById(int id)
@@ -69,8 +71,11 @@ namespace BoardGame.Services.Services
             return Task.FromResult(OperationalResult.Success(session));
         }
 
-        private Session GenerateBlocksForSession(Session session)
+        private async Task<Session> GenerateBlocksForSessionAsync(Session session)
         {
+
+            var blockTypeHidden = await _blockTypeRepository.GetFirstOrDefault(a => a.BlockCategory == Domain.Entities.EntityEnums.BlockCategory.Hidden);
+            var blockTypeMiddle = await _blockTypeRepository.GetFirstOrDefault(a => a.BlockCategory == Domain.Entities.EntityEnums.BlockCategory.Room && a.ExitDown && a.ExitLeft && a.ExitRight && a.ExitTop);
 
             session.Blocks = new List<Block>();
             int blockOrder = 1;
@@ -82,11 +87,10 @@ namespace BoardGame.Services.Services
                     session.Blocks.Add(new Block()
                     {
                         SessionId = session.SessionId,
-                        BlockType = middleBlock ? Domain.Entities.EntityEnums.BlockType.Room : Domain.Entities.EntityEnums.BlockType.Hidden,
+                        BlockType = middleBlock ? blockTypeMiddle : blockTypeHidden,
                         BlockPositionX = j,
                         BlockPositionY = i,
                         BlockOrder = blockOrder++,
-                        ImagePath = middleBlock ? "url(assets/images/gameboard/gameblock-X-fountain.png)" : "url(assets/images/gameboard/gameblock-background.png)"
                     });
                 }
             }

@@ -12,22 +12,11 @@ export enum PlanSize{
     ExtraLarge = 51
 }
 
-export enum BlockType
+export enum BlockCategory
 {
     Hidden,
     Room,
     Hall,
-}
-
-export enum BlockDirection
-{
-    Vertical,
-    Horizontal,
-    DownRight,
-    DownLeft,
-    TopRight,
-    TopLeft,
-    Cross,
 }
 
 export enum HeroType

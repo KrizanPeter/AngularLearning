@@ -9,6 +9,6 @@ namespace BoardGame.Services.Services.Interfaces
     public interface IBlockService
     {
         Task<OperationalResult<BlockModel>> GetBlockById(int id);
-        Task<OperationalResult<List<BlockModel>>> MoveHeroToBlock(int userId, int targetBlockId);
+        //Task<OperationalResult<List<BlockModel>>> MoveHeroToBlock(int userId, int targetBlockId);
     }
 }

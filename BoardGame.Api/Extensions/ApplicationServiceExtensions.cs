@@ -29,6 +29,7 @@ namespace API.Extensions
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
             services.AddScoped<IBlockService, BlockService>();
+            services.AddScoped<IBlockTypeRepository, BlockTypeRepository>();
 
 
             services.AddAutoMapper(typeof(DtoMapperProfile).Assembly);

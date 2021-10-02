@@ -1,6 +1,7 @@
 ﻿using API.DTOs.Session;
 using AutoMapper;
 using BoardGame.Api.DTOs.Block;
+using BoardGame.Api.DTOs.BlockType;
 using BoardGame.Api.DTOs.Hero;
 using BoardGame.Api.DTOs.MessageDto;
 using BoardGame.Api.DTOs.Session;
@@ -19,6 +20,7 @@ namespace API.DtoMappers
             CreateMap<BlockModel, GameBlockDto>().ReverseMap();
             CreateMap<HeroModel, GameHeroDto>().ReverseMap();
             CreateMap<ChatMessageModel, MessageDto>().ReverseMap();
+            CreateMap<BlockTypeModel, BlockTypeDto>().ReverseMap();
 
         }
     }

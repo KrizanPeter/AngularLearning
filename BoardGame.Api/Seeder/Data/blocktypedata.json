@@ -1,0 +1,209 @@
+ [
+    {
+      
+	  "ImageName": "gameblock-background.png",
+	  "ExitTop": false,
+	  "ExitDown": false,
+	  "ExitRight": false,
+	  "ExitLeft": false,
+	  "BlockCategory": 0
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-downleft.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-downlefttop.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-downright.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-horizontal.png",
+	  "ExitTop": false,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-lefttopright.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-rightdownleft.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-topleft.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-topright.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-toprightdown.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-hall-vertical.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": false,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-room-downleft.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-downright.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-horizontal.png",
+	  "ExitTop": false,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-topleft.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-topright.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-vertical.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": false,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-X.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 2
+    },
+	{
+      
+	  "ImageName": "gameblock-X-room.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-downlefttop.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": false,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-lefttopright.png",
+	  "ExitTop": true,
+	  "ExitDown": false,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-rightdownleft.png",
+	  "ExitTop": false,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": true,
+	  "BlockCategory": 1
+    },
+	{
+      
+	  "ImageName": "gameblock-room-toprightdown.png",
+	  "ExitTop": true,
+	  "ExitDown": true,
+	  "ExitRight": true,
+	  "ExitLeft": false,
+	  "BlockCategory": 1
+    }
+  ]

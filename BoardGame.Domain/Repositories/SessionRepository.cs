@@ -27,7 +27,9 @@ namespace BoardGame.Domain.Repositories
             var result = _db.Sessions
                 .Where(a => a.SessionId == sessionId)
                 .Include(a => a.Blocks)
-                .ThenInclude(b=>b.Heroes)
+                .ThenInclude(a=>a.BlockType)
+                .Include(b=>b.Blocks)
+                .ThenInclude(a=>a.Heroes)
                 .Select(
                 c => new Session()
                 {

@@ -32,4 +32,8 @@
     <ProjectReference Include="..\BoardGame.Services\BoardGame.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeder\Data\" />
+  </ItemGroup>
+
 </Project>

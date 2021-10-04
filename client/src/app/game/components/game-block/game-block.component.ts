@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class GameBlockComponent implements OnInit {
   @Input() blockComponentData: IngameBlockDto;
   imagePath = environment.blockImageUrl;
+  cssMoveAnimation = "";
+  cssDiscoverFade = "";
+
   constructor() { }
 
   ngOnInit(): void {

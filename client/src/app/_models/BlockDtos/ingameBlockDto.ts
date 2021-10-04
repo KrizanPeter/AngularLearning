@@ -8,6 +8,7 @@ export interface IngameBlockDto{
     blockPositionX: number
     blockPositionY : number
     blockOrder: number
+    incomingMovement: string
     blockType : IngameBlockTypeDto
     heroes: IngameHeroDto[]
 }

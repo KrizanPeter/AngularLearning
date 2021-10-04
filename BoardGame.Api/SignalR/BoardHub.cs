@@ -46,16 +46,16 @@ namespace BoardGame.Api.SignalR
             var user = await _appUserService.GetAppUser(userName);
             var gameGroup = "game-session-" + user.SessionId;
 
-            //var result = await _blockService.MoveHeroToBlock(user.Id, targetBlock.BlockId);
+            var result = await _blockService.MoveHeroToBlock(user.Id, targetBlock.BlockId);
 
-            //if (result.Succeeded)
-            //{
-            //    await Clients.Group(gameGroup).SendAsync("MovementDetected", result.Data);
-            //}
-            //else
-            //{
-            //    await Clients.Caller.SendAsync("MovementFailed", result.Errors);
-            //}
+            if (result.Succeeded)
+            {
+                await Clients.Group(gameGroup).SendAsync("MovementDetected", result.Data);
+            }
+            else
+            {
+                await Clients.Caller.SendAsync("MovementFailed", result.Errors);
+            }
         }
     }
 }

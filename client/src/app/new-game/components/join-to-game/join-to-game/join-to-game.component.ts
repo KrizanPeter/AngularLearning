@@ -45,7 +45,6 @@ export class JoinToGameComponent implements OnInit {
 
   joinToSession():void{
     this.sessionService.joinToSession(this.selectedRowIndex, this.userToJoin).subscribe(response=>{
-      this.chatService.createHubConnection(this.selectedRowIndex, this.userToJoin);
       
       if(response === true){
         console.log("pick");

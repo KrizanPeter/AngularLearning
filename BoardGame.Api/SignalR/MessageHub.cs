@@ -19,7 +19,6 @@ namespace BoardGame.Api.SignalR
         private readonly IAppUserService _appUserService;
 
 
-
         public MessageHub(IChatMessageService chatMessageService, IMapper mapper, IAppUserService appUserService)
         {
             _chatMessageService = chatMessageService;
@@ -30,14 +29,15 @@ namespace BoardGame.Api.SignalR
         public override async Task OnConnectedAsync()
         {
             var userName = Context.User.GetUserName();
-            
-            var session = "chat-session-"+Context.GetHttpContext().Request.Query["sessionId"];
+
+            var user = await _appUserService.GetAppUser(userName);
+            var session = "chat-session-" + (user.SessionId ?? default(int));
 
             await Groups.AddToGroupAsync(Context.ConnectionId, session);
 
 
             var result = await _chatMessageService.GetMessagesForSession(userName);
-            await Clients.Group(session).SendAsync("RecieveInstantMessage", result.Data);
+            await Clients.Caller.SendAsync("RecieveInstantMessage", result.Data);
         }
 
         public override async Task OnDisconnectedAsync(Exception e)

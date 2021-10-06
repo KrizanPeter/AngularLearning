@@ -45,7 +45,15 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       for(let b of x)
       {
         let blockToRedraw = this.boardBlockViewChildren.find(f => f.blockComponentData.blockId == b.blockId);
-        blockToRedraw.blockComponentData = b;
+        if (blockToRedraw) {
+          blockToRedraw.blockComponentData = b;
+          console.log("Incoming move", blockToRedraw.blockComponentData.incomingMovement);
+          if (blockToRedraw.blockComponentData.incomingMovement) {
+            blockToRedraw.cssMoveAnimation = "hero-move-animation-" + blockToRedraw.blockComponentData.incomingMovement;
+            blockToRedraw.cssDiscoverFade = "discover-fade";
+          }
+          blockToRedraw.ngOnInit();
+        }
       }
     })
   }

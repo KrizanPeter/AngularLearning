@@ -11,7 +11,9 @@
             </button>
             <div class="game-plan col col-12">
                 <div class="game-plan-row row" *ngFor="let row of sessionData.blocksShape">
-                    <app-game-block class="game-block" *ngFor="let element of row" [blockComponentData]="element">
+                    <app-game-block class="game-block"
+                    *ngFor="let element of row" [blockComponentData]="element"
+                    (click)="moveHero(element)">
 
                     </app-game-block>
                 </div>

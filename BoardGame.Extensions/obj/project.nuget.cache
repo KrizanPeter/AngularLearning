@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1ICy9LUXAZ6EQkPqtudNDT7h8zJvmWlRmx48pucjb+fq5aMzQk/3CYOzvvBPptpwf9FQroE0jr1EHsWBak2ppQ==",
+  "dgSpecHash": "AQ7K6vI1brMNI7UKEzHpkMub3oUiQXgEmZxJbvZujYv/hAjrsmxwy3Vm+1SbiTfITZp+J0vICAHQypZWRhRT/g==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\kriza\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

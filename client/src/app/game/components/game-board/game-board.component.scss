@@ -72,17 +72,19 @@
 }
 
 .game-block{
+    position: relative;
     width: 140px;
     height: 140px;
-    border: 3px #212529 solid;
+    border: 2px #212529 solid;
     padding:0px;
     margin:0px;
 }
 
 .game-block:hover{
     transition: transform .4s; 
-    transform: scale(1.1);
-    border: 4px black solid;
+    transform: scale(1.05);
+    border: 2px black solid;
+    z-index: 2;
 }
 
 .game-plan-row{

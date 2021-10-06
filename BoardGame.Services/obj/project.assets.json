@@ -5927,23 +5927,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kriza\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\z004c2zt\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\BoardGame\\BoardGame.Services\\BoardGame.Services.csproj",
+      "projectUniqueName": "C:\\Source\\BoardGame\\BoardGame.Services\\BoardGame.Services.csproj",
       "projectName": "BoardGame.Services",
-      "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Services\\BoardGame.Services.csproj",
-      "packagesPath": "C:\\Users\\kriza\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\BoardGame\\BoardGame.Services\\obj\\",
+      "projectPath": "C:\\Source\\BoardGame\\BoardGame.Services\\BoardGame.Services.csproj",
+      "packagesPath": "C:\\Users\\z004c2zt\\.nuget\\packages\\",
+      "outputPath": "C:\\Source\\BoardGame\\BoardGame.Services\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\kriza\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\z004c2zt\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5957,11 +5953,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
-              "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj"
+            "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
+              "projectPath": "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj"
             },
-            "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
-              "projectPath": "C:\\Projects\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
+            "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
+              "projectPath": "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
             }
           }
         }
@@ -6004,7 +6000,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -35,7 +35,9 @@ export class GameService {
     });
     this.hubConnection.on('MovementFailed', err => {
       console.log("error", err);
-      this.toastr.error("This move failed");
+      err.forEach(element => {
+        this.toastr.error(element.description);
+      });
     });
   }
 

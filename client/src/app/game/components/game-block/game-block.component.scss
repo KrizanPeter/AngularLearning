@@ -1,17 +1,18 @@
-.game-block{
+.game-block {
+    position: absolute;
     width: 100%;
     height: 100%;
-    padding:0px;
+    padding: 0px;
     margin: 0px;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
 }
 
-.player-hero{
-    position:relative;
-    top:30px;
-    left:30px;
+.player-hero {
+    position: relative;
+    top: 30px;
+    left: 30px;
     width: 70px;
     height: 70px;
     background-position: center; /* Center the image */
@@ -19,4 +20,122 @@
     background-size: cover;
     border: solid 1px gray;
     border-radius: 5px;
+}
+
+.discover-fade {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    transition: opacity 1.5s;
+    -webkit-transition: opacity 1.5s;
+    opacity: 0;
+}
+
+.hero-move-animation-down {
+    -webkit-animation: hero-move-down 3s;
+    animation: hero-move-down 3s;
+}
+
+.hero-move-animation-top {
+    -webkit-animation: hero-move-top 3s;
+    animation: hero-move-top 3s;
+}
+
+.hero-move-animation-left {
+    -webkit-animation: hero-move-left 3s;
+    animation: hero-move-left 3s;
+}
+
+.hero-move-animation-right {
+    -webkit-animation: hero-move-right 3s;
+    animation: hero-move-right 3s;
+}
+
+@keyframes hero-move-top {
+    0% {
+        top: -105px;
+        left: 30px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@-webkit-keyframes hero-move-top {
+    0% {
+        top: -105px;
+        left: 30px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@keyframes hero-move-down {
+    0% {
+        top: 105px;
+        left: 30px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@-webkit-keyframes hero-move-down {
+    0% {
+        top: 105px;
+        left: 30px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@keyframes hero-move-right {
+    0% {
+        top: 30px;
+        left: 105px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@-webkit-keyframes hero-move-right {
+    0% {
+        top: 30px;
+        left: 105px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@keyframes hero-move-left {
+    0% {
+        top: 30px;
+        left: -105px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
+}
+
+@-webkit-keyframes hero-move-left {
+    0% {
+        top: 30px;
+        left: -105px;
+    }
+    100% {
+        top: 30px;
+        left: 30px;
+    }
 }

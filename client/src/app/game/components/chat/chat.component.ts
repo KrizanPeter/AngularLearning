@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.chatService.createHubConnection(this.user);
   }
 
   sendMessage(){

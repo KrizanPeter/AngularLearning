@@ -20,6 +20,7 @@
     background-size: cover;
     border: solid 1px gray;
     border-radius: 5px;
+    z-index: 3;
 }
 
 .discover-fade {
@@ -76,7 +77,7 @@
 
 @keyframes hero-move-down {
     0% {
-        top: 105px;
+        top: 165px;
         left: 30px;
     }
     100% {
@@ -87,7 +88,7 @@
 
 @-webkit-keyframes hero-move-down {
     0% {
-        top: 105px;
+        top: 165px;
         left: 30px;
     }
     100% {
@@ -99,7 +100,7 @@
 @keyframes hero-move-right {
     0% {
         top: 30px;
-        left: 105px;
+        left: 165px;
     }
     100% {
         top: 30px;
@@ -110,7 +111,7 @@
 @-webkit-keyframes hero-move-right {
     0% {
         top: 30px;
-        left: 105px;
+        left: 165px;
     }
     100% {
         top: 30px;

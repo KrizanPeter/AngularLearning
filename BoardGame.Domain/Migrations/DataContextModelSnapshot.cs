@@ -69,6 +69,9 @@ namespace BoardGame.Domain.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("JoinedSessionAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -346,6 +349,9 @@ namespace BoardGame.Domain.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CenterBlockPosition")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CurrentPlayerId")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanSize")

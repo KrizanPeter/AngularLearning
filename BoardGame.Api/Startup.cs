@@ -1,5 +1,6 @@
 using API.Extensions;
 
+using BoardGame.Api.BackgroundServices;
 using BoardGame.Api.SignalR;
 
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,7 @@ namespace API
 
             services.AddIdendityServices(_config);
             services.AddSignalR();
+            services.AddHostedService<TurnBackgroundServiceAction>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

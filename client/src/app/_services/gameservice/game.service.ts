@@ -39,6 +39,10 @@ export class GameService {
         this.toastr.error(element.description);
       });
     });
+    this.hubConnection.on('EndTurnDetected', userName => {
+      console.log("new active player", userName);
+      this.toastr.success("It is " + userName + "'s turn");
+    });
   }
 
   stopHubConnection() {

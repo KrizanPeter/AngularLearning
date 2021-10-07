@@ -92,7 +92,8 @@ namespace BoardGame.Domain.Migrations
                     SessionPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SessionType = table.Column<int>(type: "int", nullable: false),
                     PlanSize = table.Column<int>(type: "int", nullable: false),
-                    CenterBlockPosition = table.Column<int>(type: "int", nullable: false)
+                    CenterBlockPosition = table.Column<int>(type: "int", nullable: false),
+                    CurrentPlayerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -147,6 +148,7 @@ namespace BoardGame.Domain.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SessionId = table.Column<int>(type: "int", nullable: true),
+                    JoinedSessionAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

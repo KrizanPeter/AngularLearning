@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -20,14 +21,21 @@ namespace BoardGame.Services.Services
         private readonly IAppUserService _appUserService;
         private readonly ISessionRepository _sessionRepository;
         private readonly IBlockTypeRepository _blockTypeRepository;
+        private readonly IAppUserRepository _appUserRepository;
         private readonly IMapper _mapper;
 
-        public SessionService(ILogger<SessionService> logger, IAppUserService appUserService, ISessionRepository sessionRepository, IMapper mapper, IBlockTypeRepository blockTypeRepository)
+        public SessionService(ILogger<SessionService> logger,
+            IAppUserService appUserService,
+            ISessionRepository sessionRepository,
+            IMapper mapper,
+            IBlockTypeRepository blockTypeRepository,
+            IAppUserRepository appUserRepository)
         {
             _blockTypeRepository = blockTypeRepository;
             _logger = logger;
             _appUserService = appUserService;
             _sessionRepository = sessionRepository;
+            _appUserRepository = appUserRepository;
             _mapper = mapper;
         }
 
@@ -95,6 +103,33 @@ namespace BoardGame.Services.Services
                 }
             }
             return session;
+        }
+
+        public async Task<string> ChangeActivePlayer(int sessionId)
+        {
+            var session = await _sessionRepository.Get(sessionId);
+            var playerList = (await _appUserRepository.GetAll(u => u.SessionId == sessionId, x => x.OrderBy(q => q.JoinedSessionAt))).ToList();
+            if (playerList == null || !playerList.Any())
+            {
+                //vyfuc do prazdna
+                return string.Empty;
+            }
+            var currentPlayer = playerList.FirstOrDefault(p => p.Id == session.CurrentPlayerId);
+            if(currentPlayer != null)
+            {
+                var indexOfCurrentPlayer = playerList.IndexOf(currentPlayer);
+                var nextPlayer = playerList.ElementAt(++indexOfCurrentPlayer % playerList.Count);
+                session.CurrentPlayerId = nextPlayer.Id;
+                _sessionRepository.Save();
+                return nextPlayer.UserName;
+            }
+            else
+            {
+                var nextPlayer = playerList.ElementAt(0);
+                session.CurrentPlayerId = nextPlayer.Id;
+                _sessionRepository.Save();
+                return nextPlayer.UserName;
+            }
         }
     }
 }

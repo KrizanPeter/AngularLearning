@@ -1,5 +1,6 @@
-using BoardGame.Domain.Entities.EntityEnums;
 using System.Collections.Generic;
+
+using BoardGame.Domain.Entities.EntityEnums;
 
 namespace BoardGame.Domain.Entities
 {
@@ -11,7 +12,7 @@ namespace BoardGame.Domain.Entities
         public SessionType SessionType { get; set; }
         public PlanSize PlanSize { get; set; }
         public int CenterBlockPosition { get; set; }
-
+        public int? CurrentPlayerId { get; set; }
 
         //References
 

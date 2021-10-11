@@ -8,6 +8,7 @@ using BoardGame.Api.DTOs.Block;
 using BoardGame.Services.Services.AuthServices;
 using BoardGame.Services.Services.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace BoardGame.Api.SignalR
@@ -40,6 +41,7 @@ namespace BoardGame.Api.SignalR
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, session);
         }
 
+        [Authorize(Policy = "IsOnTurn")]
         public async Task MoveHero(GameBlockDto targetBlock)
         {
             var userName = Context.User.GetUserName();

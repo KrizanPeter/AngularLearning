@@ -1,8 +1,10 @@
 using API.Extensions;
 
+using BoardGame.Api.Authorizations.TurnAuthorization;
 using BoardGame.Api.BackgroundServices;
 using BoardGame.Api.SignalR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +34,10 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+
+            services.AddAuthorization(options => options.AddPolicy("IsOnTurn", policy => policy.AddRequirements(new IsOnTurnRequirement())));
+            services.AddSingleton<IAuthorizationHandler, IsOnTurnHandler>();
+
 
             services.AddIdendityServices(_config);
             services.AddSignalR();

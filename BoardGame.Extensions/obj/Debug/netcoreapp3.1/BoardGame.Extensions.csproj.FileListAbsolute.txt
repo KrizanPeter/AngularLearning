@@ -7,3 +7,12 @@ C:\Projects\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Ext
 C:\Projects\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.csproj.CoreCompileInputs.cache
 C:\Projects\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.dll
 C:\Projects\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.deps.json
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.csprojAssemblyReference.cache
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.AssemblyInfoInputs.cache
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.AssemblyInfo.cs
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.csproj.CoreCompileInputs.cache
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.pdb

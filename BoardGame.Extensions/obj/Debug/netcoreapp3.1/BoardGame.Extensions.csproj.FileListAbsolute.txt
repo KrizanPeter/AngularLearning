@@ -16,3 +16,12 @@ C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcorea
 C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.csproj.CoreCompileInputs.cache
 C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.dll
 C:\Users\z0049y1j\source\repos\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Source\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.deps.json
+C:\Source\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Source\BoardGame\BoardGame.Extensions\bin\Debug\netcoreapp3.1\BoardGame.Extensions.pdb
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.AssemblyInfoInputs.cache
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.AssemblyInfo.cs
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.csproj.CoreCompileInputs.cache
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.dll
+C:\Source\BoardGame\BoardGame.Extensions\obj\Debug\netcoreapp3.1\BoardGame.Extensions.pdb

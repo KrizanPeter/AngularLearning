@@ -29,12 +29,4 @@ export class AppComponent implements OnInit {
       this.activityService.createHubConnection(user);
     }
   }
-
-  getUsers(){
-    this.http.get('https://localhost:44362/api/users').subscribe(response=>{
-      this.users = response;
-    }, error =>{
-      console.log(error);
-    })
-  }
 }

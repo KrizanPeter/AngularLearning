@@ -5,14 +5,14 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserDto } from 'src/app/_models/userDto';
 import { ActivityService } from 'src/app/_services/activity.service';
-import { ChatService } from 'src/app/_services/chatservice/chat.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AccountService {
-  baseUrl = 'https://localhost:44362/api/';
+  baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<UserDto>(1)
   currentUsers$ = this.currentUserSource.asObservable();
 

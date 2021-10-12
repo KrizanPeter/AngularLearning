@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {}
+    "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
+    "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+        "projectUniqueName": "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
         "projectName": "BoardGame.Domain",
-        "projectPath": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
-        "packagesPath": "C:\\Users\\z0049y1j\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Domain\\obj\\",
+        "projectPath": "C:\\Source\\BoardGame\\BoardGame.Domain\\BoardGame.Domain.csproj",
+        "packagesPath": "C:\\Users\\z004c2zt\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\BoardGame\\BoardGame.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\z0049y1j\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\z004c2zt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
-                "projectPath": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
+              "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
+                "projectPath": "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj"
               }
             }
           }
@@ -72,21 +72,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
+    "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
+        "projectUniqueName": "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
         "projectName": "BoardGame.Extensions",
-        "projectPath": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
-        "packagesPath": "C:\\Users\\z0049y1j\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z0049y1j\\source\\repos\\BoardGame\\BoardGame.Extensions\\obj\\",
+        "projectPath": "C:\\Source\\BoardGame\\BoardGame.Extensions\\BoardGame.Extensions.csproj",
+        "packagesPath": "C:\\Users\\z004c2zt\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\BoardGame\\BoardGame.Extensions\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\z0049y1j\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\z004c2zt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -126,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

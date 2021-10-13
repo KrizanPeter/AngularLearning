@@ -11,8 +11,4 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BoardGame.Extensions\BoardGame.Extensions.csproj" />
-  </ItemGroup>
-
 </Project>

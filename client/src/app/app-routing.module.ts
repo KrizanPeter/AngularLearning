@@ -8,6 +8,7 @@ import { GameBoardComponent } from './game/components/game-board/game-board.comp
 import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-layout/choose-hero-layout.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'game', component: NewGameComponent, canActivate: [AuthGuard] },
   { path: 'ranks', component: LeaderBoardComponent, canActivate: [AuthGuard]},

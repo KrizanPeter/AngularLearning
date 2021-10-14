@@ -1,5 +1,4 @@
 <div class="chat-window">
-    <h1 class="chat-header">Session Chat</h1>
     <div class="message-area">
         <div *ngIf="(this.chatService.messageThread$ | async)" class="message-plane">
             <div class="text-black" style="color: black; border-bottom: solid 1px gray;" *ngFor="let message of (this.chatService.messageThread$ | async)">

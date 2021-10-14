@@ -1,6 +1,5 @@
 
 <div class="background-container">
-    <div class="left-panel"></div>
     <div class="map-wrapper">
         <button class="map-button vertical" (click)="moveUp()">
             <fa-icon [icon]="arrowUp"></fa-icon>
@@ -27,9 +26,13 @@
         </button>
     </div>
     <div class="right-panel">
+        <div class="players-turn-section">
+            <p class="white">{{this.gameService.playerName$ | async}}'s turn</p>
+            <button class="btn-options" (click)='leaveSession()'>Leave Session!</button>
+        </div>
         <div class="options-section">
-        <button class="btn-options">Options</button>
-        <button class="btn-options" (click)='leaveSession()'>Leave Session!</button>
+
+           
         </div>
         <app-chat ></app-chat>
     </div>

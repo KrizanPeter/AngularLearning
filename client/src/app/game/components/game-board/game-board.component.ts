@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AccountService } from 'src/app/home/services/account/account.service';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
@@ -31,10 +32,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     endX: 15,
     endY: 13
   }
+  
   constructor(private gameBoardService : GameBoardService,
     private toastr: ToastrService,
     private router: Router,
-    private gameService: GameService,
+    public gameService: GameService,
     private accountService: AccountService) {
       this.accountService.currentUsers$.pipe(take(1)).subscribe(user => this.user = user);
     }

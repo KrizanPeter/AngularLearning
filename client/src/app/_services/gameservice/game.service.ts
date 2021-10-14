@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
 import { UserDto } from 'src/app/_models/userDto';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ export class GameService {
   private hubConnection: HubConnection;
   private blocksThread = new BehaviorSubject<IngameBlockDto[]>([]);
   blocksThread$ = this.blocksThread.asObservable();
+  playerName$ : Observable<string>;
 
   constructor(private toastr: ToastrService) { }
 
@@ -42,6 +43,7 @@ export class GameService {
     this.hubConnection.on('EndTurnDetected', userName => {
       console.log("new active player", userName);
       this.toastr.success("It is " + userName + "'s turn");
+      this.playerName$ = of(userName);
     });
   }
 

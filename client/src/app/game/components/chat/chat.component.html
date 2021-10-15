@@ -2,8 +2,7 @@
     <div class="message-area">
         <div *ngIf="(this.chatService.messageThread$ | async)" class="message-plane">
             <div class="text-black" style="color: black; border-bottom: solid 1px gray;" *ngFor="let message of (this.chatService.messageThread$ | async)">
-               <h2 style="margin-bottom: 0px;"> Sender: {{message.sender}}</h2>
-               <p>{{message.message}}</p>
+              <p><b>{{message.sender}}: </b>{{message.message}}</p>
             </div>
         </div>
     </div>

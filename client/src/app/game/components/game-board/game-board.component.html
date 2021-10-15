@@ -30,9 +30,8 @@
             <p class="white">{{this.gameService.playerName$ | async}}'s turn</p>
             <button class="btn-options" (click)='leaveSession()'>Leave Session!</button>
         </div>
-        <div class="options-section">
-
-           
+        <div class="hero-info-section">
+            <app-character-info></app-character-info>       
         </div>
         <app-chat ></app-chat>
     </div>

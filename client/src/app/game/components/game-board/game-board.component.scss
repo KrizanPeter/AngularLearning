@@ -7,7 +7,12 @@
     }
 
     @media (min-width: 2000px) and (max-width:2561px )  {
-        background-image: url("../../../../assets/images/home/background2560x1080.jpg");
+            background-image: url("../../../../assets/images/home/background2560x1080.jpg");
+    }
+
+
+    @media (min-width: 2300px) and (max-width:2561px )  {
+        padding-left: 10%;    
     }
 
     
@@ -116,10 +121,11 @@
 
 .right-panel{
     display: grid;
-    grid-template-rows: 60px 40% auto;
+    grid-template-rows: 60px 55% auto;
     margin: 15px 15px 15px 0px;
     padding: 0px;
     max-height: 858px;
+    max-width: 600px;
 }
 .players-turn-section{
     background-color: red;
@@ -133,6 +139,14 @@
         text-align: center;
         padding-top: 20px;
     }
+}
+.hero-info-section{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background-color: #212529;
+    opacity: 0.8;
 }
 
 .options-section{

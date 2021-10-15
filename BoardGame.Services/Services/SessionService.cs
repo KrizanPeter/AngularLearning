@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -116,6 +117,9 @@ namespace BoardGame.Services.Services
             }
             var currentPlayer = playerList.FirstOrDefault(p => p.Id == session.CurrentPlayerId);
             var activePlayerModel = new ActivePlayerModel();
+            var sessionMove = session.LastTurnChange ?? default(DateTime);
+            activePlayerModel.RemainingSeconds = (int)(DateTime.UtcNow - sessionMove).TotalSeconds;
+            session.LastTurnChange = DateTime.UtcNow;
             if(currentPlayer != null)
             {
                 var indexOfCurrentPlayer = playerList.IndexOf(currentPlayer);

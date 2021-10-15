@@ -128,11 +128,11 @@
     max-width: 600px;
 }
 .players-turn-section{
-    background-color: red;
+    //background-color: red;
     display: grid;
     grid-template-columns: 70% auto;
     color:white;
-    //background-color: #212529;
+    background-color: #212529;
     opacity: 0.8;
     p{
         font-size: 26px;
@@ -140,6 +140,12 @@
         padding-top: 20px;
     }
 }
+
+.players-turn-countdown{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .hero-info-section{
     padding-top: 15px;
     padding-bottom: 15px;
@@ -171,4 +177,3 @@
     }
     margin: 8px;
 }
-

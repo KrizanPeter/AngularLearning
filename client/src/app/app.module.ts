@@ -18,6 +18,7 @@ import { JoinToGameComponent } from './new-game/components/join-to-game/join-to-
 import { NewGameComponent } from './new-game/components/new-game-layout/new-game.component';
 import { LeaderBoardComponent } from './ranks/components/leader-board/leader-board.component';
 import { ToastrModule } from 'ngx-toastr';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import {MatTableModule} from '@angular/material/table';
 import { HeaderInterceptor } from './_auth/HeaderInterceptor';
@@ -50,6 +51,7 @@ import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-lay
     FormsModule,
     MatTableModule,
     FontAwesomeModule,
+    MatProgressBarModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     })

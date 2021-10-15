@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AccountService } from 'src/app/home/services/account/account.service';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';

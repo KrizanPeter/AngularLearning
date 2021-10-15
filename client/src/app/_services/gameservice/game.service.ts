@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, interval, Observable, of } from 'rxjs';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
 import { UserDto } from 'src/app/_models/userDto';
 import { environment } from 'src/environments/environment';
@@ -15,6 +15,8 @@ export class GameService {
   private blocksThread = new BehaviorSubject<IngameBlockDto[]>([]);
   blocksThread$ = this.blocksThread.asObservable();
   playerName$ : Observable<string>;
+  turnCountdown: number;
+  curSec: number = 0;
 
   constructor(private toastr: ToastrService) { }
 
@@ -40,10 +42,12 @@ export class GameService {
         this.toastr.error(element.description);
       });
     });
-    this.hubConnection.on('EndTurnDetected', userName => {
-      console.log("new active player", userName);
-      this.toastr.success("It is " + userName + "'s turn");
-      this.playerName$ = of(userName);
+    this.hubConnection.on('EndTurnDetected', activePlayerModel => {
+      console.log("new active player", activePlayerModel);
+      this.toastr.success("It is " + activePlayerModel.PlayerName + "'s turn");
+      this.turnCountdown = 100;
+      this.startTimer(activePlayerModel.RemainingSeconds);
+      this.playerName$ = of(activePlayerModel.PlayerName);
     });
   }
 
@@ -54,5 +58,19 @@ export class GameService {
   async moveHero(targetBlockDto: IngameBlockDto) {
     return this.hubConnection.invoke("MoveHero", targetBlockDto)
       .catch(error => console.log(error));
+  }
+
+  private startTimer(seconds: number) {
+    const time = seconds;
+    const timer$ = interval(1000);
+
+    const sub = timer$.subscribe((sec) => {
+      this.turnCountdown = 100 - sec * 100 / seconds;
+      this.curSec = sec;
+
+      if (this.curSec === seconds) {
+        sub.unsubscribe();
+      }
+    });
   }
 }

@@ -105,30 +105,35 @@ namespace BoardGame.Services.Services
             return session;
         }
 
-        public async Task<string> ChangeActivePlayer(int sessionId)
+        public async Task<ActivePlayerModel> ChangeActivePlayer(int sessionId)
         {
             var session = await _sessionRepository.Get(sessionId);
             var playerList = (await _appUserRepository.GetAll(u => u.SessionId == sessionId, x => x.OrderBy(q => q.JoinedSessionAt))).ToList();
             if (playerList == null || !playerList.Any())
             {
                 //vyfuc do prazdna
-                return string.Empty;
+                return null;
             }
             var currentPlayer = playerList.FirstOrDefault(p => p.Id == session.CurrentPlayerId);
+            var activePlayerModel = new ActivePlayerModel();
             if(currentPlayer != null)
             {
                 var indexOfCurrentPlayer = playerList.IndexOf(currentPlayer);
                 var nextPlayer = playerList.ElementAt(++indexOfCurrentPlayer % playerList.Count);
                 session.CurrentPlayerId = nextPlayer.Id;
                 _sessionRepository.Save();
-                return nextPlayer.UserName;
+                activePlayerModel.PlayerName = nextPlayer.UserName;
+                activePlayerModel.RemainingSeconds = 60;
+                return activePlayerModel;
             }
             else
             {
                 var nextPlayer = playerList.ElementAt(0);
                 session.CurrentPlayerId = nextPlayer.Id;
                 _sessionRepository.Save();
-                return nextPlayer.UserName;
+                activePlayerModel.PlayerName = nextPlayer.UserName;
+                activePlayerModel.RemainingSeconds = 60;
+                return activePlayerModel;
             }
         }
     }

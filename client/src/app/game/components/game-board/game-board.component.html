@@ -27,7 +27,10 @@
     </div>
     <div class="right-panel">
         <div class="players-turn-section">
-            <p class="white">{{this.gameService.playerName$ | async}}'s turn</p>
+            <div class="players-turn-countdown">
+                <p class="white">{{this.gameService.playerName$ | async}}'s turn</p>
+                <mat-progress-bar mode="determinate" value="{{this.gameService.turnCountdown}}" color="warn"></mat-progress-bar>
+            </div>
             <button class="btn-options" (click)='leaveSession()'>Leave Session!</button>
         </div>
         <div class="hero-info-section">

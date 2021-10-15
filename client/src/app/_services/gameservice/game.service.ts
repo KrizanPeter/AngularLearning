@@ -5,12 +5,15 @@ import { BehaviorSubject, interval, Observable, of } from 'rxjs';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
 import { UserDto } from 'src/app/_models/userDto';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   hubUrl = environment.hubUrl;
+  baseUrl = environment.apiUrl;
   private hubConnection: HubConnection;
   private blocksThread = new BehaviorSubject<IngameBlockDto[]>([]);
   blocksThread$ = this.blocksThread.asObservable();
@@ -18,7 +21,7 @@ export class GameService {
   turnCountdown: number;
   curSec: number = 0;
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private http: HttpClient) { }
 
   createHubConnection(sessionId: number, user: UserDto) {
     this.hubConnection = new HubConnectionBuilder()
@@ -44,10 +47,10 @@ export class GameService {
     });
     this.hubConnection.on('EndTurnDetected', activePlayerModel => {
       console.log("new active player", activePlayerModel);
-      this.toastr.success("It is " + activePlayerModel.PlayerName + "'s turn");
+      this.toastr.success("It is " + activePlayerModel.playerName + "'s turn");
       this.turnCountdown = 100;
-      this.startTimer(activePlayerModel.RemainingSeconds);
-      this.playerName$ = of(activePlayerModel.PlayerName);
+      this.startTimer(activePlayerModel.remainingSeconds);
+      this.playerName$ = of(activePlayerModel.playerName);
     });
   }
 
@@ -58,6 +61,18 @@ export class GameService {
   async moveHero(targetBlockDto: IngameBlockDto) {
     return this.hubConnection.invoke("MoveHero", targetBlockDto)
       .catch(error => console.log(error));
+  }
+
+  public initializeCurrentTurn(sessionId: number)
+  {
+    alert("game init session turn");
+    return this.http.get(this.baseUrl + "coregame/initializecurrentturn/?sessionId=" + sessionId).pipe(
+      tap((response: any) => {
+        console.log(response);
+        this.turnCountdown = 100;
+        this.startTimer(response.remainingSeconds);
+        this.playerName$ = of(response.playerName);
+      }));
   }
 
   private startTimer(seconds: number) {

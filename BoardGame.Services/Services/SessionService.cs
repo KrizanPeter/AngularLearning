@@ -136,5 +136,20 @@ namespace BoardGame.Services.Services
                 return activePlayerModel;
             }
         }
+
+        public async Task<ActivePlayerModel> GetActivePlayer(int sessionId)
+        {
+            var session = await _sessionRepository.Get(sessionId);
+            if(session.CurrentPlayerId == null)
+            {
+                return null;
+            }
+            var player = await _appUserRepository.Get(session.CurrentPlayerId.Value);
+            //get remaining time here --> ako?
+            var activePlayer = new ActivePlayerModel();
+            activePlayer.PlayerName = player.UserName;
+
+            return activePlayer;
+        }
     }
 }

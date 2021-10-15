@@ -13,5 +13,6 @@ namespace BoardGame.Services.Services.Interfaces
         Task<OperationalResult<IEnumerable<SessionModel>>> GetSessions();
         Task<OperationalResult<SessionModel>> GetSessionById(int id);
         Task<ActivePlayerModel> ChangeActivePlayer(int sessionId);
+        Task<ActivePlayerModel> GetActivePlayer(int sessionId);
     }
 }

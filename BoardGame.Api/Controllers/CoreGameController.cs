@@ -1,19 +1,18 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
+
 using BoardGame.Api.DTOs.Block;
 using BoardGame.Api.DTOs.CoreGame;
 using BoardGame.Api.DTOs.Hero;
 using BoardGame.Api.DTOs.Session;
-using BoardGame.Domain.Entities.EntityEnums;
-using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Services.Services.AuthServices;
 using BoardGame.Services.Services.Interfaces;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BoardGame.Api.Controllers
 {
@@ -67,6 +66,15 @@ namespace BoardGame.Api.Controllers
             var dto = _mapper.Map<GameSessionDto>(result.Data);
             dto.BlocksShape = _mapper.Map<ICollection<ICollection<GameBlockDto>>>(result.Data.ConstructTwoDimensionalBoard());
             dto.Blocks = null;
+            return Ok(dto);
+        }
+
+        [Authorize]
+        [HttpGet("initializecurrentturn")]
+        public async Task<ActionResult> InitializeCurrentTurn(int sessionId)
+        {
+            var activePlayerModel = await _sessionService.GetActivePlayer(sessionId);
+            var dto = _mapper.Map<ActivePlayerDto>(activePlayerModel);
             return Ok(dto);
         }
     }

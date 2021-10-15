@@ -56,7 +56,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           blockToRedraw.ngOnInit();
         }
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -69,6 +69,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       if(isInit)
       {
         this.gameService.createHubConnection(this.sessionData.sessionId, this.user);
+        this.gameService.initializeCurrentTurn(this.sessionData.sessionId).subscribe(() => {
+          console.log("current turn initialized");
+        });
       }
       //console.log(this.sessionData);
     }, error =>{

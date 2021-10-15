@@ -41,9 +41,9 @@ namespace API.Extensions
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 string connStr;
 
-                if (env == "Development-msql")
+                if (env == "DevelopmentMsql")
                 {
-                    connStr = config.GetConnectionString("MsqlConnection");
+                    connStr = config.GetConnectionString("DefaultConnection");
                     options.UseSqlServer(connStr);
 
                 }

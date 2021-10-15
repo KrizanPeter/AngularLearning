@@ -45,7 +45,6 @@ namespace API.Extensions
                 {
                     connStr = config.GetConnectionString("DefaultConnection");
                     options.UseSqlServer(connStr);
-
                 }
                 else
                 {

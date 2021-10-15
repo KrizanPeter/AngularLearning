@@ -127,7 +127,7 @@ namespace BoardGame.Services.Services
                 session.CurrentPlayerId = nextPlayer.Id;
                 _sessionRepository.Save();
                 activePlayerModel.PlayerName = nextPlayer.UserName;
-                activePlayerModel.RemainingSeconds = 60;
+                activePlayerModel.RemainingSeconds = 59;
                 return activePlayerModel;
             }
             else
@@ -136,7 +136,7 @@ namespace BoardGame.Services.Services
                 session.CurrentPlayerId = nextPlayer.Id;
                 _sessionRepository.Save();
                 activePlayerModel.PlayerName = nextPlayer.UserName;
-                activePlayerModel.RemainingSeconds = 60;
+                activePlayerModel.RemainingSeconds = 59;
                 return activePlayerModel;
             }
         }
@@ -149,11 +149,12 @@ namespace BoardGame.Services.Services
                 return null;
             }
             var player = await _appUserRepository.Get(session.CurrentPlayerId.Value);
-            //get remaining time here --> ako?
-            var activePlayer = new ActivePlayerModel();
-            activePlayer.PlayerName = player.UserName;
+            var activePlayerModel = new ActivePlayerModel();
+            activePlayerModel.PlayerName = player.UserName;
+            var sessionMove = session.LastTurnChange ?? default(DateTime);
+            activePlayerModel.RemainingSeconds = (int)(DateTime.UtcNow - sessionMove).TotalSeconds;
 
-            return activePlayer;
+            return activePlayerModel;
         }
     }
 }

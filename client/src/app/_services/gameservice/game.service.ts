@@ -46,8 +46,8 @@ export class GameService {
       console.log("new active player", activePlayerModel);
       this.toastr.success("It is " + activePlayerModel.PlayerName + "'s turn");
       this.turnCountdown = 100;
-      this.startTimer(activePlayerModel.RemainingSeconds);
-      this.playerName$ = of(activePlayerModel.PlayerName);
+      this.startTimer(activePlayerModel.remainingSeconds);
+      this.playerName$ = of(activePlayerModel.playerName);
     });
   }
 

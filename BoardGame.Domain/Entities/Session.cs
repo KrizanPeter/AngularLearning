@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using BoardGame.Domain.Entities.EntityEnums;
@@ -13,6 +14,7 @@ namespace BoardGame.Domain.Entities
         public PlanSize PlanSize { get; set; }
         public int CenterBlockPosition { get; set; }
         public int? CurrentPlayerId { get; set; }
+        public DateTime? LastTurnChange { get; set; }
 
         //References
 

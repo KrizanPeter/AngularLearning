@@ -44,7 +44,7 @@ export class GameService {
     });
     this.hubConnection.on('EndTurnDetected', activePlayerModel => {
       console.log("new active player", activePlayerModel);
-      this.toastr.success("It is " + activePlayerModel.PlayerName + "'s turn");
+      this.toastr.success("It is " + activePlayerModel.playerName + "'s turn");
       this.turnCountdown = 100;
       this.startTimer(activePlayerModel.remainingSeconds);
       this.playerName$ = of(activePlayerModel.playerName);

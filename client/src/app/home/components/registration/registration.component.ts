@@ -23,7 +23,15 @@ export class RegistrationComponent implements OnInit {
       this.router.navigateByUrl('/game');
     }, error =>{
       console.log(error);
-      this.toastr.error(error.error);
+      if(error.error){
+        this.toastr.error(error.error.title);
+        if(error.error.errors.Password)
+        {
+          error.error.errors.Password.forEach(error => {
+            this.toastr.error(error);
+          });
+        }
+      }
     });
   }
 

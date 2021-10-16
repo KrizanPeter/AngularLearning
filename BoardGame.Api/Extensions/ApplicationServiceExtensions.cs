@@ -50,7 +50,7 @@ namespace API.Extensions
                 {
                     if (env == "Development")
                     {
-                        connStr = config.GetConnectionString("DefaultConnection");
+                        connStr ="Server=localhost;Port=5432;User Id=postgres;Password=admin;Database=BoardGameDb";
                     }
                     else
                     {

@@ -68,8 +68,8 @@ export class GameService {
     return this.http.get(this.baseUrl + "coregame/initializecurrentturn/?sessionId=" + sessionId).pipe(
       tap((response: any) => {
         console.log(response);
-        //this.turnCountdown = 100;
-        //this.startTimer(response.remainingSeconds);
+        this.turnCountdown = 100;
+        this.startTimer(response.remainingSeconds);
         this.playerName$ = of(response.playerName);
       }));
   }

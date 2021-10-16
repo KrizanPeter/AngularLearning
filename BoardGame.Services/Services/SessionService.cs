@@ -118,7 +118,7 @@ namespace BoardGame.Services.Services
             var currentPlayer = playerList.FirstOrDefault(p => p.Id == session.CurrentPlayerId);
             var activePlayerModel = new ActivePlayerModel();
             var sessionMove = session.LastTurnChange ?? default(DateTime);
-            activePlayerModel.RemainingSeconds = (int)(DateTime.UtcNow - sessionMove).TotalSeconds;
+            activePlayerModel.RemainingSeconds = 59-(int)(DateTime.UtcNow - sessionMove).TotalSeconds;
             session.LastTurnChange = DateTime.UtcNow;
             if(currentPlayer != null)
             {
@@ -152,7 +152,7 @@ namespace BoardGame.Services.Services
             var activePlayerModel = new ActivePlayerModel();
             activePlayerModel.PlayerName = player.UserName;
             var sessionMove = session.LastTurnChange ?? default(DateTime);
-            activePlayerModel.RemainingSeconds = (int)(DateTime.UtcNow - sessionMove).TotalSeconds;
+            activePlayerModel.RemainingSeconds = 57-(int)(DateTime.UtcNow - sessionMove).TotalSeconds;
 
             return activePlayerModel;
         }

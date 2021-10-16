@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211015082024_AddedLastTurnDateTime")]
-    partial class AddedLastTurnDateTime
+    [Migration("20211015211815_Initialmigration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

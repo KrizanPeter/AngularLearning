@@ -57,7 +57,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(a => a.UserName == loginDto.UserName.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(a => a.NormalizedUserName == loginDto.UserName.ToUpper());
 
             if(user == null) { return Unauthorized("Invalid username");}
 

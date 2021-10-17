@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.sendMessage(message).then(()=>{
       console.log(message);
       this.messages.push(message);
+      this.messageContent = "";
     })
   }
 }

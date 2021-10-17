@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AccountService } from 'src/app/home/services/account/account.service';
 import { IngameBlockDto } from 'src/app/_models/BlockDtos/ingameBlockDto';
@@ -25,6 +26,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   @ViewChildren(GameBlockComponent) boardBlockViewChildren: QueryList<GameBlockComponent>;
 
   sessionData : IngameSessionDto;
+  blockshape$ : Observable<IngameBlockDto[][]>
   renderWindow: BlockWindow  = {
     startX : 7,
     startY: 9,
@@ -66,6 +68,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   loadGame(isInit: boolean = false){
     this.gameBoardService.getGameSessions(this.renderWindow).subscribe(response=>{
       this.sessionData = response;
+      this.blockshape$ = of(response.blocksShape);
       if(isInit)
       {
         this.gameService.createHubConnection(this.sessionData.sessionId, this.user);

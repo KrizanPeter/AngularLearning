@@ -8,8 +8,8 @@
             <button class="map-button horizontal" (click)="moveLeft()">
                 <fa-icon [icon]="arrowLeft"></fa-icon>
             </button>
-            <div class="game-plan col col-12">
-                <div class="game-plan-row row" *ngFor="let row of sessionData.blocksShape">
+            <div *ngIf="this.blockshape$ | async " class="game-plan col col-12">
+                <div class="game-plan-row row" *ngFor="let row of this.blockshape$ | async">
                     <app-game-block class="game-block"
                     *ngFor="let element of row" [blockComponentData]="element"
                     (click)="moveHero(element)">

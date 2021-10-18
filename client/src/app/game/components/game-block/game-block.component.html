@@ -6,6 +6,7 @@
     </div>
     <div class="monster-wrapper" *ngIf="this.blockComponentData.monster">
         <div class="monster" [style.background-image]="this.blockComponentData.monster.monsterType.imagePath">
+            <p class="monster-level">{{this.blockComponentData.monster.level}}</p>
         </div>
     </div>
 </div>

@@ -27,6 +27,12 @@
     z-index: 3;
     grid-row-start: 1;
     grid-column: 1;
+    .monster-level{
+        padding-top: 5px;
+        padding-left: 5px;
+        color:  rgb(80, 31, 22) ;
+        font-weight: 700;
+    }
 }
 
 .monster-wrapper, .player-wrapper{

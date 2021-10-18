@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace BoardGame.Domain.Entities
+namespace BoardGame.Domain.Models
 {
-    public class Monster
+    public class MonsterModel
     {
         public int MonsterId { get; set; }
         public int MonsterTypeId { get; set; }
@@ -15,10 +16,6 @@ namespace BoardGame.Domain.Entities
         public int DmgMin { get; set; }
         public int DmgMax { get; set; }
         public int Armor { get; set; }
-
-
-        //References
-        public virtual MonsterType MonsterType { get; set; }
-
+        public MonsterTypeModel MonsterType { get; set; }
     }
 }

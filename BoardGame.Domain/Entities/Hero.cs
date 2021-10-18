@@ -15,7 +15,11 @@ namespace BoardGame.Domain.Entities
         public string HeroName { get; set; }
         public HeroType HeroType { get; set; }
         public string ImagePath { get; set; }
-        public int Lives { get; set; }
+        public int Level { get; set; }
+        public int Lives { get; set; } = 10;
+        public int DmgMin { get; set; } = 2;
+        public int DmgMax { get; set; } = 12;
+        public int Armor { get; set; } = 0;
 
         //References
         public virtual AppUser User { get; set; }

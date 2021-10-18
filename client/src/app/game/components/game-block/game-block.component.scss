@@ -7,6 +7,31 @@
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+}
+
+
+.monster {
+    position: relative;
+    top: 30px;
+    left: 30px;
+    width: 70px;
+    height: 70px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    border: solid 1px gray;
+    border-radius: 5px;
+    z-index: 3;
+    grid-row-start: 1;
+    grid-column: 1;
+}
+
+.monster-wrapper, .player-wrapper{
+    grid-row-start: 1;
+    grid-column: 1;
 }
 
 .player-hero {
@@ -20,7 +45,9 @@
     background-size: cover;
     border: solid 1px gray;
     border-radius: 5px;
-    z-index: 3;
+    z-index: 4;
+    grid-row-start: 1;
+    grid-column: 1;
 }
 
 .discover-fade {

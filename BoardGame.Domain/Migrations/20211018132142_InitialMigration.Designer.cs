@@ -10,15 +10,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211015211815_Initialmigration")]
-    partial class Initialmigration
+    [Migration("20211018132142_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("BoardGame.Domain.Entities.AppRole", b =>
@@ -238,7 +238,16 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Armor")
+                        .HasColumnType("integer");
+
                     b.Property<int>("BlockId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DmgMax")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DmgMin")
                         .HasColumnType("integer");
 
                     b.Property<string>("HeroName")
@@ -252,6 +261,9 @@ namespace BoardGame.Domain.Migrations
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Lives")
                         .HasColumnType("integer");
@@ -312,6 +324,21 @@ namespace BoardGame.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Armor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DmgMax")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DmgMin")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Life")
+                        .HasColumnType("integer");
 
                     b.Property<string>("MonsterName")
                         .HasColumnType("text");

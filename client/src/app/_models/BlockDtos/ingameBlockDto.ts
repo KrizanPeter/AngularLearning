@@ -1,4 +1,5 @@
 import { IngameHeroDto } from "../HeroDtos/ingameHeroDto";
+import { IngameMonsterDto } from "../MonsterDtos/IngameMonsterDto";
 import { IngameBlockTypeDto } from "./ingameBlockTypeDto";
 
 export interface IngameBlockDto{
@@ -9,6 +10,7 @@ export interface IngameBlockDto{
     blockPositionY : number
     blockOrder: number
     incomingMovement: string
+    monster: IngameMonsterDto
     blockType : IngameBlockTypeDto
     heroes: IngameHeroDto[]
 }

@@ -2,6 +2,7 @@
 
 using BoardGame.Api.DTOs.BlockType;
 using BoardGame.Api.DTOs.Hero;
+using BoardGame.Api.DTOs.Monster;
 
 namespace BoardGame.Api.DTOs.Block
 {
@@ -16,6 +17,7 @@ namespace BoardGame.Api.DTOs.Block
         public int BlockOrder { get; set; }
         public BlockTypeDto BlockType { get; set; }
         public string IncomingMovement { get; set; }
+        public MonsterOnBoardDto Monster { get; set; }
 
         public ICollection<GameHeroDto> Heroes { get; set; }
 

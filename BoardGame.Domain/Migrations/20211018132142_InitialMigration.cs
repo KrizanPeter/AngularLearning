@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BoardGame.Domain.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,12 @@ namespace BoardGame.Domain.Migrations
                     MonsterId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MonsterTypeId = table.Column<int>(type: "integer", nullable: false),
-                    MonsterName = table.Column<string>(type: "text", nullable: true)
+                    MonsterName = table.Column<string>(type: "text", nullable: true),
+                    Level = table.Column<int>(type: "integer", nullable: false),
+                    Life = table.Column<int>(type: "integer", nullable: false),
+                    DmgMin = table.Column<int>(type: "integer", nullable: false),
+                    DmgMax = table.Column<int>(type: "integer", nullable: false),
+                    Armor = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -310,7 +315,11 @@ namespace BoardGame.Domain.Migrations
                     HeroName = table.Column<string>(type: "text", nullable: true),
                     HeroType = table.Column<int>(type: "integer", nullable: false),
                     ImagePath = table.Column<string>(type: "text", nullable: true),
-                    Lives = table.Column<int>(type: "integer", nullable: false)
+                    Level = table.Column<int>(type: "integer", nullable: false),
+                    Lives = table.Column<int>(type: "integer", nullable: false),
+                    DmgMin = table.Column<int>(type: "integer", nullable: false),
+                    DmgMax = table.Column<int>(type: "integer", nullable: false),
+                    Armor = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

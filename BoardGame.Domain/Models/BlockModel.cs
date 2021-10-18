@@ -12,7 +12,9 @@ namespace BoardGame.Domain.Models
         public int BlockPositionY { get; set; }
         public int BlockOrder { get; set; }
         public BlockTypeModel BlockType { get; set; }
+        public MonsterModel Monster { get; set; }
         public string IncomingMovement { get; set; }
+
 
         public ICollection<HeroModel> Heroes { get; set; }
 

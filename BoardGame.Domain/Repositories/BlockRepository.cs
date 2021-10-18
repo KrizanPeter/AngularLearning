@@ -30,7 +30,7 @@ namespace BoardGame.Domain.Repositories
 
         public Block GetBlockWithHeroes(int blockId)
         {
-            var result = _db.Blocks.Where(b => b.BlockId == blockId).Include(x => x.Heroes).SingleOrDefault();
+            var result = _db.Blocks.Where(b => b.BlockId == blockId).Include(x => x.Heroes).Include(a=>a.Monster).ThenInclude(a=>a.MonsterType).SingleOrDefault();
             return result;
         }
     }

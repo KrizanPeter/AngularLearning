@@ -68,6 +68,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   loadGame(isInit: boolean = false){
     this.gameBoardService.getGameSessions(this.renderWindow).subscribe(response=>{
       this.sessionData = response;
+      console.log("cum sem");
+      console.log(response);
       this.blockshape$ = of(response.blocksShape);
       if(isInit)
       {

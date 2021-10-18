@@ -30,6 +30,9 @@ namespace BoardGame.Domain.Repositories
                 .ThenInclude(a=>a.BlockType)
                 .Include(b=>b.Blocks)
                 .ThenInclude(a=>a.Heroes)
+                .Include(b => b.Blocks)
+                .ThenInclude(a => a.Monster)
+                .ThenInclude(a=>a.MonsterType)
                 .Select(
                 c => new Session()
                 {

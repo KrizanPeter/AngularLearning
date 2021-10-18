@@ -14,6 +14,9 @@ namespace BoardGame.Domain.ModelMapperProfile
             CreateMap<Hero, HeroModel>().ReverseMap();
             CreateMap<ChatMessage, ChatMessageModel>().ReverseMap();
             CreateMap<BlockType, BlockTypeModel>().ReverseMap();
+            CreateMap<Monster, MonsterModel>().ReverseMap();
+            CreateMap<MonsterType, MonsterTypeModel>().ReverseMap();
+
         }
     }
 }

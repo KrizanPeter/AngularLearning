@@ -1,0 +1,15 @@
+[
+	{
+
+		"ImagePath": "url(assets/images/gameboard/monsters/monster-dragon.png)"
+	},
+	{
+
+		"ImagePath": "url(assets/images/gameboard/monsters/monster-skeleton.png)"
+	},
+	{
+
+		"ImagePath": "url(assets/images/gameboard/monsters/monster-skeleton-warrior.png)"
+	}
+]
+      

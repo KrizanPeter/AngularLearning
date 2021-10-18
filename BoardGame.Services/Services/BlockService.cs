@@ -21,14 +21,16 @@ namespace BoardGame.Services.Services
         private readonly IBlockRepository _blockRepository;
         private readonly IBlockTypeRepository _blockTypeRepository;
         private readonly IHeroRepository _heroRepository;
+        private readonly IMonsterService _monsterService;
         private readonly IMapper _mapper;
 
-        public BlockService(IBlockRepository blockRepository, IHeroRepository heroRepository, IMapper mapper, IBlockTypeRepository blockTypeRepository)
+        public BlockService(IBlockRepository blockRepository, IHeroRepository heroRepository, IMonsterService monsterService, IMapper mapper, IBlockTypeRepository blockTypeRepository)
         {
             _blockRepository = blockRepository;
             _heroRepository = heroRepository;
             _mapper = mapper;
             _blockTypeRepository = blockTypeRepository;
+            _monsterService = monsterService;
         }
 
         public Task<OperationalResult<BlockModel>> GetBlockById(int id)
@@ -64,8 +66,15 @@ namespace BoardGame.Services.Services
             if (targetBlockModel.BlockType.BlockCategory == BlockCategory.Hidden)
             {
                 var discoverResult = await DiscoverBlock(targetBlockModel, movement);
-                if(discoverResult.Succeeded)
+
+                if (discoverResult.Succeeded)
                 {
+                    if (discoverResult.Data.BlockCategory == BlockCategory.Room)
+                    {
+                        var monsterGeneratorResult = await _monsterService.GenerateMonster(hero.Level);
+                        targetBlock.MonsterId = monsterGeneratorResult.Succeeded ? monsterGeneratorResult.Data.MonsterId : null;
+                    }
+
                     targetBlock.BlockTypeId = targetBlockModel.BlockTypeId;
                     _blockRepository.Save();
                 }
@@ -141,7 +150,7 @@ namespace BoardGame.Services.Services
             return new MovementModel();
         }
 
-        private async Task<OperationalResult> DiscoverBlock(BlockModel targetBlock, MovementModel movement)
+        private async Task<OperationalResult<BlockType>> DiscoverBlock(BlockModel targetBlock, MovementModel movement)
         {
             var rand = new Random();
             var targetCategory = (BlockCategory)rand.Next(1, 3);
@@ -168,9 +177,9 @@ namespace BoardGame.Services.Services
                 var blockTypeList = blockTypes.ToList();
                 var selectedBlockType = blockTypeList.ElementAt(rand.Next(0, blockTypeList.Count));
                 targetBlock.BlockTypeId = selectedBlockType.BlockTypeId;
-                return OperationalResult.Success();
+                return OperationalResult.Success(selectedBlockType);
             }
-            return OperationalResult.Failed();
+            return OperationalResult.Failed<BlockType>();
         }
     }
 }

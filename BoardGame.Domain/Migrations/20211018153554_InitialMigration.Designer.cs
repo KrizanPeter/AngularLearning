@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211018132142_InitialMigration")]
+    [Migration("20211018153554_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

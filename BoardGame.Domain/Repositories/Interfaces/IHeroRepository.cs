@@ -1,4 +1,5 @@
 ﻿using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace BoardGame.Domain.Repositories.Interfaces
 {
     public interface IHeroRepository : IRepository<Hero>
     {
+        HeroModel GetHeroModel(int id);
+        HeroModel GetHeroModelByUserId(int userId);
     }
 }

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoardGame.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211018153554_InitialMigration")]
+    [Migration("20211020173840_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,6 +250,12 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("DmgMin")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Experience")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ExperienceCap")
+                        .HasColumnType("integer");
+
                     b.Property<string>("HeroName")
                         .HasColumnType("text");
 
@@ -266,6 +272,12 @@ namespace BoardGame.Domain.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("Lives")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LivesCap")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SkillPoints")
                         .HasColumnType("integer");
 
                     b.HasKey("HeroId");

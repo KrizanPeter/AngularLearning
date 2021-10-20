@@ -109,8 +109,8 @@ namespace BoardGame.Services.Services
             _heroRepository.Save();
 
             var blocksToRerender = new List<BlockModel>();
-            blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(currentBlockModel.BlockId)));
-            var updatedTargetBlock = _mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroes(targetBlockModel.BlockId));
+            blocksToRerender.Add(_mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroesAndMonster(currentBlockModel.BlockId)));
+            var updatedTargetBlock = _mapper.Map<BlockModel>(_blockRepository.GetBlockWithHeroesAndMonster(targetBlockModel.BlockId));
             updatedTargetBlock.IncomingMovement = targetBlockModel.IncomingMovement.ToLower();
             blocksToRerender.Add(updatedTargetBlock);
 
@@ -180,6 +180,97 @@ namespace BoardGame.Services.Services
                 return OperationalResult.Success(selectedBlockType);
             }
             return OperationalResult.Failed<BlockType>();
+        }
+
+        public async Task<OperationalResult<BattleReportModel>> ResolveConflictOnBlock(int blockId, int attackerUserId)
+        {
+            var blockModel = _blockRepository.GetBlockModelWithHeroesAndMonster(blockId);
+            if (blockModel == null) return OperationalResult.Failed<BattleReportModel>(new OperationalError(HttpStatusCode.NotFound, "Block was not found"));
+            BattleReportModel model = null;
+            if (blockModel.Heroes.Count == 2)
+            {
+                model = await ResolvePvPFightAsync(blockModel, attackerUserId);
+            }
+            else if(blockModel.Monster != null && blockModel.Heroes.Any())
+            {
+                model = ResolvePveFight(blockModel, attackerUserId);
+            }
+
+            return OperationalResult.Success(model);
+        }
+
+        private async Task<BattleReportModel> ResolvePvPFightAsync(BlockModel blockModel, int attackerUserId)
+        {
+            var attackerHero = _heroRepository.GetHeroModelByUserId(attackerUserId);
+            var defenderHeroId = blockModel.Heroes.First(a => a.AppUserId != attackerUserId).HeroId;
+            var defenderhero = _heroRepository.GetHeroModel(defenderHeroId);
+            Random rand = new Random();
+            var attackerDmg = 0;
+            var defenderDmg = 0;
+            var winner = "Nobody";
+
+            for (int i = 0; i<5; i++)
+            {
+                var attackerHit = rand.Next(attackerHero.DmgMin, attackerHero.DmgMax + 1);
+                var defenderHit = rand.Next(defenderhero.DmgMin, defenderhero.DmgMax + 1);
+                var attackerCalculatedHit = attackerHit - defenderhero.Armor;
+                var defenderCalculatedHit = defenderHit - attackerHero.Armor;
+                attackerDmg += attackerCalculatedHit;
+                defenderDmg += defenderCalculatedHit;
+                if(defenderhero.Lives - attackerDmg <= 0)
+                {
+                    winner = defenderhero.HeroName;
+                    break;
+                }
+                if(attackerHero.Lives - defenderDmg <= 0)
+                {
+                    winner = attackerHero.HeroName;
+                    break;
+                }
+            }
+
+            var attackerHeroEntity = await _heroRepository.GetFirstOrDefault(a => a.AppUserId == attackerUserId);
+            var defenderheroEntity = await _heroRepository.Get(defenderHeroId);
+            attackerHeroEntity.Lives -= defenderDmg;
+            defenderheroEntity.Lives -= attackerDmg;
+            attackerHeroEntity.Experience += attackerHeroEntity.Level * 10;
+            defenderheroEntity.Experience += attackerHeroEntity.Level * 10;
+            attackerHeroEntity = ConsolidatePlayerAfterFight(attackerHeroEntity);
+            defenderheroEntity = ConsolidatePlayerAfterFight(defenderheroEntity);
+            _heroRepository.Save();
+
+            var report = ConstructReport(winner, attackerHero, attackerDmg, defenderhero, defenderDmg);
+
+            return report;
+        }
+
+        private Hero ConsolidatePlayerAfterFight(Hero hero)
+        {
+            if (hero.Lives < 0) hero.Lives = 0;
+            if (hero.Experience >= hero.ExperienceCap)
+            {
+                hero.Level++;
+                hero.Experience = hero.Experience - hero.ExperienceCap;
+                hero.ExperienceCap = (int)(hero.ExperienceCap * 1.2);
+                hero.SkillPoints += 3;
+            }
+            return hero;
+        }
+
+        private BattleReportModel ConstructReport(string winner, HeroModel attackerHero, int attackerDmg, HeroModel defenderhero, int defenderDmg)
+        {
+            var reportTitle = "Battle result: " + winner + " has been killed!";
+            return new BattleReportModel(reportTitle, "imga", "imgd", attackerHero.HeroName,
+                defenderhero.HeroName, attackerHero.LivesCap,
+                attackerHero.Lives - defenderDmg, defenderhero.LivesCap,
+                defenderhero.Lives - attackerDmg, attackerHero.DmgMin, defenderhero.DmgMin, 
+                attackerHero.DmgMax, defenderhero.DmgMax,
+                attackerHero.Armor, defenderhero.Armor, attackerHero.Level * 10);
+        }
+
+        private BattleReportModel ResolvePveFight(BlockModel blockModel, int attackerUserId)
+        {
+            return new BattleReportModel();
         }
     }
 }

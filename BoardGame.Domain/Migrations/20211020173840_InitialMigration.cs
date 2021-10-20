@@ -317,9 +317,13 @@ namespace BoardGame.Domain.Migrations
                     ImagePath = table.Column<string>(type: "text", nullable: true),
                     Level = table.Column<int>(type: "integer", nullable: false),
                     Lives = table.Column<int>(type: "integer", nullable: false),
+                    LivesCap = table.Column<int>(type: "integer", nullable: false),
                     DmgMin = table.Column<int>(type: "integer", nullable: false),
                     DmgMax = table.Column<int>(type: "integer", nullable: false),
-                    Armor = table.Column<int>(type: "integer", nullable: false)
+                    Armor = table.Column<int>(type: "integer", nullable: false),
+                    Experience = table.Column<int>(type: "integer", nullable: false),
+                    ExperienceCap = table.Column<int>(type: "integer", nullable: false),
+                    SkillPoints = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,7 +1,7 @@
 ﻿using API.DTOs.Session;
 
 using AutoMapper;
-
+using BoardGame.Api.DTOs.BattleReportDto;
 using BoardGame.Api.DTOs.Block;
 using BoardGame.Api.DTOs.BlockType;
 using BoardGame.Api.DTOs.Hero;
@@ -27,6 +27,7 @@ namespace API.DtoMappers
             CreateMap<ActivePlayerModel, ActivePlayerDto>().ReverseMap();
             CreateMap<MonsterModel, MonsterOnBoardDto>().ReverseMap();
             CreateMap<MonsterTypeModel, MonsterTypeDto>().ReverseMap();
+            CreateMap<BattleReportModel, BattleReportDto>().ReverseMap();
         }
     }
 }

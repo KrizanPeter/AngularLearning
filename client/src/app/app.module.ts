@@ -25,6 +25,8 @@ import { HeaderInterceptor } from './_auth/HeaderInterceptor';
 import { GameBlockComponent } from './game/components/game-block/game-block.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-layout/choose-hero-layout.component';
+import { ReportDialogComponent } from './shared/report-dialog/report-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-lay
     JoinToGameComponent,
     GameBlockComponent,
     ChooseHeroLayoutComponent,
+    ReportDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { ChooseHeroLayoutComponent } from './new-game/components/choose-hero-lay
     MatTableModule,
     FontAwesomeModule,
     MatProgressBarModule,
+    MatDialogModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right'
     })

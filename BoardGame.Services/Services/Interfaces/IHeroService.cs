@@ -1,5 +1,7 @@
 ﻿using BoardGame.Domain.Entities;
 using BoardGame.Domain.Entities.EntityEnums;
+using BoardGame.Domain.Models;
+using BoardGame.Domain.Models.Enums;
 using BoardGame.Services.ReturnStates;
 using System;
 using System.Collections.Generic;
@@ -12,5 +14,7 @@ namespace BoardGame.Services.Services.Interfaces
     public interface IHeroService
     {
         Task<OperationalResult> CreateHero(AppUser user, HeroType heroType);
+        Task<OperationalResult<HeroModel>> GetHeroInformationOfUser(int id);
+        Task<OperationalResult> UpgradeAttributeOfUserHero(int id, HeroAttribute attribute);
     }
 }

@@ -1,4 +1,4 @@
-<div class="character-info-section">
+<div *ngIf="this.heroInformation$ | async as hero" class="character-info-section">
 
     <div class="hero-item-section">
         <div class="hero-weapon-section">
@@ -11,8 +11,12 @@
             <div class="hero-weapon"></div>
         </div>
         <div class="hero-picture-placeholder">
+            <div class="hero-header">
+                <h3 class="hero-name">{{hero.heroName}}</h3>
+            </div>
             <div class="hero-picture">
-                <h3 class="hero-level">Lvl: 25</h3>
+                <h3 class="hero-level">Lvl: {{hero.level}}</h3>
+                <h3 class="hero-level">Skill: {{hero.skillPoints}}</h3>
             </div>
         </div>
         <div class="hero-magic-section">
@@ -28,26 +32,26 @@
             <div class="hpxp-row">
                 <div class="hp-col">
                     <div class="stat-icon heart-icon"></div>
-                    <div class="stat-value">230/350</div>
-                    <button class="btn-upgrade">+</button>
+                    <div class="stat-value">{{hero.lives}} / {{hero.livesCap}}</div>
+                    <button class="btn-upgrade" [disabled]="hero.skillPoints==0" (click)="upgradeHeroSkill(this.heroAttributeHp)">+</button>
                 </div>
                 <div class="xp-col">
                     <div class="stat-icon star-icon"></div>
-                    <div class="stat-value">230/350</div>
-                    <button class="btn-upgrade">+</button>
+                    <div class="stat-value">{{hero.experience}} / {{hero.experienceCap}}</div>
+                    <button class="btn-upgrade" [disabled]="hero.skillPoints==0">+</button>
                 </div>
             </div>
 
             <div class="attdef-row">
                 <div class="att-col">
                     <div class="stat-icon sword-icon"></div>
-                    <div class="stat-value">5-13</div>
-                    <button class="btn-upgrade">+</button>
+                    <div class="stat-value">{{hero.dmgMin}} - {{hero.dmgMax}}</div>
+                    <button class="btn-upgrade" [disabled]="hero.skillPoints==0" (click)="upgradeHeroSkill(this.heroAttributeDmg)">+</button>
                 </div>
                 <div class="def-col">
                     <div class="stat-icon shield-icon"></div>
-                    <div class="stat-value">5</div>
-                    <button class="btn-upgrade">+</button>
+                    <div class="stat-value">{{hero.armor}}</div>
+                    <button class="btn-upgrade" [disabled]="hero.skillPoints==0"(click)="upgradeHeroSkill(this.heroAttributeArmor)">+</button>
                 </div>
             </div>
         </div>

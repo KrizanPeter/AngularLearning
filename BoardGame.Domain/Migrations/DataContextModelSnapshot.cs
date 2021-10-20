@@ -248,6 +248,12 @@ namespace BoardGame.Domain.Migrations
                     b.Property<int>("DmgMin")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Experience")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ExperienceCap")
+                        .HasColumnType("integer");
+
                     b.Property<string>("HeroName")
                         .HasColumnType("text");
 
@@ -264,6 +270,12 @@ namespace BoardGame.Domain.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("Lives")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LivesCap")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SkillPoints")
                         .HasColumnType("integer");
 
                     b.HasKey("HeroId");

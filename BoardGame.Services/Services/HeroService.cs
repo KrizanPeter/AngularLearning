@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BoardGame.Domain.Entities;
 using BoardGame.Domain.Entities.EntityEnums;
+using BoardGame.Domain.Models;
+using BoardGame.Domain.Models.Enums;
 using BoardGame.Domain.Repositories.Interfaces;
 using BoardGame.Services.ReturnStates;
 using BoardGame.Services.Services.Interfaces;
@@ -50,11 +52,47 @@ namespace BoardGame.Services.Services
                 HeroName = user.UserName,
                 AppUserId = user.Id,
                 HeroType = heroType,
-                Lives = 10,
+                Lives = 100,
                 BlockId = centerBlock.BlockId,
                 ImagePath = path
             };
             _heroRepository.Add(hero);
+            _heroRepository.Save();
+            return OperationalResult.Success();
+        }
+
+        public async Task<OperationalResult<HeroModel>> GetHeroInformationOfUser(int id)
+        {
+            var hero = await _heroRepository.GetFirstOrDefault(a=>a.AppUserId == id);
+            var heroModel = _mapper.Map<HeroModel>(hero);
+            if (heroModel == null)
+            {
+                return OperationalResult.Failed<HeroModel>();
+            }
+            return OperationalResult.Success(heroModel);
+        }
+
+        public async Task<OperationalResult> UpgradeAttributeOfUserHero(int id, HeroAttribute attribute)
+        {
+            var hero = await _heroRepository.GetFirstOrDefault(a => a.AppUserId == id);
+            if (hero.SkillPoints <= 0)
+            {
+                return OperationalResult.Failed(new OperationalError(System.Net.HttpStatusCode.BadRequest, "You have no enough free skill points"));
+            }
+            if(attribute == HeroAttribute.ARMOR)
+            {
+                hero.Armor++;
+            }
+            else if (attribute == HeroAttribute.HP)
+            {
+                hero.LivesCap +=10;
+            }
+            else if (attribute == HeroAttribute.DMG)
+            {
+                hero.DmgMin++;
+                hero.DmgMax++;
+            }
+            hero.SkillPoints--;
             _heroRepository.Save();
             return OperationalResult.Success();
         }

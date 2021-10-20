@@ -1,0 +1,135 @@
+.dialog-wrapper{
+    width: 800px;
+    height: 650px;
+    display: grid;
+    grid-template-rows: 15% auto 4%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.battle-title{
+    padding-top: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.dialog-content{
+    display: grid;
+    grid-template-rows: 50% 30% 20%;
+}
+
+.oponents-row{
+    text-align: center;
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+
+.name-section, .oponents-portrets{
+    display: grid;
+    grid-template-columns: 33% auto 33%;
+    font-size: 40px;
+    font-weight: 600;
+}
+.versus{
+    padding-top: 90px;
+    font-size: 90px;
+}
+.attacker-portret, .defender-portret{
+    border: 2px, solid, black;
+    margin-left:10px;
+    margin-right: 10px;
+    background-image: url("../../../assets/images/gameboard/hero/warlockhead.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.stats-section{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    font-size: 20px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.attacker-stats, .defender-stats{
+    display: grid;
+    grid-template-rows: 33% 33% auto;
+}
+
+.stat-row{
+display: grid;
+grid-template-columns: 20% 80%;
+margin-top: 10px;
+}
+
+.stat-icon{
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+
+.hp-icon{
+    background-image: url('../../../assets/images/gameboard/icons/heart-icon.png');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.star-icon{
+    background-image: url('../../../assets/images/gameboard/icons/star-icon.png');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+.armor-icon{
+    background-image: url('../../../assets/images/gameboard/icons/shield-icon.png');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+.attack-icon{
+    background-image: url('../../../assets/images/gameboard/icons/sword-icon.png');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.experience-row{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 30px;
+    .star-icon{
+        margin-left: 80%;
+    }
+    .experience-value{
+        font-size: 30px;
+        font-weight: 500;
+        padding-top: 15px;
+    }
+
+}
+
+.button-section{
+    align-items: center;
+}
+.btn-close{
+    min-width: 180px;
+    height: 100%;
+    border: #3c1711 1px solid;
+    border-radius: 10px;
+    background-color: rgb(61, 27, 21) ;
+    color:white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: transform .3s;
+    &:hover{
+        transform: scale(1.02);
+        background-color: rgb(64, 25, 18);
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+

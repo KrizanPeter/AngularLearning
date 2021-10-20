@@ -1,6 +1,7 @@
 ﻿using API.Entities.Context;
 using AutoMapper;
 using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,18 @@ namespace BoardGame.Domain.Repositories
         {
             _db = db;
             _mapper = mapper;
+        }
+
+        public HeroModel GetHeroModel(int id)
+        {
+            var result = _db.Heroes.Where(a => a.HeroId == id).SingleOrDefault();
+            return _mapper.Map<HeroModel>(result);
+        }
+
+        public HeroModel GetHeroModelByUserId(int userId)
+        {
+            var result = _db.Heroes.Where(a => a.AppUserId == userId).SingleOrDefault();
+            return _mapper.Map<HeroModel>(result);
         }
     }
 }

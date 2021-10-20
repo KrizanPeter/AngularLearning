@@ -5,6 +5,7 @@ using API.Entities.Context;
 using AutoMapper;
 
 using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
@@ -28,10 +29,16 @@ namespace BoardGame.Domain.Repositories
             return result;
         }
 
-        public Block GetBlockWithHeroes(int blockId)
+        public Block GetBlockWithHeroesAndMonster(int blockId)
         {
             var result = _db.Blocks.Where(b => b.BlockId == blockId).Include(x => x.Heroes).Include(a=>a.Monster).ThenInclude(a=>a.MonsterType).SingleOrDefault();
             return result;
+        }
+
+        public BlockModel GetBlockModelWithHeroesAndMonster(int blockId)
+        {
+            var result = _db.Blocks.Where(b => b.BlockId == blockId).Include(x => x.Heroes).Include(a => a.Monster).ThenInclude(a => a.MonsterType).SingleOrDefault();
+            return _mapper.Map<BlockModel>(result);
         }
     }
 }

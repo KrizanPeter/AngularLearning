@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
@@ -11,11 +11,14 @@ import { UserDto } from 'src/app/_models/userDto';
 import { GameService } from 'src/app/_services/gameservice/game.service';
 import { GameBoardService } from '../../services/game-board.service';
 import { GameBlockComponent } from '../game-block/game-block.component';
+import {MatDialog} from '@angular/material/dialog';
+import { ReportDialogComponent } from 'src/app/shared/report-dialog/report-dialog.component';
+import { CharacterInfoComponent } from '../character-info/character-info.component';
 
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
-  styleUrls: ['./game-board.component.scss']
+  styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   arrowUp = faArrowUp;
@@ -24,7 +27,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   arrowRight = faArrowRight;
   user: UserDto;
   @ViewChildren(GameBlockComponent) boardBlockViewChildren: QueryList<GameBlockComponent>;
-
+  @ViewChild(CharacterInfoComponent) characterInfoComponent:CharacterInfoComponent;
   sessionData : IngameSessionDto;
   blockshape$ : Observable<IngameBlockDto[][]>
   renderWindow: BlockWindow  = {
@@ -38,7 +41,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private router: Router,
     public gameService: GameService,
-    private accountService: AccountService) {
+    private accountService: AccountService,
+    public dialog: MatDialog) {
       this.accountService.currentUsers$.pipe(take(1)).subscribe(user => this.user = user);
     }
 
@@ -56,7 +60,27 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             blockToRedraw.cssDiscoverFade = "discover-fade";
           }
           blockToRedraw.ngOnInit();
+          if((blockToRedraw.blockComponentData.monster && blockToRedraw.blockComponentData.heroes.length>0) || blockToRedraw.blockComponentData.heroes.length>1){
+            this.resolveConflict(blockToRedraw.blockComponentData.blockId);
+          }
         }
+      }
+     
+    });
+  }
+  resolveConflict(blockId: number) {
+    this.gameBoardService.resolveConflictOnBlock(blockId).subscribe(response=>{
+      console.log("RepoRT");
+      console.log(response);
+      this.dialog.open(ReportDialogComponent, {data:{report:response}});
+      this.characterInfoComponent.ngOnInit();
+      if(response.attackerName === this.user.userName &&  response.attackerHealthCurrent<=0)
+      {
+        this.leaveSession()
+      }
+      if(response.defenderName === this.user.userName &&  response.defenderHealthCurrent<=0)
+      {
+        this.leaveSession()
       }
     });
   }
@@ -68,8 +92,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   loadGame(isInit: boolean = false){
     this.gameBoardService.getGameSessions(this.renderWindow).subscribe(response=>{
       this.sessionData = response;
-      console.log("cum sem");
-      console.log(response);
       this.blockshape$ = of(response.blocksShape);
       if(isInit)
       {
@@ -78,7 +100,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           console.log("current turn initialized");
         });
       }
-      //console.log(this.sessionData);
     }, error =>{
       this.toastr.error(error.error);
     });

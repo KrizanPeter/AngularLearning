@@ -10,5 +10,6 @@ namespace BoardGame.Services.Services.Interfaces
     {
         Task<OperationalResult<BlockModel>> GetBlockById(int id);
         Task<OperationalResult<List<BlockModel>>> MoveHeroToBlock(int userId, int targetBlockId);
+        Task<OperationalResult<BattleReportModel>> ResolveConflictOnBlock(int blockId, int attackerUserId);
     }
 }

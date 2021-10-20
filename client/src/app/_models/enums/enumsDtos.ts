@@ -26,3 +26,11 @@ export enum HeroType
     Swordsman,
     Oracle
 }
+
+export enum HeroAttribute
+{
+    HP,
+    XP,
+    DMG,
+    ARMOR,
+}

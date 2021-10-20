@@ -19,10 +19,24 @@
 }
 
 .hero-picture-placeholder{
+    display: grid;
+    grid-template-rows: 10% 90%;
     background-image: url('../../../../assets/images/gameboard/hero/hero-placeholder.png');
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+}
+
+.hero-header{
+    color:white;
+    background-color: #212529 ;
+    text-align: center;
+    .hero-name{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 26px;
+        font-weight: 600;
+    }
 }
 
 .hero-picture{
@@ -37,6 +51,7 @@
         color:white;
         padding-left: 5px;
         padding-top: 5px;
+        margin: 0px;
     }
 }
 
@@ -184,4 +199,11 @@
         background-color: rgba(64, 25, 18, 0.8);
     }
     margin: 15px 30px 0px 8px;
+}
+
+.btn-upgrade:disabled,
+.btn-upgrade[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }

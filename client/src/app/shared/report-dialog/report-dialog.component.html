@@ -1,0 +1,61 @@
+<div class="dialog-wrapper">
+  <h1 class="battle-title">{{this.reportData.report.battleResult}}</h1>
+
+  <div mat-dialog-content class="dialog-content">
+    <div class="oponents-row">
+      <div class="name-section">
+        <h2>{{this.reportData.report.attackerName}}</h2>
+        <div></div>
+        <h2>{{this.reportData.report.defenderName}}</h2>
+      </div>
+      <div class="oponents-portrets">
+        <div class="attacker-portret"></div>
+        <div>
+          <h1 class="versus">VS</h1>
+        </div>
+        <div class="defender-portret"></div>
+      </div>
+    </div>
+    <div class="stats-section">
+      <div class="attacker-stats">
+        <div class="stat-row">
+          <div class="stat-icon hp-icon"></div>
+          <div>{{this.reportData.report.attackerHealthCurrent}} / {{this.reportData.report.attackerHealthCap}}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon attack-icon"></div>
+          <div>{{this.reportData.report.attackerDmgMin}} - {{this.reportData.report.attackerDmgMax}}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon armor-icon"></div>
+          <div>{{this.reportData.report.attackerArmor}}</div>
+        </div>
+      </div>
+      <div class="defender-stats">
+        <div class="stat-row">
+          <div class="stat-icon hp-icon"></div>
+          <div>{{this.reportData.report.defenderHealthCurrent}} / {{this.reportData.report.defenderHealthCap}}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon attack-icon"></div>
+          <div>{{this.reportData.report.defenderDmgMin}} - {{this.reportData.report.defenderDmgMax}}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon armor-icon"></div>
+          <div>{{this.reportData.report.defenderArmor}}</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="experience-row">
+        <div class="stat-icon star-icon"></div>
+        <div class="experience-value">{{this.reportData.report.recievedExperience}}</div>
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions class="button-section">
+    <button mat-button mat-dialog-close class="btn-close">Close report</button>
+  </div>
+
+</div>

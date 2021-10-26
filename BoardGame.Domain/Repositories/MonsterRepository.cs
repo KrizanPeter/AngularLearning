@@ -23,11 +23,11 @@ namespace BoardGame.Domain.Repositories
             _mapper = mapper;
         }
 
-        MonsterModel IMonsterRepository.GetMonsterModel(int monsterId)
+        public MonsterModel GetMonsterModel(int monsterId)
         {
             var result = _db.Monsters.Where(a => a.MonsterId == monsterId).Include(a => a.MonsterType).SingleOrDefault();
             var resultModel = _mapper.Map<MonsterModel>(result);
-            return result
+            return resultModel;
         }
     }
 }

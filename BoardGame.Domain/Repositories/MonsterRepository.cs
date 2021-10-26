@@ -1,7 +1,9 @@
 ﻿using API.Entities.Context;
 using AutoMapper;
 using BoardGame.Domain.Entities;
+using BoardGame.Domain.Models;
 using BoardGame.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,13 @@ namespace BoardGame.Domain.Repositories
         {
             _db = db;
             _mapper = mapper;
+        }
+
+        MonsterModel IMonsterRepository.GetMonsterModel(int monsterId)
+        {
+            var result = _db.Monsters.Where(a => a.MonsterId == monsterId).Include(a => a.MonsterType).SingleOrDefault();
+            var resultModel = _mapper.Map<MonsterModel>(result);
+            return result
         }
     }
 }

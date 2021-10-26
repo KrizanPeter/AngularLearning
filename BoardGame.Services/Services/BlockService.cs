@@ -22,9 +22,15 @@ namespace BoardGame.Services.Services
         private readonly IBlockTypeRepository _blockTypeRepository;
         private readonly IHeroRepository _heroRepository;
         private readonly IMonsterService _monsterService;
+        private readonly IMonsterRepository _monsterRepository;
         private readonly IMapper _mapper;
 
-        public BlockService(IBlockRepository blockRepository, IHeroRepository heroRepository, IMonsterService monsterService, IMapper mapper, IBlockTypeRepository blockTypeRepository)
+        public BlockService(IBlockRepository blockRepository,
+            IHeroRepository heroRepository,
+            IMonsterService monsterService, 
+            IMapper mapper, 
+            IBlockTypeRepository blockTypeRepository,
+            IMonsterRepository monsterRepository)
         {
             _blockRepository = blockRepository;
             _heroRepository = heroRepository;
@@ -193,7 +199,7 @@ namespace BoardGame.Services.Services
             }
             else if(blockModel.Monster != null && blockModel.Heroes.Any())
             {
-                model = ResolvePveFight(blockModel, attackerUserId);
+                model = await ResolvePveFightAsync(blockModel, attackerUserId);
             }
 
             return OperationalResult.Success(model);
@@ -239,7 +245,7 @@ namespace BoardGame.Services.Services
             defenderheroEntity = ConsolidatePlayerAfterFight(defenderheroEntity);
             _heroRepository.Save();
 
-            var report = ConstructReport(winner, attackerHero, attackerDmg, defenderhero, defenderDmg);
+            var report = ConstructPvpReport(winner, attackerHero, attackerDmg, defenderhero, defenderDmg);
 
             return report;
         }
@@ -257,7 +263,7 @@ namespace BoardGame.Services.Services
             return hero;
         }
 
-        private BattleReportModel ConstructReport(string winner, HeroModel attackerHero, int attackerDmg, HeroModel defenderhero, int defenderDmg)
+        private BattleReportModel ConstructPvpReport(string winner, HeroModel attackerHero, int attackerDmg, HeroModel defenderhero, int defenderDmg)
         {
             var reportTitle = "Battle result: " + winner + " has been killed!";
             return new BattleReportModel(reportTitle, "imga", "imgd", attackerHero.HeroName,
@@ -268,9 +274,77 @@ namespace BoardGame.Services.Services
                 attackerHero.Armor, defenderhero.Armor, attackerHero.Level * 10);
         }
 
-        private BattleReportModel ResolvePveFight(BlockModel blockModel, int attackerUserId)
+        private BattleReportModel ConstructPveReport(string winner, HeroModel attackerHero, int attackerDmg, MonsterModel monster, int defenderDmg)
         {
-            return new BattleReportModel();
+            var reportTitle = "Battle result: " + winner + " has been killed!";
+            return new BattleReportModel(reportTitle, "imga", "imgd", attackerHero.HeroName,
+                monster.MonsterName, attackerHero.LivesCap,
+                attackerHero.Lives - defenderDmg, monster.Life,
+                monster.Life - attackerDmg, attackerHero.DmgMin, monster.DmgMin,
+                attackerHero.DmgMax, monster.DmgMax,
+                attackerHero.Armor, monster.Armor, attackerHero.Level * 10);
+        }
+
+        private async Task<BattleReportModel> ResolvePveFightAsync(BlockModel blockModel, int attackerUserId)
+        {
+            var attackerHero = _heroRepository.GetHeroModelByUserId(attackerUserId);
+            var defenderMonster = _monsterRepository.GetMonsterModel(blockModel.MonsterId ?? default(int));
+
+            Random rand = new Random();
+            var attackerDmg = 0;
+            var defenderDmg = 0;
+            var winner = "Nobody";
+
+            for (int i = 0; i < 5; i++)
+            {
+                var attackerHit = rand.Next(attackerHero.DmgMin, attackerHero.DmgMax + 1);
+                var defenderHit = rand.Next(defenderMonster.DmgMin, defenderMonster.DmgMax + 1);
+                var attackerCalculatedHit = attackerHit - defenderMonster.Armor;
+                var defenderCalculatedHit = defenderHit - attackerHero.Armor;
+                attackerDmg += attackerCalculatedHit;
+                defenderDmg += defenderCalculatedHit;
+                if (defenderMonster.Life - attackerDmg <= 0)
+                {
+                    winner = defenderMonster.MonsterName;
+                    break;
+                }
+                if (attackerHero.Lives - defenderDmg <= 0)
+                {
+                    winner = attackerHero.HeroName;
+                    break;
+                }
+            }
+
+            var attackerHeroEntity = await _heroRepository.GetFirstOrDefault(a => a.AppUserId == attackerUserId);
+            attackerHeroEntity.Lives -= defenderDmg;
+
+            attackerHeroEntity.Experience += attackerHeroEntity.Level * 10;
+            attackerHeroEntity = ConsolidatePlayerAfterFight(attackerHeroEntity);
+            var consolidatedModel = await ConsolidateMonsterAfterFightAsync(defenderMonster, attackerDmg);
+            _heroRepository.Save();
+
+            var report = ConstructPveReport(winner, attackerHero, attackerDmg, consolidatedModel, defenderDmg);
+            return report;
+        }
+
+        private async Task<MonsterModel> ConsolidateMonsterAfterFightAsync(MonsterModel monster, int attackerDmg)
+        {
+            if (monster.Life - attackerDmg <= 0)
+            {
+                monster.Life = 0;
+                _monsterRepository.Remove(monster.MonsterId);
+                _monsterRepository.Save();
+                return monster;
+            }
+
+            var monsterEntity = await _monsterRepository.Get(monster.MonsterId);
+            monsterEntity.Life -= attackerDmg;
+            _monsterRepository.Save();
+
+            var monsterModel = _monsterRepository.GetMonsterModel(monster.MonsterId);
+            
+
+            return monsterModel;
         }
     }
 }

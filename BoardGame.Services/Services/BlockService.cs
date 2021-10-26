@@ -32,6 +32,7 @@ namespace BoardGame.Services.Services
             IBlockTypeRepository blockTypeRepository,
             IMonsterRepository monsterRepository)
         {
+            _monsterRepository = monsterRepository;
             _blockRepository = blockRepository;
             _heroRepository = heroRepository;
             _mapper = mapper;

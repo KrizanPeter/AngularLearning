@@ -22,9 +22,12 @@ namespace BoardGame.Api.BackgroundServices
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+                var heroService = scope.ServiceProvider.GetRequiredService<IHeroService>();
+
+                await heroService.HealAllHeroesEOR();
                 var sessions = await sessionService.GetSessions();
                 foreach (var session in sessions.Data)
-                {
+                {                 
                     var nextUser = sessionService.ChangeActivePlayer(session.SessionId);
                     var gameGroup = "game-session-" + session.SessionId;
                     await _hubContext.Clients.Group(gameGroup).SendAsync("EndTurnDetected", nextUser.Result);

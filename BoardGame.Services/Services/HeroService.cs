@@ -72,6 +72,22 @@ namespace BoardGame.Services.Services
             return OperationalResult.Success(heroModel);
         }
 
+        public async Task HealAllHeroesEOR()
+        {
+            var heroes = await _heroRepository.GetAll();
+            foreach(var hero in heroes)
+            {
+                var heal = (int)(0.2 * hero.LivesCap);
+                hero.Lives += heal;
+                if (hero.Lives>hero.LivesCap)
+                {
+                    hero.Lives = hero.LivesCap;
+                }
+                
+                _heroRepository.Save();
+            }
+        }
+
         public async Task<OperationalResult> UpgradeAttributeOfUserHero(int id, HeroAttribute attribute)
         {
             var hero = await _heroRepository.GetFirstOrDefault(a => a.AppUserId == id);

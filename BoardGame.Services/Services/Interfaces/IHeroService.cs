@@ -16,5 +16,6 @@ namespace BoardGame.Services.Services.Interfaces
         Task<OperationalResult> CreateHero(AppUser user, HeroType heroType);
         Task<OperationalResult<HeroModel>> GetHeroInformationOfUser(int id);
         Task<OperationalResult> UpgradeAttributeOfUserHero(int id, HeroAttribute attribute);
+        Task HealAllHeroesEOR();
     }
 }

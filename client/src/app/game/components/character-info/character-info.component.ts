@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { HeroAttribute } from 'src/app/_models/enums/enumsDtos';
 import { IngameHeroDto } from 'src/app/_models/HeroDtos/ingameHeroDto';
+import { GameService } from 'src/app/_services/gameservice/game.service';
 import { CharacterInfoService } from '../../services/character-info.service';
 
 @Component({
@@ -16,7 +17,11 @@ export class CharacterInfoComponent implements OnInit {
   heroAttributeHp = HeroAttribute.HP;
 
   heroInformation$ : Observable<IngameHeroDto>;
-  constructor( private toastr: ToastrService, private characterService: CharacterInfoService) { }
+  constructor( private toastr: ToastrService, 
+  private characterService: CharacterInfoService,
+  private gameService: GameService) {
+    
+   }
 
   ngOnInit(): void {
     this.getCharacterInfo();
@@ -24,12 +29,6 @@ export class CharacterInfoComponent implements OnInit {
 
   getCharacterInfo(){
     this.heroInformation$ = this.characterService.getHeroInformation();
-    
-    this.heroInformation$.subscribe((result)=>{
-      console.log(result);
-    }, error =>{
-      this.toastr.error(error.error);
-    });
   }
 
   upgradeHeroSkill(skill: HeroAttribute){

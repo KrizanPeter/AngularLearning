@@ -14,6 +14,7 @@ import { GameBlockComponent } from '../game-block/game-block.component';
 import {MatDialog} from '@angular/material/dialog';
 import { ReportDialogComponent } from 'src/app/shared/report-dialog/report-dialog.component';
 import { CharacterInfoComponent } from '../character-info/character-info.component';
+import { BattleReportDto } from 'src/app/_models/BattleReportDto/BattleReportDto';
 
 @Component({
   selector: 'app-game-board',
@@ -48,6 +49,13 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadGame(true);
+    this.gameService.reportThread$.subscribe(report=>{
+      let rep = report.pop();
+      if(rep){
+      this.showReport(rep);
+      }
+    });
+
     this.gameService.blocksThread$.subscribe(x => {
       for(let b of x)
       {
@@ -60,30 +68,16 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             blockToRedraw.cssDiscoverFade = "discover-fade";
           }
           blockToRedraw.ngOnInit();
-          if((blockToRedraw.blockComponentData.monster && blockToRedraw.blockComponentData.heroes.length>0) || blockToRedraw.blockComponentData.heroes.length>1){
-            this.resolveConflict(blockToRedraw.blockComponentData.blockId);
-          }
         }
       }
      
     });
   }
-  resolveConflict(blockId: number) {
-    this.gameBoardService.resolveConflictOnBlock(blockId).subscribe(response=>{
-      console.log("RepoRT");
-      console.log(response);
-      this.dialog.open(ReportDialogComponent, {data:{report:response}});
+  showReport(report: BattleReportDto) {
+      this.dialog.open(ReportDialogComponent, {data:{report:report}});
       this.characterInfoComponent.ngOnInit();
-      if(response.attackerName === this.user.userName &&  response.attackerHealthCurrent<=0)
-      {
-        this.leaveSession()
-      }
-      if(response.defenderName === this.user.userName &&  response.defenderHealthCurrent<=0)
-      {
-        this.leaveSession()
-      }
-    });
-  }
+  };
+
 
   ngOnDestroy(): void {
     this.gameService.stopHubConnection();

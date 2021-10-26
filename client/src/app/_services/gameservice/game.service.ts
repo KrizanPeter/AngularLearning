@@ -7,6 +7,8 @@ import { UserDto } from 'src/app/_models/userDto';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { tap } from 'rxjs/operators';
+import { BattleReportDto } from 'src/app/_models/BattleReportDto/BattleReportDto';
+import { CharacterInfoService } from 'src/app/game/services/character-info.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,14 @@ export class GameService {
   baseUrl = environment.apiUrl;
   private hubConnection: HubConnection;
   private blocksThread = new BehaviorSubject<IngameBlockDto[]>([]);
+  private reportThread = new BehaviorSubject<BattleReportDto[]>([]);
   blocksThread$ = this.blocksThread.asObservable();
+  reportThread$ = this.reportThread.asObservable();
   playerName$ : Observable<string>;
   turnCountdown: number;
   curSec: number = 0;
 
-  constructor(private toastr: ToastrService, private http: HttpClient) { }
+  constructor(private toastr: ToastrService, private http: HttpClient, private characterInfoService: CharacterInfoService) { }
 
   createHubConnection(sessionId: number, user: UserDto) {
     this.hubConnection = new HubConnectionBuilder()
@@ -34,6 +38,13 @@ export class GameService {
     this.hubConnection
       .start()
       .catch(error => console.log(error));
+
+      this.hubConnection.on('BattleReport', report => {
+        console.log("SignalRhitted");
+        console.log(report)
+        this.reportThread.next(report);
+        this.characterInfoService.getHeroInformation();
+      });
 
     this.hubConnection.on('MovementDetected', blocks => {
       console.log("hero moved service", blocks);
@@ -51,6 +62,7 @@ export class GameService {
       this.turnCountdown = 100;
       this.startTimer(activePlayerModel.remainingSeconds);
       this.playerName$ = of(activePlayerModel.playerName);
+      this.characterInfoService.getHeroInformation();
     });
   }
 
